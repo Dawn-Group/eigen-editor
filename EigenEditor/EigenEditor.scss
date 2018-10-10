@@ -1,0 +1,51 @@
+.editor{
+    margin-top: 50px;
+    overflow: scroll;
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+    margin-top:30px;
+}
+
+.tooBar{
+    display: flex;
+    button {
+        margin-right: 16px;
+    }
+}
+
+.editorBox{
+    margin-top:20px;
+}
+
+:global(.public-DraftEditorPlaceholder-root) {
+    color: #9ea7ae;
+    pointer-events: none;
+}
+
+// 解决 placeholder 不消失的问题
+:global(.public-DraftEditorPlaceholder-hasFocus) {
+    display: none;
+}
+
+:global(.blockquoteStyle){
+    margin: 0;
+    padding-left: 10px;
+    border-left: 3px solid #dbdbdb
+}
+
+:global(.textAlignLeft) {
+    text-align: left;
+}
+
+:global(.textAlignRight) {
+    text-align: right;
+}
+
+:global(.textAlignCenter) {
+    text-align: center;
+}
+
+:global(.textAlignJustify) {
+    text-align: justify;
+}

@@ -1,0 +1,45 @@
+{
+  "name": "@d6k/eigen-editor",
+  "version": "1.0.0",
+  "description": "editor for eigen",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env webpack-dev-server --color --config configs/dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "editor",
+    "eigen",
+    "draft"
+  ],
+  "author": "DreamerKing",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-syntax-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "antd": "^3.10.0",
+    "babel-loader": "^8.0.4",
+    "cropperjs": "^1.4.1",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "draftjs-utils": "^0.9.4",
+    "dva": "^2.4.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.3",
+    "react-masonry-component": "^6.2.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.8"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "draft-js": "^0.10.5",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  }
+}

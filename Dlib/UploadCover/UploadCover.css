@@ -1,0 +1,32 @@
+.uploadButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border:1px dashed #dfe0df;
+    height: 80px;
+    width: 80px;
+    cursor: pointer;
+}
+
+.uploadButton:hover{
+    border:1px dashed #4d9dff;
+}
+
+.imageBox{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.coverBox{
+    position: relative;
+    height: 150px;
+    width: 150px;
+}
+
+.close{
+    position: absolute;
+    right: -8px;
+    top:-10px;
+    cursor: pointer;
+}

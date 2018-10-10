@@ -1,0 +1,67 @@
+.editorImage{
+    position: relative;
+    max-width: 414px;
+}
+.closeImage{
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    cursor: pointer;
+}
+
+.imageTool{
+    width: 150px;
+    height: 25px;
+    border-radius: 2px;
+    background: #353F46;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.croppIcon{
+    cursor: pointer;
+}
+
+.croppIcon:hover{
+    color:#E24F4F;
+}
+
+.cropIcon{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: white;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    display: none;
+}
+
+.editorImage:hover{
+    .cropIcon{
+    display: flex;
+    }
+}
+
+.croppIcon{
+    cursor: pointer;
+}
+
+.croppIcon:hover{
+    color:#E24F4F;
+}
+
+.cropIcon{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: white;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    display: none;
+}

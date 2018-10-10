@@ -1,0 +1,67 @@
+.pictures{
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.uploadButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    border:1px dashed #dfe0df;
+    }
+    
+    .uploadButton:hover{
+    border:1px dashed #4d9dff;
+    cursor: pointer;
+}
+
+.eachImageBox{
+    position: relative;
+}
+
+.cropIcon{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: white;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    display: none;
+}
+
+.closeIcon{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: white;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    display: none;
+}
+
+.eachImageBox:hover{
+    .closeIcon{
+        display: flex;
+        cursor: pointer;
+    }
+    .cropIcon{
+        display: flex;
+        cursor: pointer;
+    }
+}
+
+.Eachimage{
+    border: 1px solid #999999;
+    background-color: #999999;
+}

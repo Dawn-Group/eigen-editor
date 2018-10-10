@@ -1,0 +1,8 @@
+.creator-input-no-border{
+    border: none !important;
+    margin-bottom: 16px;
+}
+
+.valueLength{
+    align-self: flex-end;
+}

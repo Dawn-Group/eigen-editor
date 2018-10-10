@@ -1,0 +1,39 @@
+.uploadButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    border:1px dashed #dfe0df;
+}
+
+.uploadButton:hover{
+    border:1px dashed #4d9dff;
+    cursor: pointer;
+}
+
+  
+.radioSet{
+    position: absolute;
+    top:0px;
+    right: 0px;
+  }
+  .switchSku{
+    margin-right: 16px;
+    margin-top: 16px;
+    position: relative;
+    border: 1px solid #e0e0e0;
+  }
+
+
+  .SwitchPanel{
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .test{
+    width: 100%;
+  }

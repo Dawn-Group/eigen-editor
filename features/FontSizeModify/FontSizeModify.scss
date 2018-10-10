@@ -1,0 +1,21 @@
+.FontBox{
+    width: 200px;
+    height: 100px;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.FontCard{
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #E5E9ED;
+    box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

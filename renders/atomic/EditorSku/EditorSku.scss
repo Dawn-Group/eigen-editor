@@ -1,0 +1,97 @@
+.draftsku {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+    width: 300px;
+    padding-bottom: 16px;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    a {
+      color: #333;
+      line-height: 1.6em;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    span {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+    }
+  }
+
+  .dataAdd{
+    text-align: center;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    background: rgba(0,0,0,.6);
+    color: white;
+}
+
+.SwitchPanel{
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.switchSku{
+  margin-right: 16px;
+  margin-top: 16px;
+  position: relative;
+  border: 1px solid #e0e0e0;
+}
+
+.radioSet{
+  position: absolute;
+  top:0px;
+  right: 0px;
+}
+
+.ModalContent{
+  margin-top: 16px;
+}
+
+.ModalContentTitle{
+  background: #f5f5f5;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+}
+
+.closeSku{
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  cursor: pointer;
+}
+
+.cropIcon{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: white;
+  border-radius: 2px;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  cursor: pointer;
+}
+.uploadButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  border:1px dashed #dfe0df;
+}
+
+.uploadButton:hover{
+  border:1px dashed #4d9dff;
+  cursor: pointer;
+}
