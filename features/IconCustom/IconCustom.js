@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import styles from './IconCustom.scss'
+//import "./icon.css";
 
+console.log(styles, "kkk")
 class EditTheme extends Component {
   constructor (props) {
     super(props)

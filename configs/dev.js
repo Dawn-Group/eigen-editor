@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -10,6 +11,18 @@ module.exports = {
         filename: "[name].js"
     },
     watch: false,
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
+        }
+    },
     watchOptions: {},
     module: {
         rules: [
@@ -20,41 +33,38 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader"]
+                use: ["css-hot-loader",{ loader: MiniCssExtractPlugin.loader }, "css-loader"]
             },
             {
                 test: /\.scss$/,
-                use: ["style-loader", "css-loader", "sass-loader"]
+                use: ["style-loader", "css-hot-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 }}, {loader: "postcss-loader", options: {
+                    sourceMap: true
+                }}, {loader: "sass-loader", options: {
+                    sourceMap: true
+                }}]
             },
             {
-                test: /\.(ttf|eot|woff)$/,
+                test: /\.(png|jpg|gif|svg|ttf|eot|woff)$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
-                        name: 'font/[hash:16].[ext]'
-                    }
-                }],
-                exclude: [
-                    path.resolve(__dirname, './node_modules')
-                ]
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: 'img/[hash:16].[ext]'
+                        publicPath: path.resolve(__dirname, "../demo/dist/assets"),
+                        mimetype: 'application/font-woff',
+                        name: '[name].[ext]'
                     }
                 }]
             }
         ]
     },
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         title: "eigen editor"
-    //     })
-    // ],
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "eigen editor"
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].css"
+        })
+    ],
     devServer: {
         contentBase: path.resolve(__dirname, "../demo/dist"),
         open: true,

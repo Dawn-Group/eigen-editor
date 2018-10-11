@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './EigenEditor.scss'
+console.log(styles, "kkk")
 import './EigenEditor.css'
 import { Editor, AtomicBlockUtils, EditorState, RichUtils, convertToRaw, convertFromRaw, CompositeDecorator, Entity, ContentState, convertFromHTML, Modifier, SelectionState } from 'draft-js'
 import {
