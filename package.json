@@ -27,11 +27,13 @@
     "css-loader": "^1.0.0",
     "draftjs-utils": "^0.9.4",
     "dva": "^2.4.0",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.3",
     "react-masonry-component": "^6.2.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.8"

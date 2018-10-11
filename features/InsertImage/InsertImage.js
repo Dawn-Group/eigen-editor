@@ -97,12 +97,12 @@ class InsertImage extends Component {
                 type: 'writingpage/switchRightTab',
                 payload: '2'
               })
-              dispatch({
-                type: 'writingpage/getAdvise',
-                payload: {
-                  intent: features.model().currentIntent
-                }
-              })
+              // dispatch({
+              //   type: 'writingpage/getAdvise',
+              //   payload: {
+              //     intent: features.model().currentIntent
+              //   }
+              // })
             }
           }}
         >
@@ -167,7 +167,7 @@ class InsertImage extends Component {
                   disableImagesLoaded={false} // default false
                   updateOnEachImageLoad // default false and works only if disableImagesLoaded is false
                 >
-                  {
+                  {/* {
                     features.model().advice && features.model().advice.picture.length ? features.model().advice.picture.map((item, index) => {
                       return <div
                         key={index}
@@ -186,7 +186,7 @@ class InsertImage extends Component {
                         />
                       </div>
                     }) : ''
-                  }
+                  } */}
                 </Masonry>
               </RadioGroup>
             </div>
