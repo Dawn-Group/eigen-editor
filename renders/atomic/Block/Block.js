@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { SplitLine, EditorImage, EditorSku } from '../../atomic'
 const Block = (props) => {
   let block = null

@@ -1,8 +1,6 @@
-import { Checkbox } from 'antd'
 import React, { Component } from 'react'
-import styles from './Redo.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck, getRedoStatus } from '../../index'
+import {  getRedoStatus } from '../../utils/plugins'
 
 class Redo extends Component {
   constructor (props) {

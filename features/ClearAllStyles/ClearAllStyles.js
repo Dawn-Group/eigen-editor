@@ -1,8 +1,5 @@
-import { Checkbox } from 'antd'
 import React, { Component } from 'react'
-import styles from './ClearAllStyles.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 
 class ClearAllStyles extends Component {
   constructor (props) {

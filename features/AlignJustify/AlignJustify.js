@@ -1,8 +1,6 @@
 import { Checkbox } from 'antd'
 import React, { Component } from 'react'
-import styles from './AlignJustify.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 
 class AlignJustify extends Component {
   constructor (props) {

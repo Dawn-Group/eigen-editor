@@ -1,8 +1,6 @@
 import { Checkbox } from 'antd'
 import React, { Component } from 'react'
-import styles from './BlockQuote.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 
 class BlockQuote extends Component {
   constructor (props) {

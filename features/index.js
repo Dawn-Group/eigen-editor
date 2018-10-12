@@ -1,5 +1,4 @@
 import CommonFeatures from './CommonFeatures/CommonFeatures'
-import EditorControllBar from './EditorControllBar/EditorControllBar'
 import Undo from './Undo/Undo'
 import Redo from './Redo/Redo'
 import FontSizeModify from './FontSizeModify/FontSizeModify'
@@ -52,7 +51,6 @@ export {
   InsertSku,
   LineHeight,
   LetterWidth,
-  EditorControllBar,
   BottomMargin,
   TopMargin,
   LeftRightMargin,

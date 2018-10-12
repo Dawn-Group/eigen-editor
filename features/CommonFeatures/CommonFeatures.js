@@ -1,8 +1,6 @@
-import { Checkbox } from 'antd'
 import React, { Component } from 'react'
-import styles from './CommonFeatures.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
+import { inlineStyleCheck } from '../../utils/plugins'
 
 class CommonFeatures extends Component {
   constructor (props) {

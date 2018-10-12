@@ -1,6 +1,6 @@
 import Title from './Title/Title'
 import Abstract from './Abstract/Abstract'
-import EditroControllBar from './EditorControllBar/EditorControllBar'
+import EditroControllBar from '../tool-bar'
 import UploadCover from './UploadCover/UploadCover'
 import Cropp from './Cropp/Cropp'
 

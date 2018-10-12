@@ -1,8 +1,6 @@
 import { Modal, Tabs, Input } from 'antd'
 import React, { Component } from 'react'
-import styles from './AddLink.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 const TabPane = Tabs.TabPane
 
 class AddLink extends Component {

@@ -1,398 +1,330 @@
+import React, { Component } from 'react'
+import styles from './theme.scss'
+
+import { Editor, 
+  AtomicBlockUtils, 
+  EditorState, 
+  RichUtils, 
+  convertToRaw, 
+  convertFromRaw, 
+  CompositeDecorator, 
+  Entity, 
+  ContentState, 
+  convertFromHTML, 
+  Modifier, 
+  SelectionState 
+} from 'draft-js';
+
 import {
-  AtomicBlockUtils,
-  EditorState,
-  Modifier,
-  Entity,
-  SelectionState,
-  RichUtils
-} from 'draft-js'
-import darftConst from './const'
-import customStyleMap from './renders/styles'
-import { setBlockData, getAllBlocks, getSelectionEntity } from 'draftjs-utils'
-import { message } from 'antd'
+  fontSizeModify,
+  customSiteMap,
+  insertBlock,
+  removeAllStyles,
+  wechatFeatures,
+  alibabaFeatures,
+  commonInlineStyle,
+  undo,
+  redo,
+  commonBlockStyle,
+  addTheLinkOnText,
+  insertText,
+  colorModify,
+  backgroundColorModify,
+  setTextAlign,
+  firstIntent,
+  letterSpacesModify,
+  lineHeightsModify,
+  leftRightMarginModify,
+  topMarginModify,
+  bottomMarginModify
+} from './utils/plugins';
 
-//* **********************************************************************************************************************************************/
-//
-//  controller: the function for editor features
-//
-//
-//* **********************************************************************************************************************************************/
+import { 
+  Title, 
+  Abstract, 
+  EditroControllBar, 
+  Cropp 
+} from './Dlib';
 
-// undo
-export function undo (editorState) {
-  let newstate = EditorState.undo(editorState)
-  return newstate
+import { Block } from './renders/atomic'
+import { blockStyleFn } from './renders/styles/styleFn'
+import { decorator } from './renders/decorators'
+import { Map } from 'immutable'
+
+let customMap = customSiteMap()
+let wechat = wechatFeatures()
+let alibaba = alibabaFeatures()
+
+
+
+const Components = {
+  'title': Title,
+  'author': Title,
+  'introduction': Abstract,
+  'abstract': Abstract,
+  'manuscript': EditroControllBar
 }
 
-// redo
-export function redo (editorState) {
-  let newstate = EditorState.redo(editorState)
-  return newstate
-}
+class EigenEditor extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editorState: EditorState.createEmpty(decorator),
+      liveTeXEdits: Map()
+    }
+    this.onChange = (editorState) => {
+      this.setState({ editorState })
+    }
+    this.focus = this.focus.bind(this)
+    this.handleKeyCommand = this.handleKeyCommand.bind(this)
+    this.blockRenderer = this.blockRenderer.bind(this)
 
-export function getUndoStatus (editorState) {
-  return editorState.getUndoStack().size
-}
-
-export function getRedoStatus (editorState) {
-  return editorState.getRedoStack().size
-}
-
-// common inlinestyle
-export function commonInlineStyle (editorState, inlinestyle) {
-  return RichUtils.toggleInlineStyle(
-    editorState,
-    inlinestyle
-  )
-}
-
-// common blockstyle
-export function commonBlockStyle (editorState, blockType) {
-  return RichUtils.toggleBlockType(
-    editorState,
-    blockType
-  )
-}
-
-// close the features
-export function closeInlineFeatures (closeable) {
-  let openFeature = []
-  openFeature = darftConst.inlineStyles.filter(item => {
-    return closeable.indexOf(item) == -1
-  })
-  return openFeature
-}
-
-export function closeBlockFeatures (closeable) {
-  let openFeature = []
-  openFeature = darftConst.blockStyles.filter(item => {
-    return closeable.indexOf(item) == -1
-  })
-  return openFeature
-}
-
-// fontSize Modify
-export function fontSizeModify (editorState, fontSize) {
-  return applyInlineStyle(editorState, 'FONTSIZE-' + fontSize, darftConst.fontSizes.map(item => 'FONTSIZE-' + item))
-}
-
-// color Modify
-export function colorModify (editorState, color) {
-  return applyInlineStyle(editorState, 'COLOR-' + color.replace('#', ''), darftConst.colors.map(item => 'COLOR-' + item.replace('#', '').toUpperCase()))
-}
-
-// backgroundColor Modify
-export function backgroundColorModify (editorState, color) {
-  return applyInlineStyle(editorState, 'BGCOLOR-' + color.replace('#', ''), darftConst.colors.map(item => 'BGCOLOR-' + item.replace('#', '').toUpperCase()))
-}
-
-// FontFamily Modify
-export function fontFamiliesModify (editorState, fontFamily) {
-  return applyInlineStyle(editorState, 'FONTFAMILY-' + fontFamily, darftConst.fontFamilies.map(item => 'FONTFAMILY-' + item.name.toUpperCase()))
-}
-
-export function letterSpacesModify (editorState, space) {
-  return applyInlineStyle(editorState, 'LETTERSPACE-' + space, darftConst.LetterSpaces.map(item => 'LETTERSPACE-' + item.toUpperCase()))
-}
-
-export function lineHeightsModify (editorState, space) {
-  return applyInlineStyle(editorState, 'LINEHEIGHT-' + space, darftConst.LineHeights.map(item => 'LINEHEIGHT-' + item.toUpperCase()))
-}
-
-export function leftRightMarginModify (editorState, space) {
-  return applyInlineStyle(editorState, 'LEFTRIGHTMARGIN-' + space, darftConst.LeftRightMargins.map(item => 'LEFTRIGHTMARGIN-' + item.toUpperCase()))
-}
-
-export function topMarginModify (editorState, space) {
-  return applyInlineStyle(editorState, 'TOPMARGIN-' + space, darftConst.LeftRightMargins.map(item => 'TOPMARGIN-' + item.toUpperCase()))
-}
-
-export function bottomMarginModify (editorState, space) {
-  return applyInlineStyle(editorState, 'BOTTOMMARGIN-' + space, darftConst.LeftRightMargins.map(item => 'BOTTOMMARGIN-' + item.toUpperCase()))
-}
-
-export function firstIntent (editorState, indent) {
-  const currentInlineStyle = editorState.getCurrentInlineStyle()
-  if (!currentInlineStyle.has('TEXTINDENT-2EM')) {
-    return applyInlineStyle(editorState, 'TEXTINDENT-' + indent, darftConst.textIndent.map(item => 'TEXTINDENT-' + item.toUpperCase()))
-  } else {
-    return closeIntent(editorState, 'TEXTINDENT-2EM')
-  }
-}
-
-function closeIntent (editorState, item) {
-  let contentState = editorState.getCurrentContent()
-  let selectionState = editorState.getSelection()
-  let newContentState = Modifier.removeInlineStyle(contentState, selectionState, item)
-  const newEditorState = EditorState.push(editorState, newContentState, 'change-inline-style')
-  return newEditorState
-}
-
-// clear style not working !!!!!! do not user it use the removeAllStyles function to remove the style
-export function clearStyle (editorState) {
-  return RichUtils.toggleBlockType(editorState, 'unstyled')
-}
-
-export function applyInlineStyle (editorState, style, stylesToBeRemoved) {
-  let selectionState = editorState.getSelection()
-
-  let contentState = editorState.getCurrentContent()
-  if (selectionState.isCollapsed()) {
-    return editorState
+    // all features
+    this.undo = this.undo.bind(this)
+    this.reado = this.redo.bind(this)
+    this.fontSizeModify = this.fontSizeModify.bind(this)
+    this.splitLine = this.splitLine.bind(this)
+    // 格式刷 not clear yet
+    this.clearAllStyles = this.clearAllStyles.bind(this)
+    this.addLink = this.addLink.bind(this)
+    // this.clearLink = this.clearLink.bind(this)
+    // this.insertBlock = this.insertBlock.bind(this)
+    this.insertImage = this.insertImage.bind(this)
+    this.inserSku = this.inserSku.bind(this)
+    this.addEmoji = this.addEmoji.bind(this)
+    this.commons = this.commons.bind(this)
+    this.blockTypeFeatures = this.blockTypeFeatures.bind(this)
+    this.colorsModify = this.colorsModify.bind(this)
+    this.backgroundColorModify = this.backgroundColorModify.bind(this)
+    this.intent = this.intent.bind(this)
+    this.setAlign = this.setAlign.bind(this)
+    this.letterSpace = this.letterSpace.bind(this)
+    this.lineHeight = this.lineHeight.bind(this)
+    this.leftRightMargin = this.leftRightMargin.bind(this)
+    this.topMargin = this.topMargin.bind(this)
+    this.bottomMargin = this.bottomMargin.bind(this)
+    this.updateTest = this.updateTest.bind(this)
   }
 
-  style = style.toUpperCase()
-  console.log(style)
-  stylesToBeRemoved = stylesToBeRemoved.filter(item => item !== style)
-  console.log(stylesToBeRemoved)
-  const currentInlineStyle = editorState.getCurrentInlineStyle()
-
-  // make sure there is only one color, one family style, on fontsize
-  const newContentState = stylesToBeRemoved.length ? stylesToBeRemoved.reduce((contentState, item) => {
-    return Modifier.removeInlineStyle(contentState, selectionState, item)
-  }, contentState) : contentState
-
-  const newEditorState = stylesToBeRemoved.length ? EditorState.push(editorState, newContentState, 'change-inline-style') : editorState
-  return RichUtils.toggleInlineStyle(newEditorState, style)
-}
-
-// remove All style
-export function removeAllStyles (editorState) {
-  let selectionState = editorState.getSelection()
-  let contentState = editorState.getCurrentContent()
-  if (selectionState.isCollapsed()) {
-    return editorState
+  focus() {
+    this.editor.focus()
   }
-  let styles = darftConst.fontSizes.map(item => 'FONTSIZE-' + item)
-    .concat(darftConst.colors.map(item => 'COLOR-' + item.replace('#', '').toUpperCase()))
-    .concat(darftConst.colors.map(item => 'BGCOLOR-' + item.replace('#', '').toUpperCase()))
-    .concat(darftConst.fontFamilies.map(item => 'FONTFAMILY-' + item.name.toUpperCase()))
-    .concat(darftConst.inlineStyles)
 
-  const newContentState = styles.reduce((contentState, item) => {
-    return Modifier.removeInlineStyle(contentState, selectionState, item)
-  }, contentState)
+  blockRenderer = (block) => {
+    if (block.getType() === 'atomic') {
+      return {
+        component: Block,
+        editable: false,
+        props: {
+          onStartEdit: (block) => {
+            var { liveTeXEdits } = this.state
+            let blockKey = block.getKey()
+            this.setState({
+              liveTeXEdits: liveTeXEdits.set(blockKey, true)
+            }, () => {
+              console.log(this.state.liveTeXEdits)
+            })
+          },
+          finishChange: (newState, blockKey) => {
+            this.onChange(newState)
+            this.setState({
+              liveTeXEdits: this.state.liveTeXEdits.remove(blockKey)
+            })
+          },
+          notChange: (blockKey) => {
+            this.setState({
+              liveTeXEdits: this.state.liveTeXEdits.remove(blockKey)
+            })
+          },
+          onclose: (blockData) => {
+            var { liveTeXEdits } = this.state
+            let blockKey = blockData.block.getKey()
 
-  const newEditorState = EditorState.push(editorState, newContentState, 'change-inline-style')
-  return newEditorState
-}
+            let content = blockData.contentState
+            let block = content.getBlockForKey(blockKey)
 
-// style check
-export function inlineStyleCheck (editorState) {
-  return editorState.getCurrentInlineStyle()
-}
-
-// block style check
-export function blockStyleCheck (editorState) {
-  return editorState
-    .getCurrentContent()
-    .getBlockForKey(selection.getStartKey())
-    .getType()
-}
-
-export function addTheLinkOnText (editorState, href) {
-  let contentState = editorState.getCurrentContent()
-  const newContentState = contentState.createEntity('LINK', 'MUTABLE', { url: href, target: '_blank' })
-  let entityKey = newContentState.getLastCreatedEntityKey()
-
-  let newstate = RichUtils.toggleLink(
-    editorState,
-    editorState.getSelection(),
-    entityKey
-  )
-  return newstate
-}
-
-// set Align
-export function setTextAlign (editorState, align = 'left') {
-  return toggleSelectionAlignment(editorState, align)
-}
-
-function toggleSelectionAlignment (editorState, alignment) {
-  return setSelectionBlockData(editorState, {
-    textAlign: getSelectionBlockData(editorState, 'textAlign') !== alignment ? alignment : undefined
-  })
-}
-
-function setSelectionBlockData (editorState, blockData) {
-  return setBlockData(editorState, blockData)
-}
-
-function getSelectionBlock (editorState) {
-  const contentState = editorState.getCurrentContent()
-  const selectionState = editorState.getSelection()
-  return contentState.getBlockForKey(selectionState.getAnchorKey())
-}
-
-function getSelectionBlockData (editorState, name) {
-  const blockData = getSelectionBlock(editorState).getData()
-  return name ? blockData.get(name) : blockData
-}
-
-// insert the block such as image video audio
-export function insertBlock (editorState, param) {
-  let contentState = editorState.getCurrentContent()
-  let contentStateWithEntity = contentState.createEntity(
-    param.type,
-    'IMMUTABLE',
-    param.obj
-  )
-  if (!getSelectionEntity(editorState)) {
-    let entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-
-    let newEditorState = EditorState.set(
-      editorState,
-      { currentContent: contentStateWithEntity }
-    )
-    let newstate = AtomicBlockUtils.insertAtomicBlock(
-      newEditorState,
-      entityKey,
-      ' '
-    )
-    return newstate
-  } else {
-    message.warning('请不要在有sku，图的地方，插入sku或者图片')
-    return editorState
-  }
-}
-
-// insert text emoji
-export function insertText (editorState, string) {
-  if (editorState.getSelection().isCollapsed() && !getSelectionEntity(editorState)) {
-    let content = Modifier.insertText(editorState.getCurrentContent(), editorState.getSelection(), string)
-    const newstate = EditorState.push(editorState, content, 'insert-fragment')
-    return newstate
-  } else {
-    message.warning('请不要在有sku，图的地方，插入文字')
-    return editorState
-  }
-}
-
-// create inline css like { color: #23411 }, { backgroundcolor: #23324 }
-export function customSiteMap () {
-  return customStyleMap
-}
-
-export const uuid = function (len, radix) {
-  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
-  var uuid = [], i
-  radix = radix || chars.length
-
-  if (len) {
-    // Compact form
-    for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix]
-  } else {
-    // rfc4122, version 4 form
-    var r
-
-    // rfc4122 requires these characters
-    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-'
-    uuid[14] = '4'
-
-    // Fill in random data.  At i==19 set the high bits of clock sequence as
-    // per rfc4122, sec. 4.1.5
-    for (i = 0; i < 36; i++) {
-      if (!uuid[i]) {
-        r = 0 | Math.random() * 16
-        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r]
+            var targetRange = new SelectionState({
+              anchorKey: blockKey,
+              anchorOffset: 0,
+              focusKey: blockKey,
+              focusOffset: block.getLength()
+            })
+            var withoutSku = Modifier.removeRange(content, targetRange, 'backward')
+            var resetBlock = Modifier.setBlockType(
+              withoutSku,
+              withoutSku.getSelectionAfter(),
+              'unstyled'
+            )
+            var newState = EditorState.push(this.state.editorState, resetBlock, 'remove-range')
+            var selectionState = EditorState.forceSelection(newState, resetBlock.getSelectionAfter())
+            this.setState({
+              liveTeXEdits: liveTeXEdits.set(blockKey, true)
+            }, () => {
+              this.onChange(selectionState)
+              this.setState({
+                liveTeXEdits: liveTeXEdits.remove(blockKey)
+              })
+            })
+          },
+          croppDone: (newState, blockKey) => {
+            if (newState) {
+              this.onChange(newState)
+              this.setState({
+                liveTeXEdits: this.state.liveTeXEdits.remove(blockKey)
+              })
+            } else {
+              this.setState({
+                liveTeXEdits: this.state.liveTeXEdits.remove(blockKey)
+              })
+            }
+          }
+        }
       }
     }
   }
 
-  return uuid.join('')
-}
-
-export function wechatFeatures () {
-  let features = []
-  return features = [
-    'BOLD',
-    'ITALIC',
-    'UNDERLINE',
-    'UNDO',
-    'REDO',
-    'FONTSIZEMODIFY',
-    'BLOCKQUOTE',
-    'SPLITLINE',
-    'CLEARALLSTYLES',
-    'ADDLINK',
-    'ADDEMOJI',
-    'COLORSMOdDIFY',
-    'BACKGROUNDCOLORMODIFY',
-    'FIRSTINTENT',
-    'ALIGNCENTER',
-    'ALIGNLEFT',
-    'ALIGNRIGHT',
-    'ALIGNJUSTIFY',
-    'ADDIMG',
-    'ADDSKU',
-    'LINEHEIGHT',
-    'LETTERWIDTH',
-    'TOPMARGIN',
-    'LEFTRIGHTMARGIN',
-    'BOTTOMMARGIN'
-  ]
-}
-
-export function alibabaFeatures () {
-  let features = []
-  return features = [
-    'BOLD',
-    'ITALIC',
-    'UNDERLINE',
-    'UNDO',
-    'REDO',
-    'ADDLINK',
-    'ADDIMG',
-    'ADDSKU',
-    'ALIGNCENTER',
-    'ALIGNLEFT',
-    'ALIGNRIGHT',
-    'ALIGNJUSTIFY'
-  ]
-}
-
-export function touTiaoFeatures () {
-  let features = []
-  return features = [
-    'BOLD',
-    'SPLITLINE',
-    'CLEARALLSTYLES',
-    'BLOCKQUOTE',
-    'UNDO',
-    'REDO',
-    'ADDLINK',
-    'ADDIMG',
-    'ADDSKU',
-    'ALIGNCENTER',
-    'ALIGNLEFT',
-    'ALIGNRIGHT',
-    'ALIGNJUSTIFY'
-  ]
-}
-
-export function defaultstyle () {
-  let save_state = {
-    blocks: [
-      {
-        key: 'd2fa8',
-        text: '「小标题」',
-        type: 'unstyled',
-        depth: 0,
-        inlineStyleRanges: [
-          {
-            offset: 0,
-            length: 5,
-            style: 'BOLD'
-          }
-        ],
-        entityRanges: [],
-        data: {
-          textAlign: 'center'
-        }
-      }
-    ],
-    entityMap: {}
+  fontSizeModify(editorState, fontSize) {
+    this.onChange(fontSizeModify(editorState, fontSize))
   }
 
-  return save_state
+  handleKeyCommand(command) {
+    const { editorState } = this.state
+    const newState = RichUtils.handleKeyCommand(editorState, command)
+    if (newState) {
+      this.onChange(newState)
+      return true
+    }
+    return false
+  }
+
+  commons(editorState, style) {
+    this.onChange(commonInlineStyle(editorState, style))
+  }
+
+  undo(editorState) {
+    this.onChange(undo(editorState))
+  }
+
+  redo(editorState) {
+    this.onChange(redo(editorState))
+  }
+
+  blockTypeFeatures(editorState, style) {
+    this.onChange(commonBlockStyle(editorState, style))
+  }
+
+  splitLine(editorState) {
+    let param = {
+      type: 'splitline',
+      obj: {}
+    }
+    this.onChange(insertBlock(editorState, param))
+  }
+
+  clearAllStyles(editorState) {
+    this.onChange(removeAllStyles(editorState))
+  }
+
+  addLink(editorState, href) {
+    this.onChange(addTheLinkOnText(editorState, href))
+  }
+
+  addEmoji(editorState, emoji) {
+    this.onChange(insertText(editorState, emoji))
+  }
+
+  colorsModify(editorState, color) {
+    this.onChange(colorModify(editorState, color))
+  }
+
+  backgroundColorModify(editorState, color) {
+    this.onChange(backgroundColorModify(editorState, color))
+  }
+
+  setAlign(editorState, position) {
+    this.onChange(setTextAlign(editorState, position))
+  }
+
+  intent(editorState, position) {
+    this.onChange(firstIntent(editorState, position))
+  }
+
+  letterSpace(editorState, space) {
+    this.onChange(letterSpacesModify(editorState, space))
+  }
+
+  lineHeight(editorState, space) {
+    this.onChange(lineHeightsModify(editorState, space))
+  }
+
+  leftRightMargin(editorState, space) {
+    this.onChange(leftRightMarginModify(editorState, space))
+  }
+
+  topMargin(editorState, space) {
+    this.onChange(topMarginModify(editorState, space))
+  }
+
+  bottomMargin(editorState, space) {
+    this.onChange(bottomMarginModify(editorState, space))
+  }
+
+  insertImage(editorState, param) {
+    this.onChange(insertBlock(editorState, param))
+  }
+
+  uploadImageLink() {
+    return '/api/v1/upload/images'
+  }
+
+  inserSku(editorState, param) {
+    this.onChange(insertBlock(editorState, param))
+  }
+
+  getSkuData() {
+    return new Promise((resolve, reject) => {
+      window.setTimeout(() => {
+        resolve({
+          'price': '398.00',
+          'sku_images': '//img.alicdn.com/imgextra/i2/TB1PB8paXYM8KJjSZFuYXIf7FXa_M2.SS2',
+          'title': '小P良品铺 整张牛皮的精致 短靴女2017新款平底真皮铆钉牛皮靴子',
+          'type': 'sku2',
+          'url': 'https://item.taobao.com/item.htm?spm=a230r.1.14.22.34d544d20SAHVe&id=560966390234&ns=1&abbucket=11#detail'
+        })
+      }, 2)
+    })
+  }
+
+  updateTest(value, index) {
+    this.props.dispatch({
+      type: 'dashboard/updateTest',
+      payload: {
+        index: index,
+        value: value.target.value
+      }
+    })
+  }
+
+  render() {
+    return <div className={styles.editor}>
+      <EditroControllBar
+        editorState={this.state.editorState}
+        features={this}
+        plateform={wechat}
+      />
+      <div className={styles.editorBox}>
+        <Editor
+          customStyleMap={customMap}
+          editorState={this.state.editorState}
+          blockRendererFn={this.blockRenderer}
+          blockStyleFn={blockStyleFn}
+          onChange={this.onChange}
+          handleKeyCommand={this.handleKeyCommand}
+          ref={(element) => { this.editor = element }}
+          placeholder='从这里开始写正文'
+        />
+      </div>
+    </div>
+  }
 }
+export default EigenEditor

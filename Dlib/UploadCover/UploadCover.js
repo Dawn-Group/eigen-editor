@@ -1,7 +1,7 @@
 import { Button, Modal, Icon, message, Spin } from 'antd'
 import React, { Component } from 'react'
 import './UploadCover.css'
-import { uuid } from '../../index'
+import  uuid  from '../../utils/uuid'
 import { IconCustom } from '../../features'
 
 class UploadCover extends Component {

@@ -1,8 +1,6 @@
 import { Tabs, Modal, Input, message, Spin } from 'antd'
 import React, { Component } from 'react'
-import styles from './InsertSku.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 const TabPane = Tabs.TabPane
 
 class InsertSku extends Component {

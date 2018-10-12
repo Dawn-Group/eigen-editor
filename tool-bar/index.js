@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './EditorControllBar.css'
+import './style.css'
 import classnames from 'classnames'
 import {
   Undo,
@@ -27,7 +27,7 @@ import {
   Bold,
   Italic,
   UnderLine
-} from '../index'
+} from '../features';
 
 class EditorControllBar extends Component {
   constructor (props) {

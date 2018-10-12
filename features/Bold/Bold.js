@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import styles from './Bold.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
+import { inlineStyleCheck } from '../../utils/plugins'
 
 class Bold extends Component {
   constructor (props) {

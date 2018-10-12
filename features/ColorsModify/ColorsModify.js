@@ -2,7 +2,6 @@ import { Popover } from 'antd'
 import React, { Component } from 'react'
 import styles from './ColorsModify.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 import Draft_const from '../../const'
 
 class ColorsModify extends Component {

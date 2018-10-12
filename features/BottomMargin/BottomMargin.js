@@ -1,8 +1,6 @@
 import { Dropdown, Menu } from 'antd'
 import React, { Component } from 'react'
-import styles from './BottomMargin.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck } from '../../index'
 import Draft_const from '../../const'
 
 class BottomMargin extends Component {

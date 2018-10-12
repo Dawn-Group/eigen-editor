@@ -1,8 +1,6 @@
-import { Checkbox } from 'antd'
 import React, { Component } from 'react'
-import styles from './Undo.scss'
 import { IconCustom } from '../../features'
-import { inlineStyleCheck, getUndoStatus } from '../../index'
+import { getUndoStatus } from '../../utils/plugins'
 
 class Undo extends Component {
   constructor (props) {
