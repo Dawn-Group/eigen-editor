@@ -2,9 +2,16 @@
   "name": "@d6k/eigen-editor",
   "version": "1.0.0",
   "description": "editor for eigen",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
   "scripts": {
     "start": "cross-env webpack-dev-server --color --config configs/dev.js",
+    "publish": "npm public",
+    "build": "cross-env NODE_ENV=production webpack --color --config configs/prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,7 +20,7 @@
     "draft"
   ],
   "author": "DreamerKing",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -42,11 +49,18 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.8"
   },
-  "repository": "https://github.com/EigenLab/eigen-editor.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EigenLab/eigen-editor.git"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "draft-js": "^0.10.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/EigenLab/eigen-editor/issues"
+  },
+  "homepage": "https://github.com/EigenLab/eigen-editor#readme"
 }
