@@ -1,6 +1,6 @@
 {
   "name": "@d6k/eigen-editor",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "editor for eigen",
   "main": "dist/index.js",
   "files": [
@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "start": "cross-env webpack-dev-server --color --config configs/dev.js",
-    "publish": "npm public",
     "build": "cross-env NODE_ENV=production webpack --color --config configs/prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +18,7 @@
     "eigen",
     "draft"
   ],
-  "author": "DreamerKing",
+  "author": "d6k",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.2",
