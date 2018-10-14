@@ -1,6 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const externals = {
     react: {
         root: 'React',
@@ -46,10 +44,10 @@ module.exports = {
         umdNamedDefine: true,
         filename: "index.js"
     },
-   // externals,
-    // performance: { 
-    //     hints: "warning" 
-    // },
+    externals,
+    performance: { 
+        hints: false 
+    },
     optimization: {
         splitChunks: {
             chunks: 'async',
@@ -59,45 +57,25 @@ module.exports = {
             maxInitialRequests: 3,
             automaticNameDelimiter: '~',
             name: true,
-            // chunks: 'initial',
             cacheGroups: {
                 styles: {
                     name: 'styles',
                     test: /\.[css|scss|less]$/,
                     chunks: 'all',
                     enforce: true
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
                 }
             }
         }
     },
-        // splitChunks: {
-        //     chunks: 'async',
-        //     minSize: 30000,
-        //     minChunks: 1,
-        //     maxAsyncRequests: 5,
-        //     maxInitialRequests: 3,
-        //     automaticNameDelimiter: '~',
-        //     name: true,
-        //     chunks: 'all',
-        //     cacheGroups: {
-        //         vendors: {
-        //             test: /[\\/]node_modules[\\/]/,
-        //             priority: -10
-        //         },
-        //         styles: {
-        //             name: 'eigen-editor',
-        //             test: /\.css$/,
-        //             chunks: 'all',
-        //             enforce: true
-        //         },
-        //         default: {
-        //             minChunks: 2,
-        //             priority: -20,
-        //             reuseExistingChunk: true
-        //         }
-        //     }
-        // }
-    //},
     module: {
         rules: [
             {
@@ -107,17 +85,35 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: ["style-loader", "css-hot-loader", { loader: MiniCssExtractPlugin.loader }, { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, { loader: "less-loader", options: { javascriptEnabled: true } }]
+                use: ["style-loader", 
+                { loader: "css-loader", options: { 
+                    modules: true, 
+                    importLoaders: 1 
+                    } 
+                }, 
+                { loader: "less-loader", options: { 
+                        javascriptEnabled: true     
+                   } 
+                }]
             },
             {
                 test: /\.css$/,
-                use: ["css-hot-loader",{ loader: MiniCssExtractPlugin.loader }, "css-loader"]
+                use: [{ loader: "style-loader" }, 
+                        "css-loader"
+                    ]
             },
             {
                 test: /\.scss$/,
-                use: [{ loader: MiniCssExtractPlugin.loader }, "css-hot-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 }}, {loader: "postcss-loader", options: {
+                use: [{ loader: "style-loader" },
+                     { loader: "css-loader", options: { 
+                         modules: true, importLoaders: 1 
+                        }
+                    }, 
+                     { loader: "postcss-loader", options: {
                         sourceMap: true
-                    }}, {loader: "sass-loader", options: {
+                        }
+                    },
+                     {loader: "sass-loader", options: {
                         sourceMap: true
                     }}]
             },
@@ -126,7 +122,7 @@ module.exports = {
                 use: [{
                     loader: 'file-loader',
                     options: {
-                        publicPath: path.resolve(__dirname, "../demo/dist/assets"),
+                        publicPath: path.resolve(__dirname, "../dist/assets"),
                         mimetype: 'application/font-woff',
                         name: '[name].[ext]'
                     }
@@ -136,12 +132,5 @@ module.exports = {
     },
     resolve: {
         alias
-    },
-    plugins: [
-       // new webpack.optimize.AggressiveMergingPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "styles/[name].css",
-            chunkFilename: "styles/[name][id].css"
-        })
-    ]
+    }
 }
