@@ -50,25 +50,26 @@ module.exports = {
     // performance: { 
     //     hints: "warning" 
     // },
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: 'async',
-    //         minSize: 30000,
-    //         minChunks: 1,
-    //         maxAsyncRequests: 5,
-    //         maxInitialRequests: 3,
-    //         automaticNameDelimiter: '~',
-    //         name: true,
-    //        // chunks: 'initial',
-    //         cacheGroups: {
-    //             styles: {
-    //                 name: 'styles',
-    //                 test: /\.css$/,
-    //                // chunks: 'all',
-    //                 enforce: true
-    //             }
-    //         }
-    //     }
+    optimization: {
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            // chunks: 'initial',
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    test: /\.[css|scss|less]$/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
+        }
+    },
         // splitChunks: {
         //     chunks: 'async',
         //     minSize: 30000,
@@ -101,36 +102,31 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-               // exclude: /node_modules/,
                 use: ["babel-loader"]
 
             },
             {
-                test: /\.css$/,
-                use: ["style-loader" , { loader: "css-loader", options: { modules: true, importLoaders: 1 } }]
+                test: /\.less$/,
+                use: ["style-loader", "css-hot-loader", { loader: MiniCssExtractPlugin.loader }, { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, { loader: "less-loader", options: { javascriptEnabled: true } }]
             },
             {
-                test: /\.less$/,
-                use: [ "style-loader" , { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, { loader: "less-loader", options:{ javascriptEnabled: true}}]
+                test: /\.css$/,
+                use: ["css-hot-loader",{ loader: MiniCssExtractPlugin.loader }, "css-loader"]
             },
             {
                 test: /\.scss$/,
-                use: ["style-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, {
-                    loader: "postcss-loader", options: {
+                use: [{ loader: MiniCssExtractPlugin.loader }, "css-hot-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 }}, {loader: "postcss-loader", options: {
                         sourceMap: true
-                    }
-                }, {
-                    loader: "sass-loader", options: {
+                    }}, {loader: "sass-loader", options: {
                         sourceMap: true
-                    }
-                    }]
+                    }}]
             },
             {
                 test: /\.(png|jpg|gif|svg|ttf|eot|woff)$/,
                 use: [{
                     loader: 'file-loader',
                     options: {
-                        publicPath: path.resolve(__dirname, "../dist/assets"),
+                        publicPath: path.resolve(__dirname, "../demo/dist/assets"),
                         mimetype: 'application/font-woff',
                         name: '[name].[ext]'
                     }
@@ -143,9 +139,9 @@ module.exports = {
     },
     plugins: [
        // new webpack.optimize.AggressiveMergingPlugin(),
-        // new MiniCssExtractPlugin({
-        //     filename: "styles/[name].css",
-        //     chunkFilename: "styles/[name][id].css"
-        // })
+        new MiniCssExtractPlugin({
+            filename: "styles/[name].css",
+            chunkFilename: "styles/[name][id].css"
+        })
     ]
 }

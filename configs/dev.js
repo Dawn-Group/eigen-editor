@@ -18,7 +18,7 @@ module.exports = {
     devtool: "eval-source-map",
     entry: "./demo/index.js",
     output: {
-        path: path.resolve(__dirname, "../demo/dist"),
+        path: path.resolve(__dirname, "../dist"),
         filename: "[name].js"
     },
     watch: true,
@@ -27,7 +27,7 @@ module.exports = {
             cacheGroups: {
                 styles: {
                     name: 'styles',
-                    test: /\.css$/,
+                    test: /\.[css|scss|less]$/,
                     chunks: 'all',
                     enforce: true
                 }
@@ -51,7 +51,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: ["style-loader", "css-hot-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 }}, {loader: "postcss-loader", options: {
+                use: [{ loader: MiniCssExtractPlugin.loader }, "css-hot-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 }}, {loader: "postcss-loader", options: {
                     sourceMap: true
                 }}, {loader: "sass-loader", options: {
                     sourceMap: true
