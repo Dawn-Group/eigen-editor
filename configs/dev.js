@@ -2,6 +2,17 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const alias = {
+    // '@antv/g6$': '@antv/g6/src',
+    '@src': path.resolve(__dirname, '..', 'src'),
+    '@lib': path.resolve(__dirname, '..', 'src/Dlib'),
+    '@const': path.resolve(__dirname, '..', 'src/const'),
+    '@renders': path.resolve(__dirname, '..', 'src/renders'),
+    '@features': path.resolve(__dirname, '..', 'src/features'),
+    '@tool-bar': path.resolve(__dirname, '..', 'src/tool-bar'),
+    '@utils': path.resolve(__dirname, '..', 'src/utils'),
+};
+
 module.exports = {
     mode: "development",
     devtool: "eval-source-map",
@@ -10,7 +21,7 @@ module.exports = {
         path: path.resolve(__dirname, "../demo/dist"),
         filename: "[name].js"
     },
-    watch: false,
+    watch: true,
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -23,13 +34,16 @@ module.exports = {
             }
         }
     },
-    watchOptions: {},
     module: {
         rules: [
             {
                 test: /\.js$/,
                 use: ["babel-loader"]
 
+            },
+            {
+                test: /\.less$/,
+                use: ["style-loader", "css-hot-loader", { loader: MiniCssExtractPlugin.loader }, { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, { loader: "less-loader", options: { javascriptEnabled: true } }]
             },
             {
                 test: /\.css$/,
@@ -55,6 +69,9 @@ module.exports = {
                 }]
             }
         ]
+    },
+    resolve: {
+        alias
     },
     plugins: [
         new HtmlWebpackPlugin({

@@ -1,61 +1,117 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const reactExternal = {
-    root: 'React',
-    commonjs2: 'react',
-    commonjs: 'react',
-    amd: 'react'
+const externals = {
+    react: {
+        root: 'React',
+        commonjs: 'react',
+        commonjs2: 'react',
+        amd: 'react',
+    },
+    'react-dom': {
+        root: 'ReactDOM',
+        commonjs: 'react-dom',
+        commonjs2: 'react-dom',
+        amd: 'react-dom',
+    },
+    'prop-types': {
+        root: 'PropTypes',
+        commonjs: 'prop-types',
+        commonjs2: 'prop-types',
+        amd: 'prop-types',
+    },
 };
 
-
-const antdExternal = {
-    root: 'antd',
-    commonjs2: 'antd',
-    commonjs: 'antd',
-    amd: 'antd'
+const alias = {
+    '@src': path.resolve(__dirname, '..', 'src'),
+    '@lib': path.resolve(__dirname, '..', 'src/Dlib'),
+    '@const': path.resolve(__dirname, '..', 'src/const'),
+    '@renders': path.resolve(__dirname, '..', 'src/renders'),
+    '@features': path.resolve(__dirname, '..', 'src/features'),
+    '@tool-bar': path.resolve(__dirname, '..', 'src/tool-bar'),
+    '@utils': path.resolve(__dirname, '..', 'src/utils'),
 };
 
 module.exports = {
     mode: "production",
-    entry: "./index.js",
+    entry: "./src/index.js",
     devtool: "eval-source-map",
+    target: "web",
     output: {
-        path: path.resolve(__dirname, "../dist"),
-        chunkFilename: '[name][id].chunk.js',
+        path: path.resolve(__dirname, '..', 'dist'),
+        chunkFilename: 'chunck/[name][id].chunk.js',
         libraryTarget: 'umd',
+        publicPath: "/dist/",
         library: 'EigenEditor',
+        umdNamedDefine: true,
         filename: "index.js"
     },
-    // externals: {
-    //     'react': reactExternal,
-    //     'antd': antdExternal
+   // externals,
+    // performance: { 
+    //     hints: "warning" 
     // },
-    performance: { 
-        hints: false 
-    },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
-        }
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: 'async',
+    //         minSize: 30000,
+    //         minChunks: 1,
+    //         maxAsyncRequests: 5,
+    //         maxInitialRequests: 3,
+    //         automaticNameDelimiter: '~',
+    //         name: true,
+    //        // chunks: 'initial',
+    //         cacheGroups: {
+    //             styles: {
+    //                 name: 'styles',
+    //                 test: /\.css$/,
+    //                // chunks: 'all',
+    //                 enforce: true
+    //             }
+    //         }
+    //     }
+        // splitChunks: {
+        //     chunks: 'async',
+        //     minSize: 30000,
+        //     minChunks: 1,
+        //     maxAsyncRequests: 5,
+        //     maxInitialRequests: 3,
+        //     automaticNameDelimiter: '~',
+        //     name: true,
+        //     chunks: 'all',
+        //     cacheGroups: {
+        //         vendors: {
+        //             test: /[\\/]node_modules[\\/]/,
+        //             priority: -10
+        //         },
+        //         styles: {
+        //             name: 'eigen-editor',
+        //             test: /\.css$/,
+        //             chunks: 'all',
+        //             enforce: true
+        //         },
+        //         default: {
+        //             minChunks: 2,
+        //             priority: -20,
+        //             reuseExistingChunk: true
+        //         }
+        //     }
+        // }
+    //},
     module: {
         rules: [
             {
                 test: /\.js$/,
+               // exclude: /node_modules/,
                 use: ["babel-loader"]
 
             },
             {
                 test: /\.css$/,
-                use: [{ loader: MiniCssExtractPlugin.loader }, "css-loader"]
+                use: ["style-loader" , { loader: "css-loader", options: { modules: true, importLoaders: 1 } }]
+            },
+            {
+                test: /\.less$/,
+                use: [ "style-loader" , { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, { loader: "less-loader", options:{ javascriptEnabled: true}}]
             },
             {
                 test: /\.scss$/,
@@ -82,11 +138,14 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        alias
+    },
     plugins: [
-        new webpack.optimize.AggressiveMergingPlugin(),
-        new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[name][id].css"
-        })
+       // new webpack.optimize.AggressiveMergingPlugin(),
+        // new MiniCssExtractPlugin({
+        //     filename: "styles/[name].css",
+        //     chunkFilename: "styles/[name][id].css"
+        // })
     ]
 }

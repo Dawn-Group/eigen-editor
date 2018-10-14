@@ -37,18 +37,18 @@ import {
   leftRightMarginModify,
   topMarginModify,
   bottomMarginModify
-} from './utils/plugins';
+} from '@utils/plugins';
 
 import { 
   Title, 
   Abstract, 
   EditroControllBar, 
   Cropp 
-} from './Dlib';
+} from '@lib';
 
-import { Block } from './renders/atomic'
-import { blockStyleFn } from './renders/styles/styleFn'
-import { decorator } from './renders/decorators'
+import { Block } from '@renders/atomic'
+import { blockStyleFn } from '@renders/styles/styleFn'
+import { decorator } from '@renders/decorators'
 import { Map } from 'immutable'
 
 let customMap = customSiteMap()
@@ -65,7 +65,7 @@ const Components = {
   'manuscript': EditroControllBar
 }
 
-class EigenEditor extends Component {
+export default class EigenEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -327,4 +327,3 @@ class EigenEditor extends Component {
     </div>
   }
 }
-export default EigenEditor
