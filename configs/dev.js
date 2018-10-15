@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const alias = {
-    // '@antv/g6$': '@antv/g6/src',
     '@src': path.resolve(__dirname, '..', 'src'),
     '@lib': path.resolve(__dirname, '..', 'src/Dlib'),
     '@const': path.resolve(__dirname, '..', 'src/const'),
