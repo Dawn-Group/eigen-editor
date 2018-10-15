@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import EigenEditor from "../dist";
+import EigenEditor from "../src/index";
 
 class Demo extends React.Component {
     constructor(props){
@@ -9,6 +9,7 @@ class Demo extends React.Component {
         this.state = {
             content: JSON.parse('{"blocks":[{"key":"4paan","text":"Hello","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
         }
+        this.getSkuData = this.getSkuData.bind(this)
     }
 
     handleChange(content) {
@@ -30,8 +31,34 @@ class Demo extends React.Component {
     }
     
     render(){
-        return <EigenEditor plateform={'wechatFeatures'} 
-        online={true} 
+        return <EigenEditor plateform={[
+            'BOLD',
+            'ITALIC',
+            'UNDERLINE',
+            'UNDO',
+            'REDO',
+            'FONTSIZEMODIFY',
+            'BLOCKQUOTE',
+            'SPLITLINE',
+            'CLEARALLSTYLES',
+            'ADDLINK',
+            'ADDEMOJI',
+            'COLORSMOdDIFY',
+            'BACKGROUNDCOLORMODIFY',
+            'FIRSTINTENT',
+            'ALIGNCENTER',
+            'ALIGNLEFT',
+            'ALIGNRIGHT',
+            'ALIGNJUSTIFY',
+            'ADDIMG',
+            'ADDSKU',
+            'LINEHEIGHT',
+            'LETTERWIDTH',
+            'TOPMARGIN',
+            'LEFTRIGHTMARGIN',
+            'BOTTOMMARGIN'
+        ]}
+        online={false} 
         content={this.state.content} 
         getSkuData={this.getSkuData}
         onChange={this.handleChange.bind(this)} />
@@ -40,4 +67,4 @@ class Demo extends React.Component {
 
 const root = document.createElement("div");
 document.body.appendChild(root);
-ReactDOM.render(<Demo />, root);
+ReactDOM.render(<Demo />, root)

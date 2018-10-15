@@ -52,8 +52,8 @@ import { decorator } from '@renders/decorators'
 import { Map } from 'immutable'
 
 let customMap = customSiteMap()
-let wechat = wechatFeatures()
-let alibaba = alibabaFeatures()
+// let wechat = wechatFeatures()
+// let alibaba = alibabaFeatures()
 
 
 
@@ -69,7 +69,7 @@ export default class EigenEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editorState:EditorState.createEmpty(decorator),
+      editorState: EditorState.createEmpty(decorator),
       liveTeXEdits: Map(),
       datafromonline:this.props.online,
       features: {
@@ -347,14 +347,14 @@ export default class EigenEditor extends Component {
 
   render() {
     const { features } = this.state;
+    const { plateform, getSkuData } = this.props;
     return <div className={styles.editor}>
-      <EditroControllBar
+      {plateform && plateform.length > 0 && <EditroControllBar
         editorState={this.state.editorState}
         features={this}
-        getSkuData={this.props.getSkuData}
-        plateform={this.props.plateform && features[this.props.plateform] && features[this.props.plateform]() }
-       // plateform={wechat}
-      />
+        getSkuData={getSkuData}
+        plateform={plateform}
+      />}
       <div className={styles.editorBox}>
         <Editor
           customStyleMap={features['customStyleMap']}

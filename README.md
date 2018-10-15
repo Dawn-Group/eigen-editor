@@ -13,7 +13,7 @@ import EigenEditor from "@d6k/eigen-editor";
 ## Props 
 ```
 <EigenEditor 
-    plateform={string} 
+    plateform={array} 
     online={boolean} 
     content={object} 
     getSkuData={fn}
@@ -22,8 +22,35 @@ import EigenEditor from "@d6k/eigen-editor";
 + `onChange` 编辑器中内容改变时执行的回调事件，可以拿到变化后的数据对象。
 + `content` 要传入编辑器中的数据对象 注意：这个数据对象有一定的格式要求。
 + `getSkuData` 添加SKU图片连接要调用事件，事件的参数就是添加的图片url,可以在这个事件中去请求服务，将返回数据格式为插件需求的格式。
-+ `plateform` 
-+ `online` 
++ `plateform` 要添加的编辑器工具
++ `online` 是否更新编辑器内容
+
+### plateform 可选值
++ BOLD
++ ITALIC
++ UNDERLINE
++ UNDO
++ REDO
++ FONTSIZEMODIFY
++ BLOCKQUOTE
++ SPLITLINE
++ CLEARALLSTYLES
++ ADDLINK
++ ADDEMOJI
++ COLORSMOdDIFY
++ BACKGROUNDCOLORMODIFY
++ FIRSTINTENT
++ ALIGNCENTER
++ ALIGNLEFT
++ ALIGNRIGHT
++ ALIGNJUSTIFY
++ ADDIMG
++ ADDSKU
++ LINEHEIGHT
++ LETTERWIDTH
++ TOPMARGIN
++ LEFTRIGHTMARGIN
++ BOTTOMMARGI
 
 # Example  
 
@@ -39,6 +66,7 @@ class Demo extends React.Component {
         this.state = {
             content: JSON.parse('{"blocks":[{"key":"4paan","text":"Hello","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
         }
+        this.getSkuData = this.getSkuData.bind(this)
     }
 
     handleChange(content) {
@@ -60,8 +88,34 @@ class Demo extends React.Component {
     }
     
     render(){
-        return <EigenEditor plateform={'wechatFeatures'} 
-        online={true} 
+        return <EigenEditor plateform={[
+            'BOLD',
+            'ITALIC',
+            'UNDERLINE',
+            'UNDO',
+            'REDO',
+            'FONTSIZEMODIFY',
+            'BLOCKQUOTE',
+            'SPLITLINE',
+            'CLEARALLSTYLES',
+            'ADDLINK',
+            'ADDEMOJI',
+            'COLORSMOdDIFY',
+            'BACKGROUNDCOLORMODIFY',
+            'FIRSTINTENT',
+            'ALIGNCENTER',
+            'ALIGNLEFT',
+            'ALIGNRIGHT',
+            'ALIGNJUSTIFY',
+            'ADDIMG',
+            'ADDSKU',
+            'LINEHEIGHT',
+            'LETTERWIDTH',
+            'TOPMARGIN',
+            'LEFTRIGHTMARGIN',
+            'BOTTOMMARGIN'
+        ]}
+        online={false} 
         content={this.state.content} 
         getSkuData={this.getSkuData}
         onChange={this.handleChange.bind(this)} />
@@ -70,5 +124,5 @@ class Demo extends React.Component {
 
 const root = document.createElement("div");
 document.body.appendChild(root);
-ReactDOM.render(<Demo />, root);
+ReactDOM.render(<Demo />, root)
 ```
