@@ -10,12 +10,13 @@
   ],
   "scripts": {
     "start": "cross-env webpack-dev-server --color --config configs/dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config configs/prod.js --colors --profile --optimize-minimize",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env NODE_ENV=production webpack --config configs/prod.js --colors --profile --optimize-minimize"
   },
   "keywords": [
+    "eigen-editor",
     "editor",
     "eigen",
+    "d6k",
     "draft"
   ],
   "author": "d6k",

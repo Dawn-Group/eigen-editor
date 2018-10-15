@@ -35,33 +35,33 @@ class EditorControllBar extends Component {
   }
 
   render () {
-    let { editorState, features, plateform, className } = this.props
+    let { className } = this.props
     return <div className={classnames('EditorControllBar', { [className]: !!className })}>
-      <Undo editorState={editorState} features={features} plateform={plateform} />
-      <Redo editorState={editorState} features={features} plateform={plateform} />
-      <Bold editorState={editorState} features={features} plateform={plateform} />
-      <Italic editorState={editorState} features={features} plateform={plateform} />
-      <UnderLine editorState={editorState} features={features} plateform={plateform} />
-      <AlignLeft editorState={editorState} features={features} plateform={plateform} />
-      <AlignRight editorState={editorState} features={features} plateform={plateform} />
-      <AlignCenter editorState={editorState} features={features} plateform={plateform} />
-      <AlignJustify editorState={editorState} features={features} plateform={plateform} />
-      <FontSizeModify editorState={editorState} features={features} plateform={plateform} />
-      <BlockQuote editorState={editorState} features={features} plateform={plateform} />
-      <SplitLine editorState={editorState} features={features} plateform={plateform} />
-      <ClearAllStyles editorState={editorState} features={features} plateform={plateform} />
-      <AddLink editorState={editorState} features={features} plateform={plateform} />
-      <AddEmoji editorState={editorState} features={features} plateform={plateform} />
-      <ColorsModify editorState={editorState} features={features} plateform={plateform} />
-      <BackgroundColorModify editorState={editorState} features={features} plateform={plateform} />
-      <FirstIntent editorState={editorState} features={features} plateform={plateform} />
-      <InsertImage editorState={editorState} features={features} plateform={plateform} />
-      <InsertSku editorState={editorState} features={features} plateform={plateform} />
-      <LineHeight editorState={editorState} features={features} plateform={plateform} />
-      <LetterWidth editorState={editorState} features={features} plateform={plateform} />
-      <LeftRightMargin editorState={editorState} features={features} plateform={plateform} />
-      <TopMargin editorState={editorState} features={features} plateform={plateform} />
-      <BottomMargin editorState={editorState} features={features} plateform={plateform} />
+      <Undo {...this.props} />
+      <Redo {...this.props} />
+      <Bold {...this.props} />
+      <Italic {...this.props} />
+      <UnderLine {...this.props} />
+      <AlignLeft {...this.props} />
+      <AlignRight {...this.props} />
+      <AlignCenter {...this.props} />
+      <AlignJustify {...this.props} />
+      <FontSizeModify {...this.props} />
+      <BlockQuote {...this.props} />
+      <SplitLine {...this.props} />
+      <ClearAllStyles {...this.props} />
+      <AddLink {...this.props} />
+      <AddEmoji {...this.props} />
+      <ColorsModify {...this.props} />
+      <BackgroundColorModify {...this.props} />
+      <FirstIntent {...this.props} />
+      <InsertImage {...this.props} />
+      <InsertSku {...this.props} />
+      <LineHeight {...this.props} />
+      <LetterWidth {...this.props} />
+      <LeftRightMargin {...this.props} />
+      <TopMargin {...this.props} />
+      <BottomMargin {...this.props} />
     </div>
   }
 }

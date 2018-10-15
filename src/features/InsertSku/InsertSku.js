@@ -21,7 +21,8 @@ class InsertSku extends Component {
       visiable: false,
       loading: true
     })
-    this.props.features.getSkuData(this.state.link).then(res => {
+    
+    this.props.getSkuData && this.props.getSkuData(this.state.link).then(res => {
       let url = this.state.link
       this.setState({
         link: '',

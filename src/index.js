@@ -12,7 +12,7 @@ import { Editor,
   ContentState, 
   convertFromHTML, 
   Modifier, 
-  SelectionState 
+  SelectionState,
 } from 'draft-js';
 
 import {
@@ -69,12 +69,38 @@ export default class EigenEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editorState: EditorState.createEmpty(decorator),
-      liveTeXEdits: Map()
+      editorState:EditorState.createEmpty(decorator),
+      liveTeXEdits: Map(),
+      datafromonline:this.props.online,
+      features: {
+        fontSizeModify,
+        customSiteMap,
+        insertBlock,
+        removeAllStyles,
+        wechatFeatures,
+        alibabaFeatures,
+        commonInlineStyle,
+        undo,
+        redo,
+        commonBlockStyle,
+        addTheLinkOnText,
+        insertText,
+        colorModify,
+        backgroundColorModify,
+        setTextAlign,
+        firstIntent,
+        letterSpacesModify,
+        lineHeightsModify,
+        leftRightMarginModify,
+        topMarginModify,
+        bottomMarginModify
+      }
     }
     this.onChange = (editorState) => {
       this.setState({ editorState })
+      this.props.onChange(convertToRaw(editorState.getCurrentContent()))
     }
+
     this.focus = this.focus.bind(this)
     this.handleKeyCommand = this.handleKeyCommand.bind(this)
     this.blockRenderer = this.blockRenderer.bind(this)
@@ -108,6 +134,20 @@ export default class EigenEditor extends Component {
 
   focus() {
     this.editor.focus()
+  }
+
+  componentDidMount(){
+    const { content } = this.props;
+    content && this.onChange(EditorState.createWithContent(convertFromRaw(content), decorator))
+  }
+
+  componentWillReceiveProps(nextprops){
+    if(this.state.datafromonline){
+      this.onChange(EditorState.createWithContent(convertFromRaw(nextprops.content), decorator))
+      this.setState({
+        datafromonline:false
+      })
+    }
   }
 
   blockRenderer = (block) => {
@@ -273,7 +313,7 @@ export default class EigenEditor extends Component {
     this.onChange(insertBlock(editorState, param))
   }
 
-  uploadImageLink() {
+  uploadImageLink(uploadUrl) {
     return '/api/v1/upload/images'
   }
 
@@ -281,7 +321,7 @@ export default class EigenEditor extends Component {
     this.onChange(insertBlock(editorState, param))
   }
 
-  getSkuData() {
+  /* getSkuData() {
     return new Promise((resolve, reject) => {
       window.setTimeout(() => {
         resolve({
@@ -293,7 +333,7 @@ export default class EigenEditor extends Component {
         })
       }, 2)
     })
-  }
+  } */
 
   updateTest(value, index) {
     this.props.dispatch({
@@ -306,15 +346,18 @@ export default class EigenEditor extends Component {
   }
 
   render() {
+    const { features } = this.state;
     return <div className={styles.editor}>
       <EditroControllBar
         editorState={this.state.editorState}
         features={this}
-        plateform={wechat}
+        getSkuData={this.props.getSkuData}
+        plateform={this.props.plateform && features[this.props.plateform] && features[this.props.plateform]() }
+       // plateform={wechat}
       />
       <div className={styles.editorBox}>
         <Editor
-          customStyleMap={customMap}
+          customStyleMap={features['customStyleMap']}
           editorState={this.state.editorState}
           blockRendererFn={this.blockRenderer}
           blockStyleFn={blockStyleFn}
