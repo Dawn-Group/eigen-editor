@@ -31,6 +31,12 @@ class Demo extends React.Component {
     }
     
     render(){
+        const editorStyle = {
+            overflow: "scroll",
+            width: "100 %",
+            display: "block",
+            margin: "0 auto"
+    }
         return <EigenEditor tools={[
             'BOLD',
             'ITALIC',
@@ -59,6 +65,9 @@ class Demo extends React.Component {
             'BOTTOMMARGIN'
         ]}
         online={false} 
+        editorStyle={editorStyle}
+        toolBarStyle={{margin: 4}}
+        contentStyle={{ padding: 4 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
         onChange={this.handleChange.bind(this)} />

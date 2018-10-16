@@ -2,12 +2,12 @@
 The [editor-eigen](https://www.npmjs.com/package/@d6k/eigen-editor) export EigenEditor component for eigen business.
 
 ## Installation 
-```sh
+```bash
 $ npm i @d6k/eigen-editor -S
 $ yarn add @d6k/eigen-editor
 ```
 ## Importing
-```
+```js
 import EigenEditor from "@d6k/eigen-editor";
 ```
 ## Props 
@@ -17,13 +17,19 @@ import EigenEditor from "@d6k/eigen-editor";
     online={boolean} 
     content={object} 
     getSkuData={fn}
+    editorStyle={object}
+    toolBarStyle={object}
+    contentStyle={object}
     onChange={fn} />
 ```
 + `onChange` 编辑器中内容改变时执行的回调事件，可以拿到变化后的数据对象。
 + `content` 要传入编辑器中的数据对象 注意：这个数据对象有一定的格式要求。
 + `getSkuData` 添加SKU图片连接要调用事件，事件的参数就是添加的图片url,可以在这个事件中去请求服务，将返回数据格式为插件需求的格式。
-+ `plateform` 要添加的编辑器工具
++ `tools` 要添加的编辑器工具
 + `online` 是否更新编辑器内容
++ `toolBarStyle` 工具栏样式对象
++ `editorStyle` 编辑器样式对象
++ `contentStyle` 编辑区样式对象
 
 ### tools 可选值
 + BOLD
@@ -116,6 +122,9 @@ class Demo extends React.Component {
             'BOTTOMMARGIN'
         ]}
         online={false} 
+        editorStyle={editorStyle}
+        toolBarStyle={{margin: 4}}
+        contentStyle={{ padding: 4 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
         onChange={this.handleChange.bind(this)} />

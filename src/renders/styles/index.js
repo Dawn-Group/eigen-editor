@@ -1,8 +1,7 @@
 import getCustomStyle from './inlineStyle'
 import customStyle from '../../const'
-let customStyleMap = {}
 
-export default customStyleMap = getCustomStyle({
+export default getCustomStyle({
   fontSizes: customStyle.fontSizes,
   colors: customStyle.colors,
   fontFamilies: customStyle.fontFamilies,

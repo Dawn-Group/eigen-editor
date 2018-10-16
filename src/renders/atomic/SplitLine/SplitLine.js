@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import styles from './SplitLine.scss'
 
 class SplitLine extends Component {
   constructor (props) {
