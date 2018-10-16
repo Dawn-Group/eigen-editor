@@ -30,6 +30,7 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "babel-plugin-import": "^1.9.1",
+    "copy-webpack-plugin": "^4.5.3",
     "cropperjs": "^1.4.1",
     "cross-env": "^5.2.0",
     "css-hot-loader": "^1.4.2",

@@ -31,7 +31,7 @@ class Demo extends React.Component {
     }
     
     render(){
-        return <EigenEditor plateform={[
+        return <EigenEditor tools={[
             'BOLD',
             'ITALIC',
             'UNDERLINE',

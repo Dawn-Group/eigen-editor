@@ -347,7 +347,7 @@ export default class EigenEditor extends Component {
 
   render() {
     const { features } = this.state;
-    const { plateform, getSkuData } = this.props;
+    const { tools:plateform, getSkuData } = this.props;
     return <div className={styles.editor}>
       {plateform && plateform.length > 0 && <EditroControllBar
         editorState={this.state.editorState}

@@ -1,8 +1,8 @@
-# eigen-editor v1.0.5
+# eigen-editor
 The [editor-eigen](https://www.npmjs.com/package/@d6k/eigen-editor) export EigenEditor component for eigen business.
 
 ## Installation 
-```
+```sh
 $ npm i @d6k/eigen-editor -S
 $ yarn add @d6k/eigen-editor
 ```
@@ -11,9 +11,9 @@ $ yarn add @d6k/eigen-editor
 import EigenEditor from "@d6k/eigen-editor";
 ```
 ## Props 
-```
+```jsx
 <EigenEditor 
-    plateform={array} 
+    tools={array} 
     online={boolean} 
     content={object} 
     getSkuData={fn}
@@ -25,7 +25,7 @@ import EigenEditor from "@d6k/eigen-editor";
 + `plateform` 要添加的编辑器工具
 + `online` 是否更新编辑器内容
 
-### plateform 可选值
+### tools 可选值
 + BOLD
 + ITALIC
 + UNDERLINE
@@ -54,7 +54,7 @@ import EigenEditor from "@d6k/eigen-editor";
 
 # Example  
 
-```
+```jsx
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -88,7 +88,7 @@ class Demo extends React.Component {
     }
     
     render(){
-        return <EigenEditor plateform={[
+        return <EigenEditor tools={[
             'BOLD',
             'ITALIC',
             'UNDERLINE',
