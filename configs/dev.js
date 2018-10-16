@@ -17,22 +17,10 @@ module.exports = {
     devtool: "eval-source-map",
     entry: "./demo/index.js",
     output: {
-        path: path.resolve(__dirname, "../dist"),
+        path: path.resolve(__dirname, "../demo/dist"),
         filename: "[name].js"
     },
     watch: true,
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.[css|scss|less]$/,
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
-        }
-    },
     module: {
         rules: [
             {
@@ -42,19 +30,32 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: ["style-loader", "css-hot-loader", { loader: MiniCssExtractPlugin.loader }, { loader: "css-loader", options: { modules: true, importLoaders: 1 } }, { loader: "less-loader", options: { javascriptEnabled: true } }]
+                use: [
+                    "style-loader", 
+                    { loader: "css-loader" }, 
+                    { loader: "less-loader", options: { javascriptEnabled: true } }
+                ]
             },
             {
                 test: /\.css$/,
-                use: ["css-hot-loader",{ loader: MiniCssExtractPlugin.loader }, "css-loader"]
+                use: ["style-loader", "css-loader"]
             },
             {
                 test: /\.scss$/,
-                use: [{ loader: MiniCssExtractPlugin.loader }, "css-hot-loader", { loader: "css-loader", options: { modules: true, importLoaders: 1 }}, {loader: "postcss-loader", options: {
-                    sourceMap: true
-                }}, {loader: "sass-loader", options: {
-                    sourceMap: true
-                }}]
+                use: [ 
+                    "style-loader",
+                     {loader: "css-loader", options: { 
+                         modules: true, 
+                         importLoaders: 1 
+                        }}, 
+                     {loader: "postcss-loader", options: {
+                            sourceMap: true
+                        }
+                     }, 
+                     {loader: "sass-loader", options: {
+                        sourceMap: true
+                    }}
+                ]
             },
             {
                 test: /\.(png|jpg|gif|svg|ttf|eot|woff)$/,
@@ -76,10 +77,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: "eigen editor"
         }),
-        new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
-        })
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "../demo/dist"),

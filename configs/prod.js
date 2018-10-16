@@ -86,12 +86,9 @@ module.exports = {
             },
             {
                 test: /\.less$/,
+                include: /node_modules\/antd/,
                 use: ["style-loader", 
-                { loader: "css-loader", options: { 
-                    modules: true, 
-                    importLoaders: 1 
-                    } 
-                }, 
+                { loader: "css-loader" }, 
                 { loader: "less-loader", options: { 
                         javascriptEnabled: true     
                    } 
@@ -99,9 +96,20 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [{ loader: "style-loader" }, 
-                        "css-loader"
+                include: /node_modules/,
+                use: [
+                        { loader: "style-loader" }, 
+                        { loader: "css-loader" } 
                     ]
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" },
+                    { loader: "postcss-loader"}
+                ]
             },
             {
                 test: /\.scss$/,
