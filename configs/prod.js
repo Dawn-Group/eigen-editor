@@ -34,7 +34,7 @@ const alias = {
 module.exports = {
     mode: "production",
     entry: "./src/index.js",
-    devtool: "eval-source-map",
+    devtool: "source-map",
     target: "web",
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
