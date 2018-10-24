@@ -3,11 +3,12 @@
   "version": "1.0.11",
   "description": "editor for eigen",
   "main": "dist/index.js",
-  "files": [
-    "dist",
-    "lib",
-    "es"
-  ],
+  "directories": {
+    "configs": "configs",
+    "src": "src",
+    "dist": "dist",
+    "demo": "demo"
+  },
   "scripts": {
     "start": "cross-env webpack-dev-server --hot --color --config configs/dev.js",
     "build": "cross-env NODE_ENV=production webpack --config configs/prod.js --colors"

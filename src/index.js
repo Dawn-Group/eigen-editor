@@ -52,7 +52,6 @@ export default class EigenEditor extends Component {
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       liveTeXEdits: Map(),
-      datafromonline:this.props.online,
       features: {
         fontSizeModify,
         customSiteMap,
@@ -123,11 +122,8 @@ export default class EigenEditor extends Component {
   }
 
   componentWillReceiveProps(nextprops){
-    if(this.state.datafromonline){
+    if (nextprops.online){
       this.onChange(EditorState.createWithContent(convertFromRaw(nextprops.content), decorator))
-      this.setState({
-        datafromonline:false
-      })
     }
   }
 
