@@ -27,7 +27,8 @@ import {
   Bold,
   Italic,
   UnderLine,
-  ComboImage
+  ComboImage,
+  InsertTable
 } from '../../features'
 
 class EditorControllBar extends Component {
@@ -38,6 +39,7 @@ class EditorControllBar extends Component {
   render () {
     let { editorState, features, plateform, className } = this.props
     return <div className={classnames('EditorControllBar', { [className]: !!className })}>
+      <InsertTable editorState={editorState} features={features} plateform={plateform} />
       <Undo editorState={editorState} features={features} plateform={plateform} />
       <Redo editorState={editorState} features={features} plateform={plateform} />
       <Bold editorState={editorState} features={features} plateform={plateform} />

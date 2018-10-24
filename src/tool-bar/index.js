@@ -26,7 +26,8 @@ import {
   BottomMargin,
   Bold,
   Italic,
-  UnderLine
+  UnderLine,
+  InsertTable
 } from '../features';
 
 class EditorControllBar extends Component {
@@ -62,6 +63,7 @@ class EditorControllBar extends Component {
       <LeftRightMargin {...this.props} />
       <TopMargin {...this.props} />
       <BottomMargin {...this.props} />
+      <InsertTable {...this.props} />
     </div>
   }
 }

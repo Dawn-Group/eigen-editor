@@ -26,6 +26,7 @@ import Bold from './Bold/Bold'
 import Italic from './Italic/Italic'
 import UnderLine from './UnderLine/UnderLine'
 import ComboImage from './ComboImage/ComboImage'
+import InsertTable from './InsertTable/InsertTable.js'
 
 export {
   CommonFeatures,
@@ -55,5 +56,6 @@ export {
   TopMargin,
   LeftRightMargin,
   IconCustom,
-  ComboImage
+  ComboImage,
+  InsertTable
 }
