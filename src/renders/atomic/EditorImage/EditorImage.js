@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import styles from './EditorImage.scss'
-import { IconCustom } from '../../../features'
+import { IconCustom } from '@features'
 import { connect } from 'dva'
 import { Popover, Modal } from 'antd'
-import { Cropp } from '../../../Dlib'
+import { Cropp } from '@lib'
 // import { uploadImage, imageCropBackend } from '../../../../../services/server'
-import { decorator } from '../../decorators'
+import { decorator } from '@renders/decorators'
 import { EditorState } from 'draft-js'
 
 class EditorImage extends React.Component {

@@ -27,10 +27,12 @@ import {
   Bold,
   Italic,
   UnderLine,
-  InsertTable
-} from '../features';
+  InsertTable,
+  ComboImage
+} from '@features';
 
-class EditorControllBar extends Component {
+
+export default class EditorControllBar extends Component {
   constructor (props) {
     super(props)
   }
@@ -67,5 +69,3 @@ class EditorControllBar extends Component {
     </div>
   }
 }
-
-export default EditorControllBar

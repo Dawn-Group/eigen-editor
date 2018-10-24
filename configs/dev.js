@@ -17,10 +17,10 @@ module.exports = {
     devtool: "eval-source-map",
     entry: "./demo/index.js",
     output: {
-        path: path.resolve(__dirname, "../demo/dist"),
+        path: path.resolve(__dirname, "../demo/index"),
         filename: "[name].js"
     },
-    watch: true,
+   // watch: true,
     module: {
         rules: [
             {
@@ -71,6 +71,7 @@ module.exports = {
         ]
     },
     resolve: {
+        extensions: ['.js', '.css', '.scss'],
         alias
     },
     plugins: [
@@ -79,7 +80,7 @@ module.exports = {
         }),
     ],
     devServer: {
-        contentBase: path.resolve(__dirname, "../demo/dist"),
+        // contentBase: path.resolve(__dirname, "../demo/dist"),
         open: true,
         port: "8888",
         historyApiFallback: true

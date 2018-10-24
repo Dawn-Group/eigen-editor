@@ -1,5 +1,5 @@
 import getCustomStyle from './inlineStyle'
-import customStyle from '../../const'
+import customStyle from '@const'
 
 export default getCustomStyle({
   fontSizes: customStyle.fontSizes,

@@ -6,8 +6,8 @@ import {
     SelectionState,
     RichUtils
 } from 'draft-js'
-import darftConst from '../const'
-import customStyleMap from '../renders/styles'
+import darftConst from '@const'
+import customStyleMap from '@renders/styles'
 import { setBlockData, getAllBlocks, getSelectionEntity } from 'draftjs-utils'
 import { message } from 'antd'
 
@@ -300,8 +300,7 @@ export function wechatFeatures() {
 }
 
 export function alibabaFeatures() {
-    let features = []
-    return features = [
+    return  [
         'BOLD',
         'ITALIC',
         'UNDERLINE',
@@ -318,8 +317,7 @@ export function alibabaFeatures() {
 }
 
 export function touTiaoFeatures() {
-    let features = []
-    return features = [
+    return [
         'BOLD',
         'SPLITLINE',
         'CLEARALLSTYLES',
@@ -359,6 +357,5 @@ export function defaultstyle() {
         ],
         entityMap: {}
     }
-
     return save_state
 }

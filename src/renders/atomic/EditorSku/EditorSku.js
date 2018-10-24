@@ -4,9 +4,9 @@ import { Modal, Input, Radio, Upload, Icon, Spin } from 'antd'
 import {
   EditorState
 } from 'draft-js'
-import { decorator } from '../../decorators'
-import { IconCustom } from '../../../features'
-import { Cropp } from '../../../Dlib'
+import { decorator } from '@renders/decorators'
+import { IconCustom } from '@features'
+import { Cropp } from '@lib'
 // import { imageCropBackend } from '../../../../../services/server'
 const RadioGroup = Radio.Group
 

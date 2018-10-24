@@ -12,13 +12,7 @@ const externals = {
         commonjs: 'react-dom',
         commonjs2: 'react-dom',
         amd: 'react-dom',
-    },
-    'prop-types': {
-        root: 'PropTypes',
-        commonjs: 'prop-types',
-        commonjs2: 'prop-types',
-        amd: 'prop-types',
-    },
+    }
 };
 
 const alias = {

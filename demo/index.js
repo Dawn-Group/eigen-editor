@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import EigenEditor from "../src/index";
+import EigenEditor from "@src/index";
 
 class Demo extends React.Component {
     constructor(props){

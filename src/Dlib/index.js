@@ -1,13 +1,4 @@
-import Title from './Title/Title'
-import Abstract from './Abstract/Abstract'
-import EditroControllBar from '../tool-bar'
-import UploadCover from './UploadCover/UploadCover'
-import Cropp from './Cropp/Cropp'
-
-export {
-  Title,
-  Abstract,
-  EditroControllBar,
-  UploadCover,
-  Cropp
-}
+export { default as Title } from './Title/Title'
+export { default as Abstract} from './Abstract/Abstract'
+export { default as UploadCover } from './UploadCover/UploadCover'
+export { default as Cropp } from './Cropp/Cropp'
