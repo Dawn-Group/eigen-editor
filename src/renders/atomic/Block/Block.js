@@ -1,5 +1,5 @@
 import React from 'react'
-import { SplitLine, EditorImage, EditorSku } from '../../atomic'
+import { SplitLine, EditorImage, EditorSku, EditorTable } from '../../atomic'
 const Block = (props) => {
   let block = null
   if (props.block.getEntityAt(0)) {
@@ -19,6 +19,8 @@ const Block = (props) => {
       case 'splitline':
         block = <SplitLine data={params} />
         break
+      case 'table':
+        block = <EditorTable data={params.data} {...props} />
       default:
         break
     }

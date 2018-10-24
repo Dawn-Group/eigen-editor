@@ -313,6 +313,10 @@ export default class EigenEditor extends Component {
     this.onChange(insertBlock(editorState, param))
   }
 
+  insertTable(editorState, param) {
+    this.onChange(insertBlock(editorState, param))
+  }
+
   uploadImageLink(uploadUrl) {
     return '/api/v1/upload/images'
   }
@@ -354,6 +358,7 @@ export default class EigenEditor extends Component {
       contentStyle, 
       toolBarStyle 
     } = this.props;
+    
     return <div style={editorStyle}>
       {plateform && plateform.length > 0 && <EditroControllBar
         editorState={this.state.editorState}
@@ -371,6 +376,7 @@ export default class EigenEditor extends Component {
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
           ref={(element) => { this.editor = element }}
+          readOnly={this.state.liveTeXEdits.count()}
           placeholder='从这里开始写正文'
         />
       </div>

@@ -11,6 +11,7 @@ class AddEmoji extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
+    
     return <div>
       {
         plateform.indexOf('ADDEMOJI') != -1

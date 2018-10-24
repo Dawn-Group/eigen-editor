@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import EigenEditor from "../dist";
+import EigenEditor from "../src/index";
 
 class Demo extends React.Component {
     constructor(props){
@@ -33,10 +33,10 @@ class Demo extends React.Component {
     render(){
         const editorStyle = {
             overflow: "scroll",
-            width: "100 %",
+            width: "100%",
             display: "block",
             margin: "0 auto"
-    }
+        }
         return <EigenEditor tools={[
             'BOLD',
             'ITALIC',
@@ -62,12 +62,13 @@ class Demo extends React.Component {
             'LETTERWIDTH',
             'TOPMARGIN',
             'LEFTRIGHTMARGIN',
-            'BOTTOMMARGIN'
+            'BOTTOMMARGIN',
+            'ADDTABLE'
         ]}
         online={false} 
         editorStyle={editorStyle}
         toolBarStyle={{margin: 4}}
-        contentStyle={{ padding: 4 }}
+        contentStyle={{ padding: 4, minHeight: 150 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
         onChange={this.handleChange.bind(this)} />
