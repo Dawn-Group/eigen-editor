@@ -1,4 +1,4 @@
-export default (props) => {
+export default function(props){
   const colorStyles = {}
   const bgColorStyles = {}
   const fontSizeStyles = {}

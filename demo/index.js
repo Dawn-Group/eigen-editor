@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import EigenEditor from "@src/index";
+//import EigenEditor from "../dist"
 
 class Demo extends React.Component {
     constructor(props){

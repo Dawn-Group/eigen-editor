@@ -12,7 +12,8 @@ const externals = {
         commonjs: 'react-dom',
         commonjs2: 'react-dom',
         amd: 'react-dom',
-    }
+    },
+    antd: 'antd'
 };
 
 const alias = {
