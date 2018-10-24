@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Table, Input, Button, Popconfirm, Form, Modal, message } from 'antd'
 import PropTypes from 'prop-types'
 import './InsertTable.scss'
-import { IconCustom } from '../../features'
+import { IconCustom } from '@features'
 
 const FormItem = Form.Item
 const EditableContext = React.createContext()
