@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import styles from './EditorImage.scss'
-import { IconCustom } from '@features'
-import { connect } from 'dva'
-import { Popover, Modal } from 'antd'
-import { Cropp } from '@lib'
-// import { uploadImage, imageCropBackend } from '../../../../../services/server'
-import { decorator } from '@renders/decorators'
-import { EditorState } from 'draft-js'
+import { IconCustom, Cropp } from '@features'
+import { Modal } from 'antd'
 
-class EditorImage extends React.Component {
+export default class EditorImage extends Component {
   constructor (props) {
     super(props)
     this.removeImag = this.removeImag.bind(this)
@@ -139,4 +134,3 @@ class EditorImage extends React.Component {
     </div>
   }
 }
-export default connect(({ writingpage }) => ({ writingpage }))(EditorImage)

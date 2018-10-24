@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const alias = {
     '@src': path.resolve(__dirname, '..', 'src'),
-    '@lib': path.resolve(__dirname, '..', 'src/Dlib'),
     '@const': path.resolve(__dirname, '..', 'src/const'),
     '@renders': path.resolve(__dirname, '..', 'src/renders'),
     '@features': path.resolve(__dirname, '..', 'src/features'),

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import styles from './ComboImage.scss'
-import { IconCustom } from '../../features'
+import { IconCustom, Cropp } from '@features'
 import { Modal, Spin, Upload, message } from 'antd'
-import { Cropp } from '../../Dlib'
 // import { imageCropBackend, imageMergeBackend } from '../../../../services/server'
 
 class ComboImage extends Component {

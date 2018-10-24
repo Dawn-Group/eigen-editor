@@ -5,8 +5,7 @@ import {
   EditorState
 } from 'draft-js'
 import { decorator } from '@renders/decorators'
-import { IconCustom } from '@features'
-import { Cropp } from '@lib'
+import { IconCustom, Cropp } from '@features'
 // import { imageCropBackend } from '../../../../../services/server'
 const RadioGroup = Radio.Group
 

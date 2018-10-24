@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { IconCustom } from '../../features'
+import { IconCustom } from '@features'
 
 class SplitLine extends Component {
   constructor (props) {

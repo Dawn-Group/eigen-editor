@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { parseTbDataToHtml } from '../../../utils/func'
+import { parseTbDataToHtml } from '@utils/parseTableData'
 import { Table, Input, Button, Popconfirm, Form, Modal, message } from 'antd'
 import PropTypes from 'prop-types'
 import './index.scss'
