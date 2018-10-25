@@ -1,14 +1,14 @@
 # eigen-editor
-The [editor-eigen](https://www.npmjs.com/package/@d6k/eigen-editor) export EigenEditor component for eigen business.
+The [editor-eigen](https://www.npmjs.com/package/eigen-editor) export EigenEditor component for eigen business.
 
 ## Installation 
 ```bash
-$ npm i @d6k/eigen-editor -S
-$ yarn add @d6k/eigen-editor
+$ npm i eigen-editor -S
+$ yarn add eigen-editor
 ```
 ## Importing
 ```js
-import EigenEditor from "@d6k/eigen-editor";
+import EigenEditor from "eigen-editor";
 ```
 ## Props 
 ```jsx
@@ -64,7 +64,7 @@ import EigenEditor from "@d6k/eigen-editor";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import EigenEditor from "@d6k/eigen-editor";
+import EigenEditor from "eigen-editor";
 
 class Demo extends React.Component {
     constructor(props){

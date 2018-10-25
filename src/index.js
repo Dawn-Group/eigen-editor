@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from "prop-types";
 import styles from './theme.scss'
 
 import { 
@@ -350,8 +349,4 @@ export default class EigenEditor extends Component {
       </div>
     </div>
   }
-}
-
-EigenEditor.prototype = {
-  uploadUrl: PropTypes.string
 }

@@ -1,7 +1,7 @@
 const path = require('path');
 const externals = {
-    react: "React",
-    'react-dom': "ReactDOM",
+    react: "react",
+    'react-dom': "react-dom",
     antd: "antd"
 };
 
@@ -18,17 +18,17 @@ module.exports = {
     mode: "production",
     entry: "./src/index.js",
     devtool: "source-map",
-    target: "web",
+   // target: "web",
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
         chunkFilename: 'chunck/[name][id].chunk.js',
-        libraryTarget: 'umd',
         publicPath: "/dist/",
+        libraryTarget: "umd",
         library: 'EigenEditor',
         umdNamedDefine: true,
         filename: "index.js"
     },
-    externals,
+   // externals,
     performance: { 
         hints: false 
     },

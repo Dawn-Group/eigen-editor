@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import EigenEditor from "@src/index";
+// import EigenEditor from "@src/index";
 import Draft from './draft_func'
-//import EigenEditor from "../dist"
+import EigenEditor from "../dist"
 
 function test(editorState){
     let draft = new Draft(editorState)
@@ -23,7 +23,7 @@ class Demo extends React.Component {
         this.insert = this.insert.bind(this)
     }
 
-    handleChange = (content, editorState) => {
+    handleChange (content, editorState){
         console.log(editorState);
         this.setState({
             content: content,
@@ -45,11 +45,12 @@ class Demo extends React.Component {
     }
 
     componentDidMount() {
-        this.insert()
-        this.insert()
-        setTimeout(() => {
-            this.insert()
-        }, 3000)
+        console.log(this.state.editorState)
+        // this.insert()
+        // this.insert()
+        // setTimeout(() => {
+        //     this.insert()
+        // }, 3000)
     }
     
 
@@ -110,7 +111,7 @@ class Demo extends React.Component {
         contentStyle={{ padding: 4, minHeight: 150 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
-        onChange={this.handleChange} />
+        onChange={this.handleChange.bind(this)} />
     }
 }
 
