@@ -2,57 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import EigenEditor from "@src/index";
-import Draft from './draft_func'
 //import EigenEditor from "../dist"
-
-function test(editorState){
-    let draft = new Draft(editorState)
-    let newEditorState = draft.insertText('haha')
-    return newEditorState
-}
 
 class Demo extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            content: JSON.parse('{"blocks":[{"key":"4paan","text":"Hello","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'),
-            editorState: null,
-            event: null
+            content: JSON.parse('{"blocks":[{"key":"4paan","text":"Hello","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}')
         }
         this.getSkuData = this.getSkuData.bind(this)
-        this.insert = this.insert.bind(this)
     }
 
-    handleChange = (content, editorState) => {
-        console.log(editorState);
-        this.setState({
-            content: content,
-            editorState:editorState,
-            event:null
-        })
+    handleChange(content) {
+        console.log(content);
     }
-
-    insert(){
-        console.log('insert')
-        
-        let { editorState } = this.state
-        this.setState({
-            event: {
-                params: editorState,
-                func: test
-            }
-        })
-    }
-
-    componentDidMount() {
-        this.insert()
-        this.insert()
-        setTimeout(() => {
-            this.insert()
-        }, 3000)
-    }
-    
-
 
     getSkuData(url) {
         return new Promise((resolve, reject) => {
@@ -103,14 +66,13 @@ class Demo extends React.Component {
             'BOTTOMMARGIN',
             'ADDTABLE'
         ]}
-        online={true} 
+        online={false} 
         editorStyle={editorStyle}
-        event={this.state.event}
         toolBarStyle={{margin: 4}}
         contentStyle={{ padding: 4, minHeight: 150 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
-        onChange={this.handleChange} />
+        onChange={this.handleChange.bind(this)} />
     }
 }
 
