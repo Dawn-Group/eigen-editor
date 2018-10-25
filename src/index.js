@@ -79,8 +79,9 @@ export default class EigenEditor extends Component {
       }
     }
     this.onChange = (editorState) => {
-      this.setState({ editorState })
-      this.props.onChange(convertToRaw(editorState.getCurrentContent()))
+      this.setState({ editorState }, () => {
+        this.props.onChange(convertToRaw(editorState.getCurrentContent()),editorState)
+      })
     }
 
     this.focus = this.focus.bind(this)
@@ -124,8 +125,9 @@ export default class EigenEditor extends Component {
   }
 
   componentWillReceiveProps(nextprops){
-    if (nextprops.online){
-      this.onChange(EditorState.createWithContent(convertFromRaw(nextprops.content), decorator))
+    if(nextprops.event){ 
+      let newState = nextprops.event.func(nextprops.event.params)
+      this.onChange(newState)
     }
   }
 
