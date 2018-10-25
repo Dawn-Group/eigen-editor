@@ -1,7 +1,7 @@
 import { Modal, Tabs, Upload, Icon, Spin, Radio } from 'antd'
 import React, { Component } from 'react'
 import styles from './InsertImage.scss'
-import { IconCustom } from '../../features'
+import { IconCustom } from '@features'
 import Masonry from 'react-masonry-component'
 const TabPane = Tabs.TabPane
 const RadioGroup = Radio.Group

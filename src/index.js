@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types";
 import styles from './theme.scss'
 
 import { 
@@ -45,6 +46,7 @@ import { blockStyleFn } from '@renders/styles/styleFn'
 import { decorator } from '@renders/decorators'
 import { Map } from 'immutable';
 import EditroControllBar from './tool-bar';
+import { checkPropTypes } from 'prop-types';
 
 export default class EigenEditor extends Component {
   constructor(props) {
@@ -294,8 +296,9 @@ export default class EigenEditor extends Component {
     this.onChange(insertBlock(editorState, param))
   }
 
-  uploadImageLink(uploadUrl) {
-    return '/api/v1/upload/images'
+  uploadImageLink() {
+    let { uploadUrl} = this.props
+    return uploadUrl || '/api/v1/upload/images';
   }
 
   inserSku(editorState, param) {
@@ -345,4 +348,8 @@ export default class EigenEditor extends Component {
       </div>
     </div>
   }
+}
+
+EigenEditor.prototype = {
+  uploadUrl: PropTypes.string
 }
