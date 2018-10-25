@@ -1,17 +1,8 @@
 const path = require('path');
 const externals = {
-    react: {
-        root: 'React',
-        amd: 'react',
-    },
-    'react-dom': {
-        root: 'ReactDOM',
-        amd: 'react-dom',
-    },
-    antd: {
-        root: 'antd',
-        amd: 'antd'
-    }
+    react: "React",
+    'react-dom': "ReactDOM",
+    antd: "antd"
 };
 
 const alias = {
