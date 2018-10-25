@@ -4,11 +4,11 @@
   "description": "editor for eigen",
   "main": "dist/index.js",
   "directories": {
-    "configs": "configs",
-    "src": "src",
-    "dist": "dist",
-    "demo": "demo"
+    "dist": "dist"
   },
+  "files":[
+    "README.md"
+  ],
   "scripts": {
     "start": "cross-env webpack-dev-server --hot --color --config configs/dev.js",
     "build": "cross-env NODE_ENV=production webpack --config configs/prod.js --colors"
