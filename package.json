@@ -31,7 +31,6 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "babel-plugin-import": "^1.9.1",
-    "copy-webpack-plugin": "^4.5.3",
     "cropperjs": "^1.4.1",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
@@ -53,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EigenLab/eigen-editor.git"
+    "url": "git+https://scc-git.aipp.io/frontend/base/eigen-editor.git"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -63,7 +62,7 @@
     "react-dom": "^16.5.2"
   },
   "bugs": {
-    "url": "https://github.com/EigenLab/eigen-editor/issues"
+    "url": "https://scc-git.aipp.io/frontend/base/eigen-editor.git/issues"
   },
-  "homepage": "https://github.com/EigenLab/eigen-editor#readme"
+  "homepage": "https://scc-git.aipp.io/frontend/base/eigen-editor.git#readme"
 }

@@ -1,19 +1,17 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const externals = {
     react: {
         root: 'React',
-        commonjs: 'react',
-        commonjs2: 'react',
         amd: 'react',
     },
     'react-dom': {
         root: 'ReactDOM',
-        commonjs: 'react-dom',
-        commonjs2: 'react-dom',
         amd: 'react-dom',
     },
-    antd: 'antd'
+    antd: {
+        root: 'antd',
+        amd: 'antd'
+    }
 };
 
 const alias = {
@@ -136,9 +134,4 @@ module.exports = {
     resolve: {
         alias
     },
-    plugins: [
-        new CopyWebpackPlugin([{
-            from: "./README.md"
-        }])
-    ]
 }

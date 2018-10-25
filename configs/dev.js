@@ -1,5 +1,4 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const alias = {
@@ -19,7 +18,7 @@ module.exports = {
         path: path.resolve(__dirname, "../demo/index"),
         filename: "[name].js"
     },
-   // watch: true,
+    watch: true,
     module: {
         rules: [
             {
@@ -79,7 +78,7 @@ module.exports = {
         }),
     ],
     devServer: {
-        // contentBase: path.resolve(__dirname, "../demo/dist"),
+        contentBase: path.resolve(__dirname, "../demo/dist"),
         open: true,
         port: "8888",
         historyApiFallback: true
