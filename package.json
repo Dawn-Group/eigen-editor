@@ -1,12 +1,12 @@
 {
   "name": "eigen-editor",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "editor for eigen",
   "main": "dist/index.js",
   "directories": {
     "dist": "dist"
   },
-  "files":[
+  "files": [
     "README.md"
   ],
   "scripts": {
