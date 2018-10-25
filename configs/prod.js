@@ -1,128 +1,31 @@
+var merge = require('webpack-merge')
+const baseConfigs = require('./base')
 const path = require('path');
-const externals = {
-    react: "react",
-    'react-dom': "react-dom",
-    antd: "antd"
-};
 
-const alias = {
-    '@src': path.resolve(__dirname, '..', 'src'),
-    '@const': path.resolve(__dirname, '..', 'src/const'),
-    '@renders': path.resolve(__dirname, '..', 'src/renders'),
-    '@features': path.resolve(__dirname, '..', 'src/features'),
-    '@tool-bar': path.resolve(__dirname, '..', 'src/tool-bar'),
-    '@utils': path.resolve(__dirname, '..', 'src/utils'),
-};
-
-module.exports = {
+module.exports = merge(baseConfigs, {
     mode: "production",
     entry: "./src/index.js",
     devtool: "source-map",
-   // target: "web",
+    // target: "web",
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
-        chunkFilename: 'chunck/[name][id].chunk.js',
         publicPath: "/dist/",
         libraryTarget: "umd",
         library: 'EigenEditor',
-        umdNamedDefine: true,
         filename: "index.js"
     },
-   // externals,
-    performance: { 
-        hints: false 
+    externals: {
+        'react': 'react',
+        'react-dom': 'react-dom',
+        'draft-js': 'draft-js',
+        'draftjs-utils': 'draftjs-utils',
+        'immutable': 'immutable',
+        'antd':'antd'
+    },
+    performance: {
+        hints: false
     },
     optimization: {
-        splitChunks: {
-            chunks: 'async',
-            minSize: 30000,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
-            name: true,
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.[css|scss|less]$/,
-                    chunks: 'all',
-                    enforce: true
-                },
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    priority: -10
-                },
-                default: {
-                    minChunks: 2,
-                    priority: -20,
-                    reuseExistingChunk: true
-                }
-            }
-        }
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use: ["babel-loader"]
-
-            },
-            {
-                test: /\.less$/,
-                include: /node_modules\/antd/,
-                use: ["style-loader", 
-                { loader: "css-loader" }, 
-                { loader: "less-loader", options: { 
-                        javascriptEnabled: true     
-                   } 
-                }]
-            },
-            {
-                test: /\.css$/,
-                include: /node_modules/,
-                use: [
-                        { loader: "style-loader" }, 
-                        { loader: "css-loader" } 
-                    ]
-            },
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" },
-                    { loader: "postcss-loader"}
-                ]
-            },
-            {
-                test: /\.scss$/,
-                use: [{ loader: "style-loader" },
-                     { loader: "css-loader", options: { 
-                         modules: true, importLoaders: 1 
-                        }
-                    }, 
-                     { loader: "postcss-loader", options: {
-                        sourceMap: true
-                        }
-                    },
-                     {loader: "sass-loader", options: {
-                        sourceMap: true
-                    }}]
-            },
-            {
-                test: /\.(png|jpg|gif|svg|ttf|eot|woff)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        publicPath: path.resolve(__dirname, "../dist/assets"),
-                        mimetype: 'application/font-woff',
-                        name: '[name].[ext]'
-                    }
-                }]
-            }
-        ]
-    },
-    resolve: {
-        alias
-    },
-}
+        minimize: false,
+    }
+})

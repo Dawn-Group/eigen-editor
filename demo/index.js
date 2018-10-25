@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // import EigenEditor from "@src/index";
-import Draft from './draft_func'
+// import Draft from './draft_func'
 import EigenEditor from "../dist"
 
 function test(editorState){
@@ -24,7 +24,6 @@ class Demo extends React.Component {
     }
 
     handleChange (content, editorState){
-        console.log(editorState);
         this.setState({
             content: content,
             editorState:editorState,
@@ -51,6 +50,7 @@ class Demo extends React.Component {
         // setTimeout(() => {
         //     this.insert()
         // }, 3000)
+        
     }
     
 
