@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import styles from './theme.scss'
 
-import { 
-  Editor, 
-  AtomicBlockUtils, 
-  EditorState, 
-  RichUtils, 
-  convertToRaw, 
-  convertFromRaw, 
-  CompositeDecorator, 
-  Entity, 
-  ContentState, 
-  convertFromHTML, 
-  Modifier, 
+import {
+  Editor,
+  AtomicBlockUtils,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  convertFromRaw,
+  CompositeDecorator,
+  Entity,
+  ContentState,
+  convertFromHTML,
+  Modifier,
   SelectionState,
 } from 'draft-js';
 
@@ -79,7 +79,7 @@ export default class EigenEditor extends Component {
     }
     this.onChange = (editorState) => {
       this.setState({ editorState }, () => {
-        this.props.onChange(convertToRaw(editorState.getCurrentContent()),editorState)
+        this.props.onChange(convertToRaw(editorState.getCurrentContent()), editorState)
       })
     }
 
@@ -116,15 +116,18 @@ export default class EigenEditor extends Component {
 
   focus() {
     this.editor.focus()
+    if (this.props.focus) {
+      this.props.focus(this.props.focusKey)
+    }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { content } = this.props;
     content && this.onChange(EditorState.createWithContent(convertFromRaw(content), decorator))
   }
 
-  componentWillReceiveProps(nextprops){
-    if(nextprops.event){ 
+  componentWillReceiveProps(nextprops) {
+    if (nextprops.event) {
       let newState = nextprops.event.func(nextprops.event.params)
       this.onChange(newState)
     }
@@ -298,7 +301,7 @@ export default class EigenEditor extends Component {
   }
 
   uploadImageLink() {
-    let { uploadUrl} = this.props
+    let { uploadUrl } = this.props
     return uploadUrl || '/api/v1/upload/images';
   }
 
@@ -318,14 +321,15 @@ export default class EigenEditor extends Component {
 
   render() {
     const { features } = this.state;
-    const { 
-      tools: plateform, 
-      getSkuData, 
-      editorStyle, 
-      contentStyle, 
-      toolBarStyle 
+    const {
+      tools: plateform,
+      getSkuData,
+      editorStyle,
+      contentStyle,
+      toolBarStyle,
+      focusKey
     } = this.props;
-    
+
     return <div style={editorStyle}>
       {plateform && plateform.length > 0 && <EditroControllBar
         editorState={this.state.editorState}
@@ -334,7 +338,7 @@ export default class EigenEditor extends Component {
         getSkuData={getSkuData}
         plateform={plateform}
       />}
-      <div style={contentStyle}>
+      <div style={contentStyle} className={styles.editor} onClick={this.focus}>
         <Editor
           customStyleMap={features['customStyleMap']}
           editorState={this.state.editorState}

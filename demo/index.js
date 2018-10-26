@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// import EigenEditor from "@src/index";
+import EigenEditor from "@src/index";
 // import Draft from './draft_func'
-import EigenEditor from "../dist"
+// import EigenEditor from "../dist"
 
-function test(editorState){
+function test(editorState) {
     let draft = new Draft(editorState)
     let newEditorState = draft.insertText('haha')
     return newEditorState
 }
 
 class Demo extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             content: JSON.parse('{"blocks":[{"key":"4paan","text":"Hello","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'),
@@ -21,19 +21,20 @@ class Demo extends React.Component {
         }
         this.getSkuData = this.getSkuData.bind(this)
         this.insert = this.insert.bind(this)
+        this.focus = this.focus.bind(this)
     }
 
-    handleChange (content, editorState){
+    handleChange(content, editorState) {
         this.setState({
             content: content,
-            editorState:editorState,
-            event:null
+            editorState: editorState,
+            event: null
         })
     }
 
-    insert(){
+    insert() {
         console.log('insert')
-        
+
         let { editorState } = this.state
         this.setState({
             event: {
@@ -43,16 +44,19 @@ class Demo extends React.Component {
         })
     }
 
+    focus(key) {
+        console.log(key)
+    }
+
     componentDidMount() {
-        console.log(this.state.editorState)
         // this.insert()
         // this.insert()
         // setTimeout(() => {
         //     this.insert()
         // }, 3000)
-        
+
     }
-    
+
 
 
     getSkuData(url) {
@@ -68,50 +72,25 @@ class Demo extends React.Component {
             }, 2)
         })
     }
-    
-    render(){
+
+    render() {
         const editorStyle = {
             overflow: "scroll",
             width: "100%",
             display: "block",
             margin: "0 auto"
         }
-        return <EigenEditor tools={[
-            'BOLD',
-            'ITALIC',
-            'UNDERLINE',
-            'UNDO',
-            'REDO',
-            'FONTSIZEMODIFY',
-            'BLOCKQUOTE',
-            'SPLITLINE',
-            'CLEARALLSTYLES',
-            'ADDLINK',
-            'ADDEMOJI',
-            'COLORSMOdDIFY',
-            'BACKGROUNDCOLORMODIFY',
-            'FIRSTINTENT',
-            'ALIGNCENTER',
-            'ALIGNLEFT',
-            'ALIGNRIGHT',
-            'ALIGNJUSTIFY',
-            'ADDIMG',
-            'ADDSKU',
-            'LINEHEIGHT',
-            'LETTERWIDTH',
-            'TOPMARGIN',
-            'LEFTRIGHTMARGIN',
-            'BOTTOMMARGIN',
-            'ADDTABLE'
-        ]}
-        online={true} 
-        editorStyle={editorStyle}
-        event={this.state.event}
-        toolBarStyle={{margin: 4}}
-        contentStyle={{ padding: 4, minHeight: 150 }}
-        content={this.state.content} 
-        getSkuData={this.getSkuData}
-        onChange={this.handleChange.bind(this)} />
+        return <EigenEditor tools={null}
+            online={true}
+            editorStyle={editorStyle}
+            focusKey={'1'}
+            focus={this.focus}
+            event={this.state.event}
+            toolBarStyle={{ margin: 4 }}
+            contentStyle={{ padding: 4 }}
+            content={this.state.content}
+            getSkuData={this.getSkuData}
+            onChange={this.handleChange.bind(this)} />
     }
 }
 

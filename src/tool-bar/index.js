@@ -38,8 +38,8 @@ export default class EditorControllBar extends Component {
   }
 
   render () {
-    let { className } = this.props
-    return <div className={classnames('EditorControllBar', { [className]: !!className })}>
+    let { className, style } = this.props
+    return <div className={classnames('EditorControllBar', { [className]: !!className })} style={style}>
       <Undo {...this.props} />
       <Redo {...this.props} />
       <Bold {...this.props} />
