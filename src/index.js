@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './theme.scss'
+<<<<<<< HEAD
 
 import {
   Editor,
@@ -13,6 +14,20 @@ import {
   ContentState,
   convertFromHTML,
   Modifier,
+=======
+import { 
+  Editor, 
+  AtomicBlockUtils, 
+  EditorState, 
+  RichUtils, 
+  convertToRaw, 
+  convertFromRaw, 
+  CompositeDecorator, 
+  Entity, 
+  ContentState, 
+  convertFromHTML, 
+  Modifier, 
+>>>>>>> fixed InsertImage
   SelectionState,
 } from 'draft-js';
 
@@ -301,8 +316,8 @@ export default class EigenEditor extends Component {
   }
 
   uploadImageLink() {
-    let { uploadUrl } = this.props
-    return uploadUrl || '/api/v1/upload/images';
+    let { uploadUrl} = this.props
+    return uploadUrl  ||'/api/v1/upload/images';
   }
 
   inserSku(editorState, param) {
@@ -327,7 +342,8 @@ export default class EigenEditor extends Component {
       editorStyle,
       contentStyle,
       toolBarStyle,
-      focusKey
+      focusKey,
+      insertImageChange 
     } = this.props;
 
     return <div style={editorStyle}>
@@ -336,6 +352,7 @@ export default class EigenEditor extends Component {
         features={this}
         style={toolBarStyle}
         getSkuData={getSkuData}
+        insertImageChange={insertImageChange}
         plateform={plateform}
       />}
       <div style={contentStyle} className={styles.editor} onClick={this.focus}>

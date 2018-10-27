@@ -58,6 +58,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "draft-js": "^0.10.5",
+    "eigen-utils": "^1.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"

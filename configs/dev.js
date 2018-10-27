@@ -1,7 +1,7 @@
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-baseConfigs = require('./base')
+const baseConfigs = require('./base')
 module.exports = merge(baseConfigs,{
     mode: "development",
     devtool: "eval-source-map",

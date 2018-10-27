@@ -1,5 +1,4 @@
 const path = require('path');
-var webpack = require('webpack')
 
 const alias = {
   '@src': path.resolve(__dirname, '..', 'src'),

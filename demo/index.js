@@ -57,6 +57,10 @@ class Demo extends React.Component {
 
     }
 
+    insertImageChange(imageList, setLink){
+        console.log(imageList, setLink, "insertImage")
+    }
+    
 
 
     getSkuData(url) {
@@ -80,17 +84,46 @@ class Demo extends React.Component {
             display: "block",
             margin: "0 auto"
         }
-        return <EigenEditor tools={null}
-            online={true}
-            editorStyle={editorStyle}
-            focusKey={'1'}
-            focus={this.focus}
-            event={this.state.event}
-            toolBarStyle={{ margin: 4 }}
-            contentStyle={{ padding: 4 }}
-            content={this.state.content}
-            getSkuData={this.getSkuData}
-            onChange={this.handleChange.bind(this)} />
+        return <EigenEditor tools={[
+            'BOLD',
+            'ITALIC',
+            'UNDERLINE',
+            'UNDO',
+            'REDO',
+            'FONTSIZEMODIFY',
+            'BLOCKQUOTE',
+            'SPLITLINE',
+            'CLEARALLSTYLES',
+            'ADDLINK',
+            'ADDEMOJI',
+            'COLORSMOdDIFY',
+            'BACKGROUNDCOLORMODIFY',
+            'FIRSTINTENT',
+            'ALIGNCENTER',
+            'ALIGNLEFT',
+            'ALIGNRIGHT',
+            'ALIGNJUSTIFY',
+            'ADDIMG',
+            'ADDSKU',
+            'LINEHEIGHT',
+            'LETTERWIDTH',
+            'TOPMARGIN',
+            'LEFTRIGHTMARGIN',
+            'BOTTOMMARGIN',
+            'ADDTABLE'
+        ]}
+        online={true} 
+        editorStyle={editorStyle}
+        event={this.state.event}
+        focusKey={'1'}
+        focus={this.focus}
+        toolBarStyle={{margin: 4}}
+        contentStyle={{ padding: 4, minHeight: 150 }}
+        content={this.state.content} 
+        getSkuData={this.getSkuData}
+        uploadUrl={'http://king.com/api/v1/upload/images'}
+        insertImageChange= {this.insertImageChange.bind(this)}
+        onChange={this.handleChange.bind(this)} />
     }
 }
 

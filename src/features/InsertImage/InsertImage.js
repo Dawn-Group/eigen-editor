@@ -47,12 +47,16 @@ class InsertImage extends Component {
   }
 
   onChange (value) {
+    const { insertImageChange } = this.props;
     this.setState({
       setLink: value.target.value
+    },() => {
+      insertImageChange && insertImageChange(this.state.imageLinks, this.state.setLink)
     })
   }
 
   handlePostImage (infor) {
+    const { insertImageChange} = this.props;
     if (infor.file.status === 'uploading') {
       this.setState({
         loading: true
@@ -67,10 +71,14 @@ class InsertImage extends Component {
         if (this.state.setLink == '' && this.state.imageLinks.length) {
           this.setState({
             setLink: this.state.imageLinks[0]
+          },()=> {
+            insertImageChange && insertImageChange(this.state.imageLinks, this.state.setLink)
           })
         } else {
           this.setState({
             setLink: this.state.imageLinks[this.state.imageLinks.length - 1]
+          }, () => {
+            insertImageChange && insertImageChange(this.state.imageLinks, this.state.setLink)
           })
         }
       })
@@ -91,11 +99,12 @@ class InsertImage extends Component {
         <Tabs defaultActiveKey='2'
           onTabClick={(e) => {
             if (e == 3) {
-              let dispatch = features.dispatchFunc()
-              dispatch({
-                type: 'writingpage/switchRightTab',
-                payload: '2'
-              })
+              console.log(3)
+             // let dispatch = features.dispatchFunc()
+              // dispatch({
+              //   type: 'writingpage/switchRightTab',
+              //   payload: '2'
+              // })
               // dispatch({
               //   type: 'writingpage/getAdvise',
               //   payload: {
@@ -139,6 +148,7 @@ class InsertImage extends Component {
                 <Spin spinning={this.state.loading}>
                   <Upload
                     multiple
+                    accept={this.props.accept || "image/*"}
                     showUploadList={false}
                     action={features.uploadImageLink()}
                     onChange={this.handlePostImage}

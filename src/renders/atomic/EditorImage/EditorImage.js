@@ -117,7 +117,8 @@ export default class EditorImage extends Component {
       </div>
       <img src={this.props.src} style={{ width: '100%' }}
         onError={(e) => {
-          dispatch({
+          console.error(e)
+          /* dispatch({
             type: 'writingpage/brokenSend',
             payload: {
               title: '图片挂了',
@@ -128,7 +129,7 @@ export default class EditorImage extends Component {
                 }
               }
             }
-          })
+          }) */
         }}
       />
     </div>

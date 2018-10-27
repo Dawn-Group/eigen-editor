@@ -1,4 +1,4 @@
-var merge = require('webpack-merge')
+const merge = require('webpack-merge')
 const baseConfigs = require('./base')
 const path = require('path');
 
@@ -6,7 +6,6 @@ module.exports = merge(baseConfigs, {
     mode: "production",
     entry: "./src/index.js",
     devtool: "source-map",
-    // target: "web",
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
         publicPath: "/dist/",
@@ -18,6 +17,7 @@ module.exports = merge(baseConfigs, {
         'react': 'react',
         'react-dom': 'react-dom',
         'draft-js': 'draft-js',
+        'eigen-utils': 'eigen-utils',
         'draftjs-utils': 'draftjs-utils',
         'immutable': 'immutable',
         'antd':'antd'
