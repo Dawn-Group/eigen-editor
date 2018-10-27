@@ -3,7 +3,7 @@ The [editor-eigen](https://www.npmjs.com/package/eigen-editor) export EigenEdito
 
 ## Installation 
 ```bash
-$ npm i eigen-editor -S
+$ npm i eigen-editor --save
 $ yarn add eigen-editor
 ```
 ## Importing
@@ -20,6 +20,8 @@ import EigenEditor from "eigen-editor";
     editorStyle={object}
     toolBarStyle={object}
     contentStyle={object}
+    uploadUrl={string}
+    insertImageChange={fn}
     onChange={fn} />
 ```
 + `onChange` 编辑器中内容改变时执行的回调事件，可以拿到变化后的数据对象。
@@ -30,6 +32,8 @@ import EigenEditor from "eigen-editor";
 + `toolBarStyle` 工具栏样式对象
 + `editorStyle` 编辑器样式对象
 + `contentStyle` 编辑区样式对象
++ `uploadUrl` 插入图片时上传图片的地址
++ `insertImageChange` 上传图片成功或切换选中图片事件
 
 ### tools 可选值
 + BOLD
@@ -79,6 +83,10 @@ class Demo extends React.Component {
         console.log(content);
     }
 
+    insertImageChange(imageList, setLink){
+        console.log(imageList, setLink, "insertImage")
+    }
+    
     getSkuData(url) {
         return new Promise((resolve, reject) => {
             window.setTimeout(() => {
@@ -127,6 +135,8 @@ class Demo extends React.Component {
         contentStyle={{ padding: 4 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
+        uploadUrl={'http://king.com/api/v1/upload/images'}
+        insertImageChange= {this.insertImageChange.bind(this)}
         onChange={this.handleChange.bind(this)} />
     }
 }

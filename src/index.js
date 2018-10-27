@@ -1,20 +1,5 @@
 import React, { Component } from 'react'
 import styles from './theme.scss'
-<<<<<<< HEAD
-
-import {
-  Editor,
-  AtomicBlockUtils,
-  EditorState,
-  RichUtils,
-  convertToRaw,
-  convertFromRaw,
-  CompositeDecorator,
-  Entity,
-  ContentState,
-  convertFromHTML,
-  Modifier,
-=======
 import { 
   Editor, 
   AtomicBlockUtils, 
@@ -27,7 +12,6 @@ import {
   ContentState, 
   convertFromHTML, 
   Modifier, 
->>>>>>> fixed InsertImage
   SelectionState,
 } from 'draft-js';
 
