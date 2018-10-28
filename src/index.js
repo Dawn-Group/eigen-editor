@@ -137,7 +137,9 @@ export default class EigenEditor extends Component {
       return {
         component: Block,
         editable: false,
+
         props: {
+          cropImageLink: this.cropImageLink.bind(this),
           onStartEdit: (block) => {
             var { liveTeXEdits } = this.state
             let blockKey = block.getKey()
@@ -301,7 +303,12 @@ export default class EigenEditor extends Component {
 
   uploadImageLink() {
     let { uploadUrl} = this.props
-    return uploadUrl  ||'/api/v1/upload/images';
+    return uploadUrl ||'/proxy/api/v1/upload/images';
+  }
+
+  cropImageLink() {
+    let { cropImageUrl } = this.props
+    return cropImageUrl || '/proxy/image/crop';
   }
 
   inserSku(editorState, param) {

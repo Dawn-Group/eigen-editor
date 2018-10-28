@@ -121,7 +121,8 @@ class Demo extends React.Component {
         contentStyle={{ padding: 4, minHeight: 150 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
-        uploadUrl={'http://king.com/api/v1/upload/images'}
+        uploadUrl={'/proxy/api/v1/upload/images'}
+        cropImageUrl={'/proxy/image/crop'}
         insertImageChange= {this.insertImageChange.bind(this)}
         onChange={this.handleChange.bind(this)} />
     }

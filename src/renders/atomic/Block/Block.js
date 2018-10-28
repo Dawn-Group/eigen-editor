@@ -11,7 +11,7 @@ const Block = (props) => {
     type = type.toLowerCase()
     switch (type) {
       case 'image':
-        block = <EditorImage src={params.src} all={props} />
+        block = <EditorImage src={params.src} all={props} {...props} />
         break
       case 'sku':
         block = <EditorSku data={params} all={props} />

@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import styles from './EditorImage.scss'
 import { IconCustom, Cropp } from '@features'
+import {
+  EditorState
+} from 'draft-js'
+import { decorator } from '@renders/decorators'
+import  imageCropBackend  from "@utils/imageCropBackend";
 import { Modal } from 'antd'
 
 export default class EditorImage extends Component {
@@ -25,7 +30,10 @@ export default class EditorImage extends Component {
         w: this.state.croppData.width,
         h: this.state.croppData.height
       }
-    /*   imageCropBackend(param).then(res => {
+
+      let { cropImageLink } = this.props.blockProps
+      console.log(cropImageLink(), "fck")
+      imageCropBackend(cropImageLink(), param).then(res => {
         let blockKey = this.props.all.block.getKey()
         let entityKey = this.props.all.block.getEntityAt(0)
         let entity = this.props.all.contentState.getEntity(entityKey)
@@ -41,7 +49,7 @@ export default class EditorImage extends Component {
         this.setState({
           croppVisiable: false
         })
-      }) */
+      })
     } else {
       this.setState({
         croppVisiable: false

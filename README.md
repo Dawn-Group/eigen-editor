@@ -21,6 +21,7 @@ import EigenEditor from "eigen-editor";
     toolBarStyle={object}
     contentStyle={object}
     uploadUrl={string}
+    cropImageUrl={string}
     insertImageChange={fn}
     onChange={fn} />
 ```
@@ -33,6 +34,7 @@ import EigenEditor from "eigen-editor";
 + `editorStyle` 编辑器样式对象
 + `contentStyle` 编辑区样式对象
 + `uploadUrl` 插入图片时上传图片的地址
++ `cropImageUrl` 裁剪图片的接口地址
 + `insertImageChange` 上传图片成功或切换选中图片事件
 
 ### tools 可选值
@@ -135,7 +137,8 @@ class Demo extends React.Component {
         contentStyle={{ padding: 4 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
-        uploadUrl={'http://king.com/api/v1/upload/images'}
+        uploadUrl={'/proxy/api/v1/upload/images'}
+        cropImageUrl={'/proxy/image/crop'}
         insertImageChange= {this.insertImageChange.bind(this)}
         onChange={this.handleChange.bind(this)} />
     }

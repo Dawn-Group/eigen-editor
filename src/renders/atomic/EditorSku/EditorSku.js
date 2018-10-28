@@ -6,7 +6,7 @@ import {
 } from 'draft-js'
 import { decorator } from '@renders/decorators'
 import { IconCustom, Cropp } from '@features'
-// import { imageCropBackend } from '../../../../../services/server'
+import imageCropBackend from "@utils/imageCropBackend";
 const RadioGroup = Radio.Group
 
 class EditorSku extends React.Component {
@@ -44,7 +44,7 @@ class EditorSku extends React.Component {
       this.setState({
         cropploading: true
       })
-    /*   imageCropBackend(param).then(res => {
+      imageCropBackend(param).then(res => {
         let blockKey = this.props.all.block.getKey()
         let entityKey = this.props.all.block.getEntityAt(0)
         let entity = this.props.all.contentState.getEntity(entityKey)
@@ -61,7 +61,7 @@ class EditorSku extends React.Component {
           croppData: null,
           cropploading: false
         })
-      }) */
+      })
     } else {
       this.setState({
         croppVisiable: false
