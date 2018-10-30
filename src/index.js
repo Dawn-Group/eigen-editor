@@ -336,7 +336,7 @@ export default class EigenEditor extends Component {
       focusKey,
       insertImageChange 
     } = this.props;
-
+    console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return <div style={editorStyle}>
       {plateform && plateform.length > 0 && <EditroControllBar
         editorState={this.state.editorState}

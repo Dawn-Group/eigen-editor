@@ -153,8 +153,17 @@ export default class EditorImage extends Component {
             onStartEdit(block)
           }}
           onBlur={() => {
-            let blockKey = this.props.block.getKey()
-            this.props.blockProps.croppDone(null, blockKey)
+            let blockKey = this.props.all.block.getKey()
+            let entityKey = this.props.all.block.getEntityAt(0)
+            let entity = this.props.all.contentState.getEntity(entityKey)
+            let data = Object.assign({}, entity.data)
+            data.text = this.state.imageText
+            var newContentState = this.props.all.contentState.mergeEntityData(
+              entityKey,
+              data
+            )
+            let newState = EditorState.createWithContent(newContentState, decorator)
+            this.props.all.blockProps.croppDone(newState, blockKey)
           }}
           className={styles.picInput}
           onChange={(e) => {
@@ -162,8 +171,9 @@ export default class EditorImage extends Component {
               imageText: e.target.value
             })
           }}
+          placeholder='请输入图片标题（可选）'
           value={this.state.imageText ? this.state.imageText : ''}
-          style={{ width: this.state.imageText ? this.state.imageText.length * 10 : 0 }} />
+          style={{ width: this.state.imageText ? this.state.imageText.length * 10 : 0, minWidth: 150 }} />
       </div>
     </div>
   }
