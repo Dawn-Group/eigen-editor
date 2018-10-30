@@ -6,7 +6,8 @@ import {
 } from 'draft-js'
 import { decorator } from '@renders/decorators'
 import  imageCropBackend  from "@utils/imageCropBackend";
-import { Modal } from 'antd'
+import { Modal, Input } from 'antd'
+import { isOriginal } from '../../../utils/common'
 
 export default class EditorImage extends Component {
   constructor (props) {
@@ -14,7 +15,8 @@ export default class EditorImage extends Component {
     this.removeImag = this.removeImag.bind(this)
     this.state = {
       croppVisiable: false,
-      croppData: null
+      croppData: null,
+      imageText: null,
     }
     this.handleOk = this.handleOk.bind(this)
     this.handleCancle = this.handleCancle.bind(this)
@@ -24,7 +26,7 @@ export default class EditorImage extends Component {
   handleOk () {
     if (this.state.croppData) {
       var param = {
-        url: this.props.src,
+        url: this.props.data.src,
         x: this.state.croppData.x,
         y: this.state.croppData.y,
         w: this.state.croppData.width,
@@ -84,6 +86,13 @@ export default class EditorImage extends Component {
     })
   }
 
+  componentDidMount() {
+    this.setState({
+      imageText: this.props.data.text
+    })
+  }
+  
+
   render () {
     let { dispatch, ...rest } = this.props
     return <div className={styles.editorImage}>
@@ -96,7 +105,7 @@ export default class EditorImage extends Component {
         destroyOnClose
       >
         <Cropp
-          src={this.props.src}
+          src={this.props.data.src}
           croppVisiable={this.state.croppVisiable}
           setData={this.setData}
           ratio={NaN}
@@ -112,18 +121,14 @@ export default class EditorImage extends Component {
           this.removeImag(this.props.all)
         }}
       />
-      <div
-        className={styles.cropIcon}
+      {
+        isOriginal(this.props.data.src) && <div
+        className={styles.markIcon}
       >
-        <IconCustom
-          content='&#xe65a;'
-          onClick={e => {
-            this.showTheCropp()
-          }}
-
-        />
+        <div>原文图片</div>
       </div>
-      <img src={this.props.src} style={{ width: '100%' }}
+      }
+      <img src={this.props.data.src} style={{ width: '100%' }}
         onError={(e) => {
           console.error(e)
           /* dispatch({
@@ -133,13 +138,33 @@ export default class EditorImage extends Component {
               content: {
                 'msgtype': 'text',
                 'text': {
-                  'content': { src: this.props.src }
+                  'content': { src: this.props.data.src }
                 }
               }
             }
           }) */
         }}
       />
+      <div className={styles.imageTitle} >
+        <input
+          onFocus={() => {  
+            const { blockProps, block } = this.props
+            const { onStartEdit } = blockProps
+            onStartEdit(block)
+          }}
+          onBlur={() => {
+            let blockKey = this.props.block.getKey()
+            this.props.blockProps.croppDone(null, blockKey)
+          }}
+          className={styles.picInput}
+          onChange={(e) => {
+            this.setState({
+              imageText: e.target.value
+            })
+          }}
+          value={this.state.imageText ? this.state.imageText : ''}
+          style={{ width: this.state.imageText ? this.state.imageText.length * 10 : 0 }} />
+      </div>
     </div>
   }
 }

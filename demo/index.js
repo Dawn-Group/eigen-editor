@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import EigenEditor from "@src/index";
-// import Draft from './draft_func'
+import Draft from './draft_func'
 // import EigenEditor from "../dist"
 
 function test(editorState) {
@@ -44,11 +44,28 @@ class Demo extends React.Component {
         })
     }
 
+    insertImage() {
+        let { editorState } = this.state
+
+        let draft = new Draft(editorState)
+        let newEditorState = draft.setMedia('image', { 
+            src: '//cdn.aidigger.com/images/cars/a55edcfc8458387ab555e566e1d5fb56.jpg',
+            text: 'hello'
+        })
+        this.setState({
+            event: {
+                params: newEditorState,
+                func: test
+            }
+        })
+    }
+
     focus(key) {
         console.log(key)
     }
 
     componentDidMount() {
+        this.insertImage()
         // this.insert()
         // this.insert()
         // setTimeout(() => {
