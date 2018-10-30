@@ -128,6 +128,17 @@ export default class EditorImage extends Component {
         <div>原文图片</div>
       </div>
       }
+      <div
+        className={styles.cropIcon}
+      >
+        <IconCustom
+          content='&#xe65a;'
+          onClick={e => {
+            this.showTheCropp()
+          }}
+
+        />
+      </div>
       <img src={this.props.data.src} style={{ width: '100%' }}
         onError={(e) => {
           console.error(e)
