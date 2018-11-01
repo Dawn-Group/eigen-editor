@@ -53,7 +53,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://scc-git.aipp.io/frontend/base/eigen-editor.git"
+    "url": "git+https://github.com/EigenLab/eigen-editor.git"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -64,7 +64,7 @@
     "react-dom": "^16.5.2"
   },
   "bugs": {
-    "url": "https://scc-git.aipp.io/frontend/base/eigen-editor.git/issues"
+    "url": "https://github.com/EigenLab/eigen-editor.git/issues"
   },
-  "homepage": "https://scc-git.aipp.io/frontend/base/eigen-editor.git#readme"
+  "homepage": "https://github.com/EigenLab/eigen-editor.git#readme"
 }
