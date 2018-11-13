@@ -330,6 +330,7 @@ export default class EigenEditor extends Component {
     const {
       tools: plateform,
       getSkuData,
+      pictureRecommend,
       editorStyle,
       contentStyle,
       toolBarStyle,
@@ -342,6 +343,7 @@ export default class EigenEditor extends Component {
         editorState={this.state.editorState}
         features={this}
         style={toolBarStyle}
+        pictureRecommend={pictureRecommend}
         getSkuData={getSkuData}
         insertImageChange={insertImageChange}
         plateform={plateform}

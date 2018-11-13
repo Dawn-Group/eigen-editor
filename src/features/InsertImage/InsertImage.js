@@ -17,6 +17,7 @@ class InsertImage extends Component {
       visiable: false,
       imageLinks: [
       ],
+      pictureRecommend: [],
       loading: false,
       setLink: ''
     }
@@ -24,6 +25,7 @@ class InsertImage extends Component {
     this.handleCancle = this.handleCancle.bind(this)
     this.handlePostImage = this.handlePostImage.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.tabClick = this.tabClick.bind(this)
   }
 
   handleOk () {
@@ -88,6 +90,34 @@ class InsertImage extends Component {
     }
   }
 
+  tabClick(e){
+    if (e == 3) {
+      console.log(this.state, "kkk")
+      const self = this
+      this.props.pictureRecommend(function (recommend) {
+        let picture = recommend && recommend[0].picture
+        console.log(recommend, "recommond")
+        self.setState({
+         // imageLinks: picture,
+          pictureRecommend: picture,
+        },()=> {
+          console.log(self, 222)
+        })
+      }, self)
+      // let dispatch = features.dispatchFunc()
+      // dispatch({
+      //   type: 'writingpage/switchRightTab',
+      //   payload: '2'
+      // })
+      // dispatch({
+      //   type: 'writingpage/getAdvise',
+      //   payload: {
+      //     intent: features.model().currentIntent
+      //   }
+      // })
+    }
+  }
+
   render () {
     let { features, plateform } = this.props
     return <div>
@@ -97,22 +127,7 @@ class InsertImage extends Component {
         onCancel={this.handleCancle}
       >
         <Tabs defaultActiveKey='2'
-          onTabClick={(e) => {
-            if (e == 3) {
-              console.log(3)
-             // let dispatch = features.dispatchFunc()
-              // dispatch({
-              //   type: 'writingpage/switchRightTab',
-              //   payload: '2'
-              // })
-              // dispatch({
-              //   type: 'writingpage/getAdvise',
-              //   payload: {
-              //     intent: features.model().currentIntent
-              //   }
-              // })
-            }
-          }}
+          onTabClick={ this.tabClick }
         >
           <TabPane tab='哥伦布图片库' key='1' />
           <TabPane tab='上传图片' key='2'>
@@ -176,8 +191,8 @@ class InsertImage extends Component {
                   disableImagesLoaded={false} // default false
                   updateOnEachImageLoad // default false and works only if disableImagesLoaded is false
                 >
-                  {/* {
-                    features.model().advice && features.model().advice.picture.length ? features.model().advice.picture.map((item, index) => {
+                  {
+                    this.state.pictureRecommend.length ? this.state.pictureRecommend.map((item, index) => {
                       return <div
                         key={index}
                         className={styles.switchSku}
@@ -185,17 +200,16 @@ class InsertImage extends Component {
                       >
                         <Radio
                           className={styles.radioSet}
-                          checked={this.state.setLink === item.origin}
-                          value={item.origin}
+                          checked={this.state.setLink === item.url}
+                          value={item.url}
                         />
-
                         <img
                           style={{ width: '100%', height: '100%' }}
-                          src={item.origin}
+                          src={item.url}
                         />
                       </div>
                     }) : ''
-                  } */}
+                  }
                 </Masonry>
               </RadioGroup>
             </div>

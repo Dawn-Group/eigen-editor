@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import request from "@utils/request";
+import qs from "qs";
 
 import EigenEditor from "@src/index";
 import Draft from './draft_func'
 // import EigenEditor from "../dist"
 
-function test(editorState) {
+function test(data){
+    let { editorState } = data
     let draft = new Draft(editorState)
     let newEditorState = draft.insertText('haha')
     return newEditorState
@@ -77,6 +80,40 @@ class Demo extends React.Component {
     insertImageChange(imageList, setLink){
         console.log(imageList, setLink, "insertImage")
     }
+
+    pictureRecommend(callback){
+        let param = {
+            query: {
+                type: 'picture',
+               // page: 10,
+              //  size: 2,
+              //  sku_version: "3.0.0"
+            },
+            data:[{
+                intent: 44,
+               // outline_type:'',
+               // outline: 2,
+                topic_tags: "",
+                category_tags: "",
+               image_shape: "all",
+                query: "",
+                id: "44",
+                context: ""
+            }]
+        };
+       request(`proxy/hepburn/api/v4/writing/recommend?` + qs.stringify(param.query), {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(param.data)
+        }).then(result => {
+            callback(result);
+        }).catch( err => {
+            console.log(err, "err")
+        })
+    }
     
 
 
@@ -138,6 +175,7 @@ class Demo extends React.Component {
         contentStyle={{ padding: 4, minHeight: 150 }}
         content={this.state.content} 
         getSkuData={this.getSkuData}
+        pictureRecommend={this.pictureRecommend}
         uploadUrl={'/proxy/api/v1/upload/images'}
         cropImageUrl={'/proxy/image/crop'}
         insertImageChange= {this.insertImageChange.bind(this)}

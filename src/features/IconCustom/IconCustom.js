@@ -8,7 +8,7 @@ class EditTheme extends Component {
   }
 
   render () {
-    let { className, content, style, onClick, ...rest } = this.props
+    let { className, content, style, onClick } = this.props
     return <i className={classNames(styles.iconfont, { [className]: !!className })} style={style} onClick={onClick}>{content}</i>
   }
 }

@@ -1,6 +1,6 @@
 import { Tabs, Modal, Input, message, Spin } from 'antd'
 import React, { Component } from 'react'
-import { IconCustom } from '../../features'
+import { IconCustom } from '@features'
 const TabPane = Tabs.TabPane
 
 class InsertSku extends Component {

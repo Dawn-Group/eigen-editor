@@ -19,22 +19,21 @@ module.exports = merge(baseConfigs,{
     devServer: {
         contentBase: path.resolve(__dirname, "../demo/dist"),
         open: true,
-        port: "8888",
         historyApiFallback: true,
-        port: 8877,
+        port: 8888,
         stats: "errors-only",
         logTime: true,
         logLevel: "error",
         proxy: {
             "/proxy/*": {
-                target: 'https://alpha-bees.aidigger.com',
+                target: 'https://alpha-labs.aidigger.com',
                 pathRewrite: { '/proxy/*': '' },
                 // secure: false,
                 changeOrigin: true,
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     withCredentials: true,
-                    cookie: 'code=598001; skey="haKxTGHY0IgJirPjXw5e+jGMMY4/QrN9"; username="eWlueWk="',
+                    cookie: 'code=598001; skey=MSSeDJ5aHagVBRFC3hDzg64tV4FR1LlZ; username="eWlueWk="',
                     "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie"
                 }
             },
