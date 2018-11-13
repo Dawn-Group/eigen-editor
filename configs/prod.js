@@ -26,6 +26,7 @@ module.exports = merge(baseConfigs, {
         hints: false
     },
     optimization: {
+        nodeEnv: 'production',
         minimize: false,
     }
 })

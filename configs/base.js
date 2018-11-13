@@ -7,6 +7,8 @@ const alias = {
   '@features': path.resolve(__dirname, '..', 'src/features'),
   '@tool-bar': path.resolve(__dirname, '..', 'src/tool-bar'),
   '@utils': path.resolve(__dirname, '..', 'src/utils'),
+  'react': 'react/cjs/react.production.min.js',
+  'react-dom': 'react-dom/cjs/react-dom.production.min.js'
 };
 
 module.exports = {

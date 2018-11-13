@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import request from "@utils/request";
 import qs from "qs";
 
-import EigenEditor from "@src/index";
+import EigenEditor from "../dist";
 import Draft from './draft_func'
 // import EigenEditor from "../dist"
 
@@ -115,8 +115,6 @@ class Demo extends React.Component {
         })
     }
     
-
-
     getSkuData(url) {
         return new Promise((resolve, reject) => {
             window.setTimeout(() => {
