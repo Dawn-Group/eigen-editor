@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import request from "@utils/request";
 import qs from "qs";
 
-import EigenEditor from "../src/index";
+import EigenEditor from "../src";
 import Draft from './draft_func'
 // import EigenEditor from "../dist"
 
@@ -137,11 +137,11 @@ class Demo extends React.Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify([{
-            intent: 45,
-            category_tags: ['学院风', '秋冬'],
-            topic_tags: ['套头毛衣'],
+            intent:45,
+            category_tags: [],
+            topic_tags: [],
+            id:1,
             context: text,
-            id: 1
           }])
         })
       }
@@ -173,7 +173,7 @@ class Demo extends React.Component {
             'CLEARALLSTYLES',
             'ADDLINK',
             'ADDEMOJI',
-            'COLORSMOdDIFY',
+            'COLORSMODIFY',
             'BACKGROUNDCOLORMODIFY',
             'FIRSTINTENT',
             'ALIGNCENTER',
