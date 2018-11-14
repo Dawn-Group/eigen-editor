@@ -91,17 +91,16 @@ class InsertImage extends Component {
   }
 
   tabClick(e){
+    const { pictureRecommend } = this.props;
     if (e == 3) {
-      console.log(this.state, "kkk")
       const self = this
-      this.props.pictureRecommend(function (recommend) {
+      pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
-        console.log(recommend, "recommond")
         self.setState({
          // imageLinks: picture,
           pictureRecommend: picture,
         },()=> {
-          console.log(self, 222)
+         // console.log(self, 222)
         })
       }, self)
       // let dispatch = features.dispatchFunc()
