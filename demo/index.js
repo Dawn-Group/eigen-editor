@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import request from "@utils/request";
 import qs from "qs";
 
-import EigenEditor from "../src";
+//import EigenEditor from "../src";
 import Draft from './draft_func'
 //import EigenEditor from "../dist"
 
