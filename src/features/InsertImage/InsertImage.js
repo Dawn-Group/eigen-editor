@@ -91,15 +91,17 @@ class InsertImage extends Component {
     }
   }
 
-  tabClick(e) {
-    if (e == 1) {
+  tabClick(e){
+    const { pictureRecommend } = this.props;
+    if (e == 3) {
       const self = this
       pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
         self.setState({
           // imageLinks: picture,
           pictureRecommend: picture,
-        }, () => {
+        },()=> {
+         // console.log(self, 222)
         })
       }, self)
       // let dispatch = features.dispatchFunc()
