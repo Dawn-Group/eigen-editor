@@ -188,12 +188,8 @@ class Demo extends React.Component {
             'LEFTRIGHTMARGIN',
             'BOTTOMMARGIN',
             'ADDTABLE',
-<<<<<<< HEAD
             'RLINK',
             'LTITLE'
-=======
-            'RLINK'
->>>>>>> add the remove link
         ]}
         online={true} 
         editorStyle={editorStyle}
