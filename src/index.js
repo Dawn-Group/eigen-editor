@@ -36,7 +36,8 @@ import {
   lineHeightsModify,
   leftRightMarginModify,
   topMarginModify,
-  bottomMarginModify
+  bottomMarginModify,
+  removeTheLink
 } from '@utils/plugins';
 import { Mentions, getSelect, res } from '@utils/mention'
 import { Block } from '@renders/atomic'
@@ -104,7 +105,7 @@ export default class EigenEditor extends Component {
     // 格式刷 not clear yet
     this.clearAllStyles = this.clearAllStyles.bind(this)
     this.addLink = this.addLink.bind(this)
-    // this.clearLink = this.clearLink.bind(this)
+    this.clearLink = this.clearLink.bind(this)
     // this.insertBlock = this.insertBlock.bind(this)
     this.insertImage = this.insertImage.bind(this)
     this.inserSku = this.inserSku.bind(this)
@@ -131,6 +132,7 @@ export default class EigenEditor extends Component {
 
 
   //////////
+  
 
   renderAutoComplete() {
     if (this.state.autocompleteState === null) {
@@ -277,6 +279,11 @@ export default class EigenEditor extends Component {
 
 
   ////////////////
+
+  clearLink(editorState){
+     this.onChange(removeTheLink(editorState)) 
+  }
+
   focus() {
     this.editor.focus()
     if (this.props.focus) {

@@ -1,13 +1,14 @@
 import { CompositeDecorator, Entity } from 'draft-js'
 import React from 'react'
 
-function findLinkEntities (contentBlock, callback) {
+function findLinkEntities(contentBlock, callback, contentState) {
   contentBlock.findEntityRanges(
     (character) => {
       const entityKey = character.getEntity()
+      console.log(entityKey)
       return (
         entityKey !== null &&
-                Entity.get(entityKey).getType() === 'LINK'
+        contentState.getEntity(entityKey).getType() === 'LINK'
       )
     },
     callback

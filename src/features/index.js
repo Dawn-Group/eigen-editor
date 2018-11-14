@@ -29,6 +29,7 @@ import ComboImage from './ComboImage/ComboImage'
 import InsertTable from './InsertTable/InsertTable.js'
 import UploadCover from "./UploadCover";
 import Cropp from "./Cropp"
+import RemoveLink from './RemoveLink/RemoveLink'
 export {
   CommonFeatures,
   Bold,
@@ -60,5 +61,6 @@ export {
   ComboImage,
   InsertTable,
   UploadCover,
-  Cropp
+  Cropp,
+  RemoveLink
 }

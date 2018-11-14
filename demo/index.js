@@ -18,7 +18,7 @@ class Demo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            content: JSON.parse('{"blocks":[{"key":"4paan","text":"Hello","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'),
+            // content: 
             editorState: null,
             event: null
         }
@@ -39,12 +39,12 @@ class Demo extends React.Component {
         console.log('insert')
 
         let { editorState } = this.state
-        this.setState({
-            event: {
-                params: editorState,
-                func: test
-            }
-        })
+        // this.setState({
+        //     event: {
+        //         params: editorState,
+        //         func: test
+        //     }
+        // })
     }
 
     insertImage() {
@@ -68,7 +68,7 @@ class Demo extends React.Component {
     }
 
     componentDidMount() {
-        this.insertImage()
+        // this.insertImage()
         // this.insert()
         // this.insert()
         // setTimeout(() => {
@@ -147,8 +147,10 @@ class Demo extends React.Component {
       }
     
       fomate = (res) =>{
-        return res[0].prev.map((item)=>{
-          return item.text
+        return res[0].prev.map((item,index)=>{
+            if(index < 5){
+                return item.text
+            }
         })
       }
 
@@ -185,7 +187,8 @@ class Demo extends React.Component {
             'TOPMARGIN',
             'LEFTRIGHTMARGIN',
             'BOTTOMMARGIN',
-            'ADDTABLE'
+            'ADDTABLE',
+            'RLINK'
         ]}
         online={true} 
         editorStyle={editorStyle}
@@ -197,7 +200,7 @@ class Demo extends React.Component {
         fomate={this.fomate}
         toolBarStyle={{margin: 4}}
         contentStyle={{ padding: 4, minHeight: 150 }}
-        content={this.state.content} 
+        // content={this.state.content} 
         getSkuData={this.getSkuData}
         pictureRecommend={this.pictureRecommend}
         uploadUrl={'/proxy/api/v1/upload/images'}

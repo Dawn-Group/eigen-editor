@@ -4,7 +4,8 @@ import {
     Modifier,
     Entity,
     SelectionState,
-    RichUtils
+    RichUtils,
+    convertToRaw
 } from 'draft-js'
 import darftConst from '@const'
 import customStyleMap from '@renders/styles'
@@ -186,13 +187,21 @@ export function addTheLinkOnText(editorState, href) {
     let contentState = editorState.getCurrentContent()
     const newContentState = contentState.createEntity('LINK', 'MUTABLE', { url: href, target: '_blank' })
     let entityKey = newContentState.getLastCreatedEntityKey()
-
     let newstate = RichUtils.toggleLink(
         editorState,
         editorState.getSelection(),
         entityKey
     )
     return newstate
+}
+
+export function removeTheLink(editorState) {
+    const selection = editorState.getSelection();
+    if (!selection.isCollapsed()) {
+        return RichUtils.toggleLink(editorState, selection, null)
+    }else{
+        return editorState
+    }
 }
 
 // set Align
@@ -260,6 +269,9 @@ export function insertText(editorState, string) {
     }
 }
 
+
+
+
 // create inline css like { color: #23411 }, { backgroundcolor: #23324 }
 export function customSiteMap() {
     return customStyleMap
@@ -269,6 +281,7 @@ export function customSiteMap() {
 export function wechatFeatures() {
     let features = []
     return features = [
+        'RLINK',
         'BOLD',
         'ITALIC',
         'UNDERLINE',
