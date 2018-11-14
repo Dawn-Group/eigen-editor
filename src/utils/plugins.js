@@ -199,7 +199,7 @@ export function removeTheLink(editorState) {
     const selection = editorState.getSelection();
     if (!selection.isCollapsed()) {
         return RichUtils.toggleLink(editorState, selection, null)
-    }else{
+    } else {
         return editorState
     }
 }
@@ -269,6 +269,13 @@ export function insertText(editorState, string) {
     }
 }
 
+
+// light title
+export function lightTitle(editorState) {
+    let state = commonInlineStyle(editorState, 'BOLD')
+    let newstate = setTextAlign(state,'center')
+    return newstate
+}
 
 
 

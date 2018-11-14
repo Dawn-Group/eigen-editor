@@ -30,6 +30,8 @@ import InsertTable from './InsertTable/InsertTable.js'
 import UploadCover from "./UploadCover";
 import Cropp from "./Cropp"
 import RemoveLink from './RemoveLink/RemoveLink'
+import LightTitle from './LightTitle'
+
 export {
   CommonFeatures,
   Bold,
@@ -62,5 +64,6 @@ export {
   InsertTable,
   UploadCover,
   Cropp,
-  RemoveLink
+  RemoveLink,
+  LightTitle
 }
