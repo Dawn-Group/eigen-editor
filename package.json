@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "cross-env webpack-dev-server --hot --color --config configs/dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config configs/prod.js --colors"
+    "build": "cross-env webpack --config configs/prod.js --colors -p"
   },
   "keywords": [
     "eigen-editor",
