@@ -29,7 +29,8 @@ import {
   UnderLine,
   InsertTable,
   ComboImage,
-  RemoveLink
+  RemoveLink,
+  LightTitle
 } from '@features';
 
 
@@ -68,6 +69,7 @@ export default class EditorControllBar extends Component {
       <BottomMargin {...this.props} />
       <InsertTable {...this.props} />
       <RemoveLink {...this.props} />
+      <LightTitle {...this.props} />
     </div>
   }
 }

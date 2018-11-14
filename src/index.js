@@ -37,7 +37,8 @@ import {
   leftRightMarginModify,
   topMarginModify,
   bottomMarginModify,
-  removeTheLink
+  removeTheLink,
+  lightTitle
 } from '@utils/plugins';
 import { Mentions, getSelect, res } from '@utils/mention'
 import { Block } from '@renders/atomic'
@@ -107,6 +108,7 @@ export default class EigenEditor extends Component {
     this.addLink = this.addLink.bind(this)
     this.clearLink = this.clearLink.bind(this)
     // this.insertBlock = this.insertBlock.bind(this)
+    this.insertLightTitle = this.insertLightTitle.bind(this)
     this.insertImage = this.insertImage.bind(this)
     this.inserSku = this.inserSku.bind(this)
     this.addEmoji = this.addEmoji.bind(this)
@@ -282,6 +284,10 @@ export default class EigenEditor extends Component {
 
   clearLink(editorState){
      this.onChange(removeTheLink(editorState)) 
+  }
+
+  insertLightTitle(editorState){
+    this.onChange(lightTitle(editorState))
   }
 
   focus() {
