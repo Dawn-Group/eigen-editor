@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import request from "@utils/request";
 import qs from "qs";
 
-import EigenEditor from "../src/index";
+//import EigenEditor from "../src";
 import Draft from './draft_func'
-//import EigenEditor from "../dist"
+import EigenEditor from "../dist"
 
 function test(data){
     let { editorState } = data
