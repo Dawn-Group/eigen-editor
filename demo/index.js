@@ -131,6 +131,29 @@ class Demo extends React.Component {
         })
     }
 
+    getTheText = (text) =>{
+        return request('/proxy/hepburn/api/v4/writing/recommend?type=prev', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify([{
+            intent: 45,
+            category_tags: ['学院风', '秋冬'],
+            topic_tags: ['套头毛衣'],
+            context: text,
+            id: 1
+          }])
+        })
+      }
+    
+      fomate = (res) =>{
+        return res[0].prev.map((item)=>{
+          return item.text
+        })
+      }
+
     render() {
         const editorStyle = {
             overflow: "scroll",
@@ -171,6 +194,9 @@ class Demo extends React.Component {
         event={this.state.event}
         focusKey={'1'}
         focus={this.focus}
+        getTheText={this.getTheText}
+        autocomplete={true}
+        fomate={this.fomate}
         toolBarStyle={{margin: 4}}
         contentStyle={{ padding: 4, minHeight: 150 }}
         content={this.state.content} 

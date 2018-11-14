@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import styles from './theme.scss'
-import { 
-  Editor, 
-  AtomicBlockUtils, 
-  EditorState, 
-  RichUtils, 
-  convertToRaw, 
-  convertFromRaw, 
-  CompositeDecorator, 
-  Entity, 
-  ContentState, 
-  convertFromHTML, 
-  Modifier, 
+import {
+  Editor,
+  AtomicBlockUtils,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  convertFromRaw,
+  CompositeDecorator,
+  Entity,
+  ContentState,
+  convertFromHTML,
+  Modifier,
   SelectionState,
 } from 'draft-js';
-
+import request from './utils/request'
 import {
   fontSizeModify,
   customSiteMap,
@@ -38,7 +38,7 @@ import {
   topMarginModify,
   bottomMarginModify
 } from '@utils/plugins';
-
+import { Mentions, getSelect, res } from '@utils/mention'
 import { Block } from '@renders/atomic'
 import { blockStyleFn } from '@renders/styles/styleFn'
 import { decorator } from '@renders/decorators'
@@ -49,6 +49,7 @@ import { checkPropTypes } from 'prop-types';
 export default class EigenEditor extends Component {
   constructor(props) {
     super(props)
+    this.typeaheadState = null
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       liveTeXEdits: Map(),
@@ -74,12 +75,21 @@ export default class EigenEditor extends Component {
         leftRightMarginModify,
         topMarginModify,
         bottomMarginModify
-      }
+      },
+      autocompleteState: null,
+      textFor: '',
+      onenter: null,
+      res: []
     }
     this.onChange = (editorState) => {
       this.setState({ editorState }, () => {
         this.props.onChange(convertToRaw(editorState.getCurrentContent()), editorState)
       })
+      if (this.props.autocomplete) {
+        window.requestAnimationFrame(() => {
+          this.onAutocompleteChange(this.getTypeaheadState());
+        })
+      }
     }
 
     this.focus = this.focus.bind(this)
@@ -111,8 +121,162 @@ export default class EigenEditor extends Component {
     this.topMargin = this.topMargin.bind(this)
     this.bottomMargin = this.bottomMargin.bind(this)
     this.updateTest = this.updateTest.bind(this)
+
+    /////
+    this.hasEntityAtSelection = this.hasEntityAtSelection.bind(this)
+    this.onAutocompleteChange = this.onAutocompleteChange.bind(this)
+    this.renderAutoComplete = this.renderAutoComplete.bind(this)
+    this.getTheRes = this.getTheRes.bind(this)
   }
 
+
+  //////////
+
+  renderAutoComplete() {
+    if (this.state.autocompleteState === null) {
+      return null
+    } else {
+      return <Mentions
+        {...this.state.autocompleteState}
+        textFor={this.state.textFor}
+        onenter={this.state.onenter}
+        getTheRes={this.getTheRes}
+        getTheText={this.props.getTheText}
+        fomate={this.props.fomate}
+      />
+    }
+  }
+
+  getTheRes(res) {
+    this.setState({
+      res: res
+    })
+  }
+
+  onAutocompleteChange(autocompleteState) {
+    this.setState({
+      autocompleteState
+    })
+  }
+
+  hasEntityAtSelection() {
+    let { editorState } = this.state
+    const selection = editorState.getSelection();
+    if (!selection.getHasFocus()) {
+      return false;
+    }
+
+    const contentState = editorState.getCurrentContent();
+    const block = contentState.getBlockForKey(selection.getStartKey());
+    return !!block.getEntityAt(selection.getStartOffset() - 1);
+  }
+
+  getTypeaheadRange = () => {
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0) {
+      return null;
+    }
+
+    if (this.hasEntityAtSelection()) {
+      return null;
+    }
+
+    const range = selection.getRangeAt(0);
+    let text = range.startContainer.textContent;
+
+    // Remove text that appears after the cursor..
+    text = text.substring(0, range.startOffset);
+    this.setState({
+      textFor: text
+    })
+    // ..and before the typeahead token.
+    let index = -1
+    if (text && [text.length - 1] && /\.|\。|\？|\?|\!|\！/g.test(text[text.length - 1])) {
+      index = text.length - 1
+    }
+    if (index === -1) {
+      return null;
+    }
+
+    text = text.substring(index);
+
+    return {
+      text,
+      start: index,
+      end: range.startOffset
+    };
+  }
+
+  getTypeaheadState(invalidate = true) {
+    if (!invalidate) {
+      return this.typeaheadState;
+    }
+
+    const typeaheadRange = this.getTypeaheadRange();
+    if (!typeaheadRange) {
+      this.typeaheadState = null;
+      return null;
+    }
+
+    const tempRange = window.getSelection().getRangeAt(0).cloneRange();
+    tempRange.setStart(tempRange.startContainer, typeaheadRange.start);
+
+    const rangeRect = tempRange.getBoundingClientRect();
+    let [left, top] = [rangeRect.left, rangeRect.bottom];
+
+    this.typeaheadState = {
+      left,
+      top,
+      text: typeaheadRange.text,
+      selectedIndex: 0
+    };
+    return this.typeaheadState;
+  }
+
+  onUpArrow = (e) => {
+    if (this.state.autocompleteState) {
+      let typeaheadState = this.getTypeaheadState(false);
+      e.preventDefault();
+
+      typeaheadState.selectedIndex += -1;
+      this.typeaheadState = typeaheadState;
+      this.setState({
+        autocompleteState: this.typeaheadState,
+      })
+    }
+  }
+  onDownArrow = (e) => {
+    if (this.state.autocompleteState) {
+      let typeaheadState = this.getTypeaheadState(false);
+      e.preventDefault();
+
+      typeaheadState.selectedIndex += 1;
+      this.typeaheadState = typeaheadState;
+      this.setState({
+        autocompleteState: this.typeaheadState,
+      })
+    }
+  }
+
+  handleReturn = (e) => {
+    if (this.state.autocompleteState) {
+      if (this.props.autocomplete) {
+        e.preventDefault();
+        let newstate = getSelect(this.state.editorState, this.state.res[this.state.autocompleteState.selectedIndex])
+        this.onChange(newstate)
+        this.setState({
+          autocompleteState: null,
+          onenter: null
+        })
+        return 'handled'
+      }
+    } else {
+      return 'not-handled'
+    }
+  }
+
+
+  ////////////////
   focus() {
     this.editor.focus()
     if (this.props.focus) {
@@ -302,8 +466,8 @@ export default class EigenEditor extends Component {
   }
 
   uploadImageLink() {
-    let { uploadUrl} = this.props
-    return uploadUrl ||'/proxy/api/v1/upload/images';
+    let { uploadUrl } = this.props
+    return uploadUrl || '/proxy/api/v1/upload/images';
   }
 
   cropImageLink() {
@@ -324,6 +488,7 @@ export default class EigenEditor extends Component {
       }
     })
   }
+  
 
   render() {
     const { features } = this.state;
@@ -335,9 +500,8 @@ export default class EigenEditor extends Component {
       contentStyle,
       toolBarStyle,
       focusKey,
-      insertImageChange 
+      insertImageChange
     } = this.props;
-    console.log(convertToRaw(this.state.editorState.getCurrentContent()))
     return <div style={editorStyle}>
       {plateform && plateform.length > 0 && <EditroControllBar
         editorState={this.state.editorState}
@@ -348,6 +512,7 @@ export default class EigenEditor extends Component {
         insertImageChange={insertImageChange}
         plateform={plateform}
       />}
+      {this.renderAutoComplete()}
       <div style={contentStyle} className={styles.editor} onClick={this.focus}>
         <Editor
           customStyleMap={features['customStyleMap']}
@@ -359,6 +524,9 @@ export default class EigenEditor extends Component {
           ref={(element) => { this.editor = element }}
           readOnly={this.state.liveTeXEdits.count()}
           placeholder='从这里开始写正文'
+          onUpArrow={this.onUpArrow}
+          onDownArrow={this.onDownArrow}
+          handleReturn={this.handleReturn}
         />
       </div>
     </div>

@@ -136,9 +136,7 @@ export function applyInlineStyle(editorState, style, stylesToBeRemoved) {
     }
 
     style = style.toUpperCase()
-    console.log(style)
     stylesToBeRemoved = stylesToBeRemoved.filter(item => item !== style)
-    console.log(stylesToBeRemoved)
     const currentInlineStyle = editorState.getCurrentInlineStyle()
 
     // make sure there is only one color, one family style, on fontsize
@@ -300,7 +298,7 @@ export function wechatFeatures() {
 }
 
 export function alibabaFeatures() {
-    return  [
+    return [
         'BOLD',
         'ITALIC',
         'UNDERLINE',
