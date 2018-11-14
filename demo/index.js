@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import request from "@utils/request";
 import qs from "qs";
 
-import EigenEditor from "../src";
+import EigenEditor from "../src/index";
 import Draft from './draft_func'
 //import EigenEditor from "../dist"
 
@@ -188,8 +188,12 @@ class Demo extends React.Component {
             'LEFTRIGHTMARGIN',
             'BOTTOMMARGIN',
             'ADDTABLE',
+<<<<<<< HEAD
             'RLINK',
             'LTITLE'
+=======
+            'RLINK'
+>>>>>>> add the remove link
         ]}
         online={true} 
         editorStyle={editorStyle}
