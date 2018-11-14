@@ -284,6 +284,7 @@ export default class EigenEditor extends Component {
   insertLightTitle(editorState){
     this.onChange(lightTitle(editorState))
   }
+
   focus() {
     this.editor.focus()
     if (this.props.focus) {
