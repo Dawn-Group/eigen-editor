@@ -286,10 +286,13 @@ export default class EigenEditor extends Component {
      this.onChange(removeTheLink(editorState)) 
   }
 
+<<<<<<< HEAD
   insertLightTitle(editorState){
     this.onChange(lightTitle(editorState))
   }
 
+=======
+>>>>>>> add the remove link
   focus() {
     this.editor.focus()
     if (this.props.focus) {
