@@ -154,7 +154,7 @@ class InsertImage extends Component {
                           value={item.url}
                         />
                         <img
-                          style={{ width: '100%', height: '100%' }}
+                          style={{ width: '100%', height: '100%', minHeight: 140, minWidth: 140 }}
                           src={item.url}
                         />
                       </div>
