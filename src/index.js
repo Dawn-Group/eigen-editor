@@ -132,11 +132,6 @@ export default class EigenEditor extends Component {
     this.getTheRes = this.getTheRes.bind(this)
   }
 
-
-  //////////
-  
-
-
   renderAutoComplete() {
     if (this.state.autocompleteState === null) {
       return null
