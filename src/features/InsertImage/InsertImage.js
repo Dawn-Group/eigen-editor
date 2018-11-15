@@ -173,7 +173,7 @@ class InsertImage extends Component {
                   }
                 </Masonry>
               </RadioGroup>
-            </div>
+              </div>
           </TabPane>
           <TabPane tab='上传图片' key='2'>
             <RadioGroup
