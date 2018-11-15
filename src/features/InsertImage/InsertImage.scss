@@ -22,18 +22,21 @@
   .switchSku{
     margin-right: 16px;
     margin-top: 16px;
-    position: relative;
-    border: 1px solid #e0e0e0;
+    // position: relative;
+    // border: 1px solid #e0e0e0;
   }
 
 
   .SwitchPanel{
-    margin-top: 16px;
+    margin-top: 8px;
     display: flex;
+    flex-flow: wrap;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
 
   .test{
+    position: relative;
+    left: 8px;
     width: 100%;
   }
