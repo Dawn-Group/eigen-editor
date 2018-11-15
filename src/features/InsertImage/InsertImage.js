@@ -1,6 +1,7 @@
 import { Modal, Tabs, Upload, Icon, Spin, Radio, Button } from 'antd'
 import React, { Component } from 'react'
-import styles from './InsertImage.scss'
+import styles from './InsertImage.scss';
+import './reset.css';
 import { IconCustom } from '@features'
 import Masonry from 'react-masonry-component'
 const TabPane = Tabs.TabPane
@@ -125,7 +126,8 @@ class InsertImage extends Component {
         width={700}
       >
         <Tabs defaultActiveKey='2'
-          onTabClick={this.tabClick}
+          style={{marginBottom: 0}}
+          onTabClick={ this.tabClick }
         >
           <TabPane tab='推荐图片' key='1' >
             <div className={styles.imagebox}>
@@ -192,7 +194,7 @@ class InsertImage extends Component {
                 }
               </RadioGroup>
             </div>
-            <div style={{ marginTop: '16px' }}>
+            <div style={{ marginTop: 8 }}>
               {
                 <Spin spinning={this.state.loading}>
                   <Upload
