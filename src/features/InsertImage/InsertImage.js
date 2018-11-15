@@ -134,6 +134,13 @@ class InsertImage extends Component {
           <TabPane tab='推荐图片' key='1' >
             <div className={styles.imagebox}>
               <RadioGroup
+                style={{
+                  width: "100%",
+                  marginTop: 8,
+                  display: 'flex',
+                  flexFlow: 'wrap',
+                  justifyContent: 'flex-start'
+         }}
                 className={styles.SwitchPanel}
                 onChange={this.onChange}
                 value={this.state.setLink}
