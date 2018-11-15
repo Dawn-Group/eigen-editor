@@ -270,7 +270,6 @@ export function insertText(editorState, string) {
 }
 
 
-<<<<<<< HEAD
 // light title
 export function lightTitle(editorState) {
     let state = commonInlineStyle(editorState, 'BOLD')
@@ -278,8 +277,6 @@ export function lightTitle(editorState) {
     return newstate
 }
 
-=======
->>>>>>> add the remove link
 
 
 // create inline css like { color: #23411 }, { backgroundcolor: #23324 }
