@@ -173,6 +173,7 @@ class InsertImage extends Component {
               style={{
                 width: "100%",
                 marginTop: 8,
+                marginLeft: 16,
                 display: 'flex',
                 flexFlow: 'wrap',
                 justifyContent: 'flex-start'
@@ -184,14 +185,14 @@ class InsertImage extends Component {
                   return <div
                     key={index}
                     className={styles.switchSku}
-                    style={{ width: '130px', height: '150px' }}
+                    style={{ width: "calc(30% - 4px)", position: "relative" }}
                   >
                     <Radio
                       className={styles.radioSet}
                       style={{
                         position: "absolute",
-                        top: 0,
-                        right: 0
+                        top: 8,
+                        right: 8
                       }}
                       checked={this.state.setLink === item}
                       value={item}
