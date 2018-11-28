@@ -36,8 +36,6 @@ class Demo extends React.Component {
     }
 
     insert() {
-        console.log('insert')
-
         let { editorState } = this.state
         // this.setState({
         //     event: {

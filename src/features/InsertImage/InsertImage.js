@@ -1,4 +1,4 @@
-import { Modal, Tabs, Upload, Icon, Spin, Radio } from 'antd'
+import { Modal, Tabs, Upload, Icon, Spin, Radio, Button } from 'antd'
 import React, { Component } from 'react'
 import styles from './InsertImage.scss';
 import './reset.css';
@@ -12,7 +12,7 @@ const masonryOptions = {
 }
 
 class InsertImage extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       visiable: false,
@@ -29,7 +29,7 @@ class InsertImage extends Component {
     this.tabClick = this.tabClick.bind(this)
   }
 
-  handleOk () {
+  handleOk() {
     let param = {
       type: 'image',
       obj: {
@@ -42,24 +42,24 @@ class InsertImage extends Component {
     })
   }
 
-  handleCancle () {
+  handleCancle() {
     this.setState({
       visiable: false,
       loading: false
     })
   }
 
-  onChange (value) {
+  onChange(value) {
     const { insertImageChange } = this.props;
     this.setState({
       setLink: value.target.value
-    },() => {
+    }, () => {
       insertImageChange && insertImageChange(this.state.imageLinks, this.state.setLink)
     })
   }
 
-  handlePostImage (infor) {
-    const { insertImageChange} = this.props;
+  handlePostImage(infor) {
+    const { insertImageChange } = this.props;
     if (infor.file.status === 'uploading') {
       this.setState({
         loading: true
@@ -74,7 +74,7 @@ class InsertImage extends Component {
         if (this.state.setLink == '' && this.state.imageLinks.length) {
           this.setState({
             setLink: this.state.imageLinks[0]
-          },()=> {
+          }, () => {
             insertImageChange && insertImageChange(this.state.imageLinks, this.state.setLink)
           })
         } else {
@@ -91,14 +91,13 @@ class InsertImage extends Component {
     }
   }
 
-  tabClick(e){
-    const { pictureRecommend } = this.props;
-    if (e == 3) {
+  tabClick(e) {
+    if (e == 1) {
       const self = this
       pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
         self.setState({
-         // imageLinks: picture,
+          // imageLinks: picture,
           pictureRecommend: picture,
         },()=> {
          // console.log(self, 222)
@@ -118,19 +117,56 @@ class InsertImage extends Component {
     }
   }
 
-  render () {
+  render() {
     let { features, plateform } = this.props
     return <div>
       <Modal
         visible={this.state.visiable}
-        onOk={this.handleOk}
         onCancel={this.handleCancle}
+        footer={null}
+        width={700}
       >
         <Tabs defaultActiveKey='2'
           style={{marginBottom: 0}}
           onTabClick={ this.tabClick }
         >
-          <TabPane tab='哥伦布图片库' key='1' />
+          <TabPane tab='推荐图片' key='1' >
+            <div className={styles.imagebox}>
+              <RadioGroup
+                className={styles.SwitchPanel}
+                onChange={this.onChange}
+                value={this.state.setLink}
+              >
+                <Masonry
+                  className={styles.test} // default ''
+                  elementType={'div'} // default 'div'
+                  options={masonryOptions} // default {}
+                  disableImagesLoaded={false} // default false
+                  updateOnEachImageLoad // default false and works only if disableImagesLoaded is false
+                >
+                  {
+                    this.state.pictureRecommend.length ? this.state.pictureRecommend.map((item, index) => {
+                      return <div
+                        key={index}
+                        className={styles.switchSku}
+                        style={{ width: '30%' }}
+                      >
+                        <Radio
+                          className={styles.radioSet}
+                          checked={this.state.setLink === item.url}
+                          value={item.url}
+                        />
+                        <img
+                          style={{ width: '100%', height: '100%' }}
+                          src={item.url}
+                        />
+                      </div>
+                    }) : ''
+                  }
+                </Masonry>
+              </RadioGroup>
+            </div>
+          </TabPane>
           <TabPane tab='上传图片' key='2'>
             <div>
               <RadioGroup
@@ -168,6 +204,7 @@ class InsertImage extends Component {
                     showUploadList={false}
                     action={features.uploadImageLink()}
                     onChange={this.handlePostImage}
+                    sty
                   >
                     <div className={styles.uploadButton}>
                       <Icon type='plus' />
@@ -178,49 +215,15 @@ class InsertImage extends Component {
               }
             </div>
           </TabPane>
-          <TabPane tab='推荐图片' key='3' >
-              <RadioGroup
-                style={{
-                  width: "100%",
-                  marginTop: 8,
-                  display: 'flex',
-                  flexFlow: 'wrap',
-                  justifyContent: 'flex-start'
-         }}
-                className={styles.SwitchPanel}
-                onChange={this.onChange}
-                value={this.state.setLink}
-              >
-                <Masonry
-                  className={styles.test} // default ''
-                  elementType={'div'} // default 'div'
-                  options={masonryOptions} // default {}
-                  disableImagesLoaded={false} // default false
-                  updateOnEachImageLoad // default false and works only if disableImagesLoaded is false
-                >
-                  {
-                    this.state.pictureRecommend.length ? this.state.pictureRecommend.map((item, index) => {
-                      return <div
-                        key={index}
-                        className={styles.switchSku}
-                        style={{ width: '30%' }}
-                      >
-                        <Radio
-                          className={styles.radioSet}
-                          checked={this.state.setLink === item.url}
-                          value={item.url}
-                        />
-                        <img
-                          style={{ width: '100%', height: '100%', minWidth: 140 }}
-                          src={item.url}
-                        />
-                      </div>
-                    }) : ''
-                  }
-                </Masonry>
-              </RadioGroup>
-          </TabPane>
+          {/* <TabPane tab='正文图片' key='3' >
+          </TabPane> */}
         </Tabs>
+        <div className={styles.footer}>
+          <p>建议尺寸：900像素 * 500像素，请添加1张以内图片 （已选<span>{this.state.setLink ? 1 : 0}/1）</span></p>
+          <Button type={'primary'} onClick={() => {
+            this.handleOk()
+          }}>下一步</Button>
+        </div>
       </Modal>
 
       {
