@@ -1,6 +1,7 @@
 import { Modal, Tabs, Upload, Icon, Spin, Radio, Button } from 'antd'
 import React, { Component } from 'react'
-import styles from './InsertImage.scss'
+import styles from './InsertImage.scss';
+import './reset.css';
 import { IconCustom } from '@features'
 import Masonry from 'react-masonry-component'
 const TabPane = Tabs.TabPane
@@ -93,7 +94,7 @@ class InsertImage extends Component {
   tabClick(e) {
     if (e == 1) {
       const self = this
-      this.props.pictureRecommend(function (recommend) {
+      pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
         self.setState({
           // imageLinks: picture,
@@ -125,7 +126,8 @@ class InsertImage extends Component {
         width={700}
       >
         <Tabs defaultActiveKey='2'
-          onTabClick={this.tabClick}
+          style={{marginBottom: 0}}
+          onTabClick={ this.tabClick }
         >
           <TabPane tab='推荐图片' key='1' >
             <div className={styles.imagebox}>
@@ -154,7 +156,7 @@ class InsertImage extends Component {
                           value={item.url}
                         />
                         <img
-                          style={{ width: '100%', height: '100%' }}
+                          style={{ width: '100%', height: '100%', minHeight: 140, minWidth: 140 }}
                           src={item.url}
                         />
                       </div>
@@ -165,34 +167,44 @@ class InsertImage extends Component {
             </div>
           </TabPane>
           <TabPane tab='上传图片' key='2'>
-            <div>
-              <RadioGroup
-                className={styles.SwitchPanel}
-                onChange={this.onChange}
-                value={this.state.setLink}>
-                {
-                  this.state.imageLinks.map((item, index) => {
-                    return <div
-                      key={index}
-                      className={styles.switchSku}
-                      style={{ width: '130px', height: '150px' }}
-                    >
-                      <Radio
-                        className={styles.radioSet}
-                        checked={this.state.setLink === item}
-                        value={item}
-                      />
-
-                      <img
-                        style={{ width: '100%', height: '100%' }}
-                        src={item}
-                      />
-                    </div>
-                  })
-                }
-              </RadioGroup>
-            </div>
-            <div style={{ marginTop: '16px' }}>
+            <RadioGroup
+              className={styles.SwitchPanel}
+              style={{
+                width: "100%",
+                marginTop: 8,
+                marginLeft: 16,
+                display: 'flex',
+                flexFlow: 'wrap',
+                justifyContent: 'flex-start'
+              }}
+              onChange={this.onChange}
+              value={this.state.setLink}>
+              {
+                this.state.imageLinks.map((item, index) => {
+                  return <div
+                    key={index}
+                    className={styles.switchSku}
+                    style={{ width: "calc(30% - 4px)", position: "relative" }}
+                  >
+                    <Radio
+                      className={styles.radioSet}
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        right: 8
+                      }}
+                      checked={this.state.setLink === item}
+                      value={item}
+                    />
+                    <img
+                      style={{ width: '100%', height: '100%'}}
+                      src={item}
+                    />
+                  </div>
+                })
+              }
+            </RadioGroup>
+            <div style={{ marginTop: 8 }}>
               {
                 <Spin spinning={this.state.loading}>
                   <Upload

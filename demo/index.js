@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import request from "@utils/request";
 import qs from "qs";
 
-import EigenEditor from "../src";
+import EigenEditor from "../src/index";
 import Draft from './draft_func'
-// import EigenEditor from "../dist"
+//import EigenEditor from "../dist"
 
 function test(data){
     let { editorState } = data
@@ -203,7 +203,7 @@ class Demo extends React.Component {
         getSkuData={this.getSkuData}
         pictureRecommend={this.pictureRecommend}
         uploadUrl={'/proxy/api/v1/upload/images'}
-        cropImageUrl={'/proxy/image/crop'}
+        cropImageUrl={'/proxy/api/v1/image/crop'}
         insertImageChange= {this.insertImageChange.bind(this)}
         onChange={this.handleChange.bind(this)} />
     }

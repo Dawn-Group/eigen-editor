@@ -134,6 +134,7 @@ export default class EigenEditor extends Component {
 
 
   //////////
+  
 
 
   renderAutoComplete() {
@@ -285,10 +286,9 @@ export default class EigenEditor extends Component {
     this.onChange(removeTheLink(editorState))
   }
 
-  insertLightTitle(editorState) {
+  insertLightTitle(editorState){
     this.onChange(lightTitle(editorState))
   }
-
   focus() {
     this.editor.focus()
     if (this.props.focus) {
