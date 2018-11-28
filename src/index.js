@@ -281,7 +281,7 @@ export default class EigenEditor extends Component {
     this.onChange(removeTheLink(editorState))
   }
 
-  insertLightTitle(editorState){
+  insertLightTitle(editorState) {
     this.onChange(lightTitle(editorState))
   }
 

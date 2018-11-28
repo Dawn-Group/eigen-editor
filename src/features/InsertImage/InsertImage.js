@@ -91,9 +91,8 @@ class InsertImage extends Component {
     }
   }
 
-  tabClick(e){
-    const { pictureRecommend } = this.props;
-    if (e == 3) {
+  tabClick(e) {
+    if (e == 1) {
       const self = this
       pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
@@ -165,7 +164,7 @@ class InsertImage extends Component {
                           value={item.url}
                         />
                         <img
-                          style={{ width: '100%', height: '100%', minHeight: 140, minWidth: 140 }}
+                          style={{ width: '100%', height: '100%' }}
                           src={item.url}
                         />
                       </div>
