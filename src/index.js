@@ -134,7 +134,7 @@ export default class EigenEditor extends Component {
 
 
   //////////
-  
+
 
   renderAutoComplete() {
     if (this.state.autocompleteState === null) {
@@ -224,7 +224,6 @@ export default class EigenEditor extends Component {
 
     const tempRange = window.getSelection().getRangeAt(0).cloneRange();
     tempRange.setStart(tempRange.startContainer, typeaheadRange.start);
-
     const rangeRect = tempRange.getBoundingClientRect();
     let [left, top] = [rangeRect.left, rangeRect.bottom];
 
@@ -282,11 +281,11 @@ export default class EigenEditor extends Component {
 
   ////////////////
 
-  clearLink(editorState){
-     this.onChange(removeTheLink(editorState)) 
+  clearLink(editorState) {
+    this.onChange(removeTheLink(editorState))
   }
 
-  insertLightTitle(editorState){
+  insertLightTitle(editorState) {
     this.onChange(lightTitle(editorState))
   }
 
@@ -501,7 +500,7 @@ export default class EigenEditor extends Component {
       }
     })
   }
-  
+
 
   render() {
     const { features } = this.state;
