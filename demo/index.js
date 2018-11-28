@@ -203,7 +203,7 @@ class Demo extends React.Component {
         getSkuData={this.getSkuData}
         pictureRecommend={this.pictureRecommend}
         uploadUrl={'/proxy/api/v1/upload/images'}
-        cropImageUrl={'/proxy/image/crop'}
+        cropImageUrl={'/proxy/api/v1/image/crop'}
         insertImageChange= {this.insertImageChange.bind(this)}
         onChange={this.handleChange.bind(this)} />
     }
