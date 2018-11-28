@@ -94,6 +94,7 @@ class InsertImage extends Component {
   tabClick(e) {
     if (e == 1) {
       const self = this
+      const { pictureRecommend } = this.props
       pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
         self.setState({
