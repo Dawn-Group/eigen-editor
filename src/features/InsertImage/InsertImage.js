@@ -168,33 +168,42 @@ class InsertImage extends Component {
             </div>
           </TabPane>
           <TabPane tab='上传图片' key='2'>
-            <div>
-              <RadioGroup
-                className={styles.SwitchPanel}
-                onChange={this.onChange}
-                value={this.state.setLink}>
-                {
-                  this.state.imageLinks.map((item, index) => {
-                    return <div
-                      key={index}
-                      className={styles.switchSku}
-                      style={{ width: '130px', height: '150px' }}
-                    >
-                      <Radio
-                        className={styles.radioSet}
-                        checked={this.state.setLink === item}
-                        value={item}
-                      />
-
-                      <img
-                        style={{ width: '100%', height: '100%', minHeight: 140, minWidth: 140 }}
-                        src={item}
-                      />
-                    </div>
-                  })
-                }
-              </RadioGroup>
-            </div>
+            <RadioGroup
+              className={styles.SwitchPanel}
+              style={{
+                width: "100%",
+                marginTop: 8,
+                display: 'flex',
+                flexFlow: 'wrap',
+                justifyContent: 'flex-start'
+              }}
+              onChange={this.onChange}
+              value={this.state.setLink}>
+              {
+                this.state.imageLinks.map((item, index) => {
+                  return <div
+                    key={index}
+                    className={styles.switchSku}
+                    style={{ width: '130px', height: '150px' }}
+                  >
+                    <Radio
+                      className={styles.radioSet}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0
+                      }}
+                      checked={this.state.setLink === item}
+                      value={item}
+                    />
+                    <img
+                      style={{ width: '100%', height: '100%'}}
+                      src={item}
+                    />
+                  </div>
+                })
+              }
+            </RadioGroup>
             <div style={{ marginTop: 8 }}>
               {
                 <Spin spinning={this.state.loading}>
