@@ -222,7 +222,6 @@ class InsertImage extends Component {
                     showUploadList={false}
                     action={features.uploadImageLink()}
                     onChange={this.handlePostImage}
-                    sty
                   >
                     <div className={styles.uploadButton}>
                       <Icon type='plus' />

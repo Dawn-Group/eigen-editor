@@ -12,6 +12,7 @@ class LightTitle extends Component {
     return <div>
       {
         plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe6c6;'
+          style={{ cursor: 'pointer'}}
           onClick={(e) => {
             features.insertLightTitle(editorState)
           }}

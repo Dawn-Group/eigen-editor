@@ -66,7 +66,7 @@ class AddLink extends Component {
       </Modal>
       {
         plateform.indexOf('ADDLINK') != -1
-          ? <IconCustom content='&#xe89e;'
+          ? <IconCustom content='&#xe845;'
             style={{ marginRight: '16px', cursor: 'pointer' }}
             onClick={(e) => {
               this.showModal()
