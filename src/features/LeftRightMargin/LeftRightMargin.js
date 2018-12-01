@@ -2,6 +2,7 @@ import { Dropdown, Menu } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import Draft_const from '../../const'
+import { Tooltip } from "antd";
 
 class LeftRightMargin extends Component {
   constructor (props) {
@@ -10,7 +11,8 @@ class LeftRightMargin extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div
+    return <Tooltip placement="top" title="左右边距">
+    <div
 
     >
       {
@@ -37,6 +39,7 @@ class LeftRightMargin extends Component {
           : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

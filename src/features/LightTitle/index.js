@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import {  getRedoStatus } from '../../utils/plugins'
-
+import { Tooltip } from "antd";
 class LightTitle extends Component {
   constructor (props) {
     super(props)
@@ -9,7 +9,8 @@ class LightTitle extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="标题">
+      <div>
       {
         plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe6c6;'
           style={{ cursor: 'pointer'}}
@@ -19,6 +20,7 @@ class LightTitle extends Component {
         /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

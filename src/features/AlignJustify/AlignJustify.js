@@ -1,4 +1,4 @@
-import { Checkbox } from 'antd'
+import { Checkbox, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 
@@ -9,7 +9,8 @@ class AlignJustify extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="两端对齐">
+      <div>
       {
         plateform.indexOf('ALIGNJUSTIFY') != -1
           ? <IconCustom content='&#xe604;'
@@ -20,6 +21,7 @@ class AlignJustify extends Component {
           /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

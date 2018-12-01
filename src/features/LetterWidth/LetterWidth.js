@@ -2,6 +2,7 @@ import { Dropdown, Menu } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import Draft_const from '../../const'
+import { Tooltip } from "antd";
 
 class LetterWidth extends Component {
   constructor (props) {
@@ -10,7 +11,7 @@ class LetterWidth extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div
+    return <Tooltip placement="top" title="字宽"><div
 
     >
       {
@@ -37,6 +38,7 @@ class LetterWidth extends Component {
           : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

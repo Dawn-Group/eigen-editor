@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import { inlineStyleCheck } from '../../utils/plugins'
-
+import { Tooltip } from "antd";
 class UnderLine extends Component {
   constructor (props) {
     super(props)
@@ -9,7 +9,8 @@ class UnderLine extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="下划线">
+    <div>
       {
         plateform.indexOf('UNDERLINE') != -1
           ? <IconCustom content='&#xe71b;'
@@ -20,6 +21,7 @@ class UnderLine extends Component {
           /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

@@ -1,8 +1,7 @@
-import { Modal, Tabs, Input } from 'antd'
+import { Modal, Tabs, Input, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 const TabPane = Tabs.TabPane
-import { Tooltip } from "antd";
 
 class AddLink extends Component {
   constructor (props) {
@@ -44,7 +43,8 @@ class AddLink extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="添加链接">
+    <div>
       <Modal
         visible={this.state.visiable}
         onCancel={this.closeModal}
@@ -67,14 +67,15 @@ class AddLink extends Component {
       </Modal>
       {
         plateform.indexOf('ADDLINK') != -1
-          ? <Tooltip placement="top" title="添加链接"><IconCustom content='&#xe845;'
+          ? <IconCustom content='&#xe845;'
             style={{ marginRight: '16px', cursor: 'pointer' }}
             onClick={(e) => {
               this.showModal()
             }}
-          /></Tooltip> : ''
+          />: ''
       }
     </div>
+    </Tooltip > 
   }
 }
 

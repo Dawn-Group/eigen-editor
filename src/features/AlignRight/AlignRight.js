@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
-
+import { Tooltip } from "antd";
 class AlignRight extends Component {
   constructor (props) {
     super(props)
@@ -8,7 +8,8 @@ class AlignRight extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="右对齐">
+    <div>
       {
         plateform.indexOf('ALIGNRIGHT') != -1
           ? <IconCustom content='&#xe6e5;'
@@ -19,6 +20,7 @@ class AlignRight extends Component {
           /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

@@ -1,4 +1,4 @@
-import { Dropdown, Menu } from 'antd'
+import { Dropdown, Menu, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import Draft_const from '../../const'
@@ -10,7 +10,8 @@ class LineHeight extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="行高">
+    <div>
       {
         plateform.indexOf('LINEHEIGHT') != -1
           ? <Dropdown
@@ -39,6 +40,7 @@ class LineHeight extends Component {
           : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

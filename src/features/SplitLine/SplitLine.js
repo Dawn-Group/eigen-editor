@@ -9,17 +9,19 @@ class SplitLine extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="分割线">
+    <div>
       {
-        plateform.indexOf('SPLITLINE') != -1 ? <Tooltip placement="top" title="分割线"><IconCustom
+        plateform.indexOf('SPLITLINE') != -1 ? <IconCustom
           content='&#xe636;' style={{ marginRight: '16px', cursor: 'pointer' }}
           onClick={(e) => {
             features.splitLine(editorState)
           }}
 
-        /></Tooltip> : ''
+        /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

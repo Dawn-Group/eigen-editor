@@ -1,4 +1,4 @@
-import { Popover } from 'antd'
+import { Popover, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import styles from './AddEmoji.scss'
 import { IconCustom } from '../../features'
@@ -12,7 +12,8 @@ class AddEmoji extends Component {
   render () {
     let { editorState, features, plateform } = this.props
     
-    return <div>
+    return <Tooltip placement={"top"} title={"表情"}>  
+      <div>
       {
         plateform.indexOf('ADDEMOJI') != -1
           ? <Popover
@@ -41,6 +42,7 @@ class AddEmoji extends Component {
           </Popover> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

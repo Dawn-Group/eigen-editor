@@ -1,4 +1,4 @@
-import { Popover } from 'antd'
+import { Popover, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import styles from './FontSizeModify.scss'
 import { IconCustom } from '../../features'
@@ -11,7 +11,8 @@ class FontSizeModify extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="字号">
+    <div>
       {
         plateform.indexOf('FONTSIZEMODIFY') != -1
           ? <Popover
@@ -42,6 +43,7 @@ class FontSizeModify extends Component {
           </Popover> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

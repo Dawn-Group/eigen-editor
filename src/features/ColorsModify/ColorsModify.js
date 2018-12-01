@@ -1,4 +1,4 @@
-import { Popover } from 'antd'
+import { Popover, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import styles from './ColorsModify.scss'
 import { IconCustom } from '../../features'
@@ -11,7 +11,7 @@ class ColorsModify extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="颜色"> <div>
       {
         plateform.indexOf('COLORMODIFY') != -1
           ? <Popover
@@ -40,6 +40,7 @@ class ColorsModify extends Component {
           : ''
       }
     </div>
+    </Tooltip> 
   }
 }
 

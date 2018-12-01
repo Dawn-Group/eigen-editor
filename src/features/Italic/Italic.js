@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import { inlineStyleCheck } from '../../utils/plugins'
-
+import { Tooltip } from "antd";
 class Italic extends Component {
   constructor (props) {
     super(props)
@@ -9,7 +9,8 @@ class Italic extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="倾斜">
+    <div>
       {
         plateform.indexOf('ITALIC') != -1
           ? <IconCustom content='&#xe71a;'
@@ -20,6 +21,7 @@ class Italic extends Component {
           /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

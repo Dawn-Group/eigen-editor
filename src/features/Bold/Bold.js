@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import { inlineStyleCheck } from '../../utils/plugins'
-
+import { Tooltip } from "antd";
 class Bold extends Component {
   constructor (props) {
     super(props)
@@ -9,7 +9,8 @@ class Bold extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="加粗">
+      <div>
       {
         plateform.indexOf('BOLD') != -1
           ? <IconCustom content='&#xe718;'
@@ -20,6 +21,7 @@ class Bold extends Component {
           /> : ''
       }
     </div>
+    </Tooltip>
   }
 }
 

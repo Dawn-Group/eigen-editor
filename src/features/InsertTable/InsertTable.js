@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Input, Button, Popconfirm, Form, Modal, message } from 'antd'
+import { Table, Input, Button, Popconfirm, Form, Modal, message, Tooltip} from 'antd'
 import PropTypes from 'prop-types'
 import './InsertTable.scss'
 import { IconCustom } from '@features'
@@ -274,6 +274,7 @@ class InsertTable extends React.Component {
       }}
       placeholder='请输入表格标题' />
     return (
+      <Tooltip placement="top" title="表格">
       <div>
         <Modal
         width={800}
@@ -309,8 +310,8 @@ class InsertTable extends React.Component {
           />
           : ''
       }
-      
       </div>
+      </Tooltip>
     )
   }
 }
