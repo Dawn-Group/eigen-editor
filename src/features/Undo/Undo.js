@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import { getUndoStatus } from '../../utils/plugins'
+import { Tooltip} from "antd"
 
 class Undo extends Component {
   constructor (props) {
@@ -9,7 +10,7 @@ class Undo extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement={"top"} title={"重做"}><div>
       {
         plateform.indexOf('UNDO') != -1 ? <IconCustom content='&#xe6a2;'
           style={
@@ -22,7 +23,7 @@ class Undo extends Component {
           }}
         /> : ''
       }
-    </div>
+    </div></Tooltip>
   }
 }
 

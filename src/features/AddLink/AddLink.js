@@ -2,6 +2,7 @@ import { Modal, Tabs, Input } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 const TabPane = Tabs.TabPane
+import { Tooltip } from "antd";
 
 class AddLink extends Component {
   constructor (props) {
@@ -66,12 +67,12 @@ class AddLink extends Component {
       </Modal>
       {
         plateform.indexOf('ADDLINK') != -1
-          ? <IconCustom content='&#xe845;'
+          ? <Tooltip placement="top" title="添加链接"><IconCustom content='&#xe845;'
             style={{ marginRight: '16px', cursor: 'pointer' }}
             onClick={(e) => {
               this.showModal()
             }}
-          /> : ''
+          /></Tooltip> : ''
       }
     </div>
   }

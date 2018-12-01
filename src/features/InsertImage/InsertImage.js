@@ -1,4 +1,4 @@
-import { Modal, Tabs, Upload, Icon, Spin, Radio, Button } from 'antd'
+import { Modal, Tabs, Upload, Icon, Spin, Radio, Button,Tooltip } from 'antd'
 import React, { Component } from 'react'
 import styles from './InsertImage.scss';
 import './reset.css';
@@ -120,7 +120,8 @@ class InsertImage extends Component {
 
   render() {
     let { features, plateform } = this.props
-    return <div>
+    return <Tooltip placement="top" title="图片">
+    <div>
       <Modal
         visible={this.state.visiable}
         onCancel={this.handleCancle}
@@ -254,9 +255,9 @@ class InsertImage extends Component {
             }}
           />
           : ''
-      }
-    </div>
+        }
+    </div></Tooltip>
+    }
   }
-}
-
-export default InsertImage
+  
+  export default InsertImage

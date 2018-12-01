@@ -1,4 +1,4 @@
-import { Tabs, Modal, Input, message, Spin } from 'antd'
+import { Tabs, Modal, Input, message, Spin, Tooltip } from 'antd'
 import React, { Component } from 'react'
 import { IconCustom } from '@features'
 const TabPane = Tabs.TabPane
@@ -21,8 +21,7 @@ class InsertSku extends Component {
       visiable: false,
       loading: true
     })
-    
-    this.props.getSkuData && this.props.getSkuData(this.state.link, (res)=> {
+    this.props.getSkuData(this.state.link).then(res => {
       let url = this.state.link
       this.setState({
         link: '',
@@ -53,7 +52,9 @@ class InsertSku extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <Spin spinning={this.state.loading}><div>
+    return <Spin spinning={this.state.loading}>
+      <Tooltip placement="top" title="插入SKU">
+      <div>
       <Modal
         visible={this.state.visiable}
         onCancel={this.handleCancle}
@@ -86,7 +87,7 @@ class InsertSku extends Component {
             }}
           /> : ''
       }
-    </div></Spin>
+    </div></Tooltip></Spin>
   }
 }
 

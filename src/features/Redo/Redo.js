@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { IconCustom } from '../../features'
 import {  getRedoStatus } from '../../utils/plugins'
+import { Tooltip } from "antd";
 
 class Redo extends Component {
   constructor (props) {
@@ -9,7 +10,8 @@ class Redo extends Component {
 
   render () {
     let { editorState, features, plateform } = this.props
-    return <div>
+    return <Tooltip placement={"top"} title="恢复">
+      <div>
       {
         plateform.indexOf('REDO') != -1 ? <IconCustom content='&#xe6a3;'
           style={
@@ -22,7 +24,8 @@ class Redo extends Component {
           }}
         /> : ''
       }
-    </div>
+      </div>
+      </Tooltip>
   }
 }
 
