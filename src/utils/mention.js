@@ -84,7 +84,8 @@ const styles = {
     borderRadius: 3,
     listStyleType: 'none',
     maxHeight: '400px',
-    overflow: 'scroll'
+    overflow: 'scroll',
+    zIndex: 400
   },
   person: {
     margin: 0,
