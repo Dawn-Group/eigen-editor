@@ -11,7 +11,8 @@ class LightTitle extends Component {
     let { editorState, features, plateform } = this.props
     return <div>
       {
-        plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe6a3;'
+        plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe6c6;'
+          style={{ cursor: 'pointer'}}
           onClick={(e) => {
             features.insertLightTitle(editorState)
           }}

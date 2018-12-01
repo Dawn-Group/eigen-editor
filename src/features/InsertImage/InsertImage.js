@@ -94,12 +94,14 @@ class InsertImage extends Component {
   tabClick(e) {
     if (e == 1) {
       const self = this
+      const { pictureRecommend } = this.props
       pictureRecommend && pictureRecommend(function (recommend) {
         let picture = recommend && recommend[0].picture
         self.setState({
           // imageLinks: picture,
           pictureRecommend: picture,
-        }, () => {
+        },()=> {
+         // console.log(self, 222)
         })
       }, self)
       // let dispatch = features.dispatchFunc()
@@ -132,6 +134,13 @@ class InsertImage extends Component {
           <TabPane tab='推荐图片' key='1' >
             <div className={styles.imagebox}>
               <RadioGroup
+                style={{
+                  width: "100%",
+                  marginTop: 8,
+                  display: 'flex',
+                  flexFlow: 'wrap',
+                  justifyContent: 'flex-start'
+         }}
                 className={styles.SwitchPanel}
                 onChange={this.onChange}
                 value={this.state.setLink}
@@ -156,7 +165,7 @@ class InsertImage extends Component {
                           value={item.url}
                         />
                         <img
-                          style={{ width: '100%', height: '100%', minHeight: 140, minWidth: 140 }}
+                          style={{ width: '100%', height: '100%' }}
                           src={item.url}
                         />
                       </div>
@@ -164,7 +173,7 @@ class InsertImage extends Component {
                   }
                 </Masonry>
               </RadioGroup>
-            </div>
+              </div>
           </TabPane>
           <TabPane tab='上传图片' key='2'>
             <RadioGroup
@@ -213,7 +222,6 @@ class InsertImage extends Component {
                     showUploadList={false}
                     action={features.uploadImageLink()}
                     onChange={this.handlePostImage}
-                    sty
                   >
                     <div className={styles.uploadButton}>
                       <Icon type='plus' />

@@ -199,7 +199,7 @@ export function removeTheLink(editorState) {
     const selection = editorState.getSelection();
     if (!selection.isCollapsed()) {
         return RichUtils.toggleLink(editorState, selection, null)
-    } else {
+    }else{
         return editorState
     }
 }

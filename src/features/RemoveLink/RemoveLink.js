@@ -11,7 +11,7 @@ class RemoveLink extends Component {
     let { editorState, features, plateform } = this.props
     return <div>
       {
-        plateform.indexOf('RLINK') != -1 ? <IconCustom content='&#xe6a3;'
+        plateform.indexOf('RLINK') != -1 ? <IconCustom content='&#xe842;' 
           style={
             getRedoStatus(editorState)
               ? { marginRight: '16px', cursor: 'pointer', color: 'black' }
