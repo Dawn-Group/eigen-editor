@@ -35,6 +35,11 @@ class InsertSku extends Component {
         message.success('sku上传成功')
         this.props.features.inserSku(this.props.editorState, param)
       }
+    }).catch(err=>{
+      this.setState({
+        loading: false
+      })
+      message.warning(err.error)
     })
   }
 

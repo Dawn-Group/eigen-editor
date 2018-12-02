@@ -524,7 +524,6 @@ export default class EigenEditor extends Component {
           }
         }
       }
-      console.log(html)
       this.onChange(newstate)
       return 'handled'
     } else if (text && (text.indexOf('taobao') > -1 || text.indexOf('tmall') > -1 || text.indexOf('yao') > -1)) {
