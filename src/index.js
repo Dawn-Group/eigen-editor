@@ -130,6 +130,7 @@ export default class EigenEditor extends Component {
     this.onAutocompleteChange = this.onAutocompleteChange.bind(this)
     this.renderAutoComplete = this.renderAutoComplete.bind(this)
     this.getTheRes = this.getTheRes.bind(this)
+    this.pasteText = this.pasteText.bind(this)
   }
 
   renderAutoComplete() {
@@ -497,6 +498,51 @@ export default class EigenEditor extends Component {
     })
   }
 
+  pasteText(text, html){
+    if (html) {
+
+      let newstate = this.state.editorState
+      const blocksFromHTML = convertFromHTML(html)
+      const state = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      )
+      let obj = convertToRaw(state)
+      for (let i in obj.blocks) {
+        newstate = insertText(newstate, obj.blocks[i].text)
+        if (obj.blocks[i].entityRanges.length) {
+          for (let k in obj.blocks[i].entityRanges) {
+            if (obj.entityMap[obj.blocks[i].entityRanges[k].key].type === 'IMAGE') {
+              let param = {
+                type: 'image',
+                obj: {
+                  src: obj.entityMap[obj.blocks[i].entityRanges[k].key].data.src
+                }
+              }
+              newstate = insertBlock(newstate, param)
+            }
+          }
+        }
+      }
+      console.log(html)
+      this.onChange(newstate)
+      return 'handled'
+    } else if (text && (text.indexOf('taobao') > -1 || text.indexOf('tmall') > -1 || text.indexOf('yao') > -1)) {
+      this.props.getSkuData(text).then(res => {
+        let param = {
+          type: 'sku',
+          obj: { type: 'sku', url: text, ...res }
+        }
+        this.inserSku(this.state.editorState, param)
+      }).catch(() => {
+        return 'not-handled'
+      })
+      return 'handled'
+    } else {
+      return 'not-handled'
+    }
+  }
+
 
   render() {
     const { features } = this.state;
@@ -533,6 +579,7 @@ export default class EigenEditor extends Component {
           readOnly={this.state.liveTeXEdits.count()}
           placeholder='从这里开始写正文'
           onUpArrow={this.onUpArrow}
+          handlePastedText={this.pasteText}
           onDownArrow={this.onDownArrow}
           handleReturn={this.handleReturn}
         />

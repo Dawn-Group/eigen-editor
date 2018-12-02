@@ -5,7 +5,6 @@ import qs from "qs";
 
 import EigenEditor from "../src";
 import Draft from './draft_func'
-import { resolve } from "path";
 //import EigenEditor from "../dist"
 
 function test(data){
