@@ -44,11 +44,14 @@ class EditorSku extends React.Component {
       this.setState({
         cropploading: true
       })
-      imageCropBackend(param).then(res => {
+      imageCropBackend('https://labs.aidigger.com/api/v1/image/crop',param).then(res => {
         let blockKey = this.props.all.block.getKey()
         let entityKey = this.props.all.block.getEntityAt(0)
         let entity = this.props.all.contentState.getEntity(entityKey)
         let data = Object.assign({}, entity.data)
+        if(!data.images){
+          data.images = []
+        }
         data.images.push(res.url)
         var modify = {
           images: data.images
@@ -211,6 +214,11 @@ class EditorSku extends React.Component {
           </div>
           <RadioGroup
             className={styles.SwitchPanel}
+            style={{
+              display:'flex',
+              justifyContent:'flex-start',
+              flexWrap:'wrap'
+            }}
             onChange={(e) => {
               this.setState({
                 setLink: e.target.value
@@ -224,10 +232,14 @@ class EditorSku extends React.Component {
                   return <div
                     key={index}
                     className={styles.switchSku}
+                    style={{position:'relative'}}
                     style={{ width: '130px', height: '150px' }}
                   >
                     <Radio className={styles.radioSet}
                       value={item}
+                      style={{
+                        position:'absolute'
+                      }}
                     />
                     <div
                       className={styles.cropIcon}

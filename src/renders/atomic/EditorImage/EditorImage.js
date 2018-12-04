@@ -34,7 +34,6 @@ export default class EditorImage extends Component {
       }
 
       let { cropImageLink } = this.props.blockProps
-      console.log(cropImageLink(), "fck")
       imageCropBackend(cropImageLink(), param).then(res => {
         let blockKey = this.props.all.block.getKey()
         let entityKey = this.props.all.block.getEntityAt(0)
