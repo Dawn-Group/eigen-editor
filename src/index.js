@@ -13,6 +13,7 @@ import {
   convertFromHTML,
   Modifier,
   SelectionState,
+  getDefaultKeyBinding
 } from 'draft-js';
 import request from './utils/request'
 import {
@@ -53,6 +54,7 @@ export default class EigenEditor extends Component {
     super(props)
     this.typeaheadState = null
     this.state = {
+      shift: null,
       editorState: EditorState.createEmpty(decorator),
       liveTeXEdits: Map(),
       features: {
@@ -131,6 +133,7 @@ export default class EigenEditor extends Component {
     this.renderAutoComplete = this.renderAutoComplete.bind(this)
     this.getTheRes = this.getTheRes.bind(this)
     this.pasteText = this.pasteText.bind(this)
+    this.keyBindingFn = this.keyBindingFn.bind(this)
   }
 
   renderAutoComplete() {
@@ -258,21 +261,24 @@ export default class EigenEditor extends Component {
     }
   }
 
-  handleReturn = (e) => {
+  handleReturn = () => {
     if (this.state.autocompleteState) {
       if (this.props.autocomplete) {
-        e.preventDefault();
         let newstate = getSelect(this.state.editorState, this.state.res[this.state.autocompleteState.selectedIndex])
         this.onChange(newstate)
         this.setState({
           autocompleteState: null,
           onenter: null
         })
-        return 'handled'
       }
-    } else {
-      return 'not-handled'
     }
+  }
+
+  keyBindingFn(e) {
+    if (e && e.keyCode && e.keyCode == '16') {
+      return 'AutoComplete'
+    }
+    return getDefaultKeyBinding(e)
   }
 
 
@@ -285,7 +291,7 @@ export default class EigenEditor extends Component {
   insertLightTitle(editorState) {
     this.onChange(lightTitle(editorState))
   }
-  
+
   focus() {
     this.editor.focus()
     if (this.props.focus) {
@@ -385,13 +391,18 @@ export default class EigenEditor extends Component {
   }
 
   handleKeyCommand(command) {
-    const { editorState } = this.state
-    const newState = RichUtils.handleKeyCommand(editorState, command)
-    if (newState) {
-      this.onChange(newState)
-      return true
+    if (command == 'AutoComplete') {
+      this.handleReturn()
+      return 'handled'
+    } else {
+      const { editorState } = this.state
+      const newState = RichUtils.handleKeyCommand(editorState, command)
+      if (newState) {
+        this.onChange(newState)
+        return true
+      }
+      return false
     }
-    return false
   }
 
   commons(editorState, style) {
@@ -498,7 +509,7 @@ export default class EigenEditor extends Component {
     })
   }
 
-  pasteText(text, html){
+  pasteText(text, html) {
     if (html) {
 
       let newstate = this.state.editorState
@@ -580,7 +591,7 @@ export default class EigenEditor extends Component {
           onUpArrow={this.onUpArrow}
           handlePastedText={this.pasteText}
           onDownArrow={this.onDownArrow}
-          handleReturn={this.handleReturn}
+          keyBindingFn={this.keyBindingFn}
         />
       </div>
     </div>

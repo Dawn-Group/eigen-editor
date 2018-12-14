@@ -33,7 +33,7 @@ module.exports = merge(baseConfigs,{
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     withCredentials: true,
-                    cookie: 'code=546480; skey=cxGvsHfQEzZte9cUKe1v8MacsU9jRyn6; username="eWlueWk="',
+                    cookie: 'code=546480; skey=+VhIUV20Ti4YNwfWbecliJdz4QT0iscw; username="eWlueWk="',
                     "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie"
                 }
             },
