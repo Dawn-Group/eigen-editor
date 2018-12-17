@@ -58,6 +58,7 @@ class EditorSku extends React.Component {
         }
         let newState = this.dataModify(modify)
         this.props.all.blockProps.finishChange(newState, blockKey)
+        this.props.all.blockProps.onStartEdit(this.props.all.block)
         this.setState({
           croppVisiable: false,
           cropLink: '',
@@ -108,7 +109,7 @@ class EditorSku extends React.Component {
     let entity = this.props.all.contentState.getEntity(entityKey)
     let data = Object.assign({}, entity.data)
     for (let k in param) {
-      data[k] = param[k]
+      data[k] = param[k] ? param[k] : data[k]
     }
     var newContentState = this.props.all.contentState.mergeEntityData(
       entityKey,
@@ -222,6 +223,8 @@ class EditorSku extends React.Component {
             onChange={(e) => {
               this.setState({
                 setLink: e.target.value
+              },()=>{
+                console.log(this.state.setLink)
               })
             }}
             value={this.state.setLink}

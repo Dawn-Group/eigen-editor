@@ -12,7 +12,7 @@ class LightTitle extends Component {
     return <Tooltip placement="top" title="标题">
       <div>
       {
-        plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe6c6;'
+        plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe735;'
           style={{ cursor: 'pointer'}}
           onClick={(e) => {
             features.insertLightTitle(editorState)
