@@ -88,12 +88,12 @@ export default class EigenEditor extends Component {
     this.onChange = (editorState) => {
       this.setState({ editorState }, () => {
         this.props.onChange(convertToRaw(editorState.getCurrentContent()), editorState)
+        if (this.props.autocomplete) {
+          window.requestAnimationFrame(() => {
+            this.onAutocompleteChange(this.getTypeaheadState());
+          })
+        }
       })
-      if (this.props.autocomplete) {
-        window.requestAnimationFrame(() => {
-          this.onAutocompleteChange(this.getTypeaheadState());
-        })
-      }
     }
 
     this.focus = this.focus.bind(this)
@@ -278,6 +278,9 @@ export default class EigenEditor extends Component {
     if (e && e.keyCode && e.keyCode == '16') {
       return 'AutoComplete'
     }
+    if (e && e.keyCode && e.keyCode == '187' && this.state.autocompleteState) {
+      return 'cancleComplete'
+    }
     return getDefaultKeyBinding(e)
   }
 
@@ -394,6 +397,10 @@ export default class EigenEditor extends Component {
     if (command == 'AutoComplete') {
       this.handleReturn()
       return 'handled'
+    } else if (command == 'cancleComplete') {
+      this.setState({
+        autocompleteState: null
+      })
     } else {
       const { editorState } = this.state
       const newState = RichUtils.handleKeyCommand(editorState, command)
