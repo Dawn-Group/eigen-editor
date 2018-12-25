@@ -1,6 +1,6 @@
 {
   "name": "eigen-editor",
-  "version": "1.1.27",
+  "version": "1.1.28",
   "description": "editor for eigen",
   "main": "dist/index.js",
   "directories": {
