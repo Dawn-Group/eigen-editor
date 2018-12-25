@@ -10,5 +10,6 @@ export default getCustomStyle({
   LeftRightMargins: customStyle.LeftRightMargins,
   TopMargins: customStyle.TopMargins,
   BottomMargins: customStyle.BottomMargins,
-  LineHeights: customStyle.LineHeights
+  LineHeights: customStyle.LineHeights,
+  Lheader: customStyle.Lheader
 })

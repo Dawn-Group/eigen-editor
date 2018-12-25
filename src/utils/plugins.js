@@ -106,6 +106,11 @@ export function bottomMarginModify(editorState, space) {
     return applyInlineStyle(editorState, 'BOTTOMMARGIN-' + space, darftConst.LeftRightMargins.map(item => 'BOTTOMMARGIN-' + item.toUpperCase()))
 }
 
+// light title
+export function lightTitle(editorState) {
+    return applyInlineStyle(editorState, 'LHEADER', darftConst.Lheader.map(item => item))
+}
+
 export function firstIntent(editorState, indent) {
     const currentInlineStyle = editorState.getCurrentInlineStyle()
     if (!currentInlineStyle.has('TEXTINDENT-2EM')) {
@@ -135,7 +140,6 @@ export function applyInlineStyle(editorState, style, stylesToBeRemoved) {
     if (selectionState.isCollapsed()) {
         return editorState
     }
-
     style = style.toUpperCase()
     stylesToBeRemoved = stylesToBeRemoved.filter(item => item !== style)
     const currentInlineStyle = editorState.getCurrentInlineStyle()
@@ -146,6 +150,7 @@ export function applyInlineStyle(editorState, style, stylesToBeRemoved) {
     }, contentState) : contentState
 
     const newEditorState = stylesToBeRemoved.length ? EditorState.push(editorState, newContentState, 'change-inline-style') : editorState
+    console.log(newEditorState)
     return RichUtils.toggleInlineStyle(newEditorState, style)
 }
 
@@ -268,16 +273,6 @@ export function insertText(editorState, string) {
         return editorState
     }
 }
-
-
-// light title
-export function lightTitle(editorState) {
-    let state = commonInlineStyle(editorState, 'BOLD')
-    let newstate = setTextAlign(state,'center')
-    return newstate
-}
-
-
 
 // create inline css like { color: #23411 }, { backgroundcolor: #23324 }
 export function customSiteMap() {

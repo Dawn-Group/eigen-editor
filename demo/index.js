@@ -28,6 +28,7 @@ class Demo extends React.Component {
     }
 
     handleChange(content, editorState) {
+        console.log(content)
         this.setState({
             content: content,
             editorState: editorState,
@@ -191,6 +192,7 @@ class Demo extends React.Component {
             'LTITLE'
         ]}
         online={true} 
+        autoFocus={true}
         editorStyle={editorStyle}
         event={this.state.event}
         focusKey={'1'}

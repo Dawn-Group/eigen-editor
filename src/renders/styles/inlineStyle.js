@@ -1,4 +1,4 @@
-export default function(props){
+export default function (props) {
   const colorStyles = {}
   const bgColorStyles = {}
   const fontSizeStyles = {}
@@ -9,6 +9,7 @@ export default function(props){
   const topMarginStyles = {}
   const bottomMarginStyles = {}
   const lineHeightStyles = {}
+  const lheaderStyles = {}
 
   props.colors.forEach((color) => {
     let color_id = color.replace('#', '').toUpperCase()
@@ -62,7 +63,15 @@ export default function(props){
   props.BottomMargins.forEach((bottommargin) => {
     bottomMarginStyles['BOTTOMMARGIN-' + bottommargin.toUpperCase()] = {
       display: 'inline-block',
-      marginBottom: bottommargin
+      marginBottom: bottommargin 
+    }
+  })
+
+  props.Lheader.forEach(() => {
+    lheaderStyles['LHEADER'] = {
+      textAlign: 'center',
+      fontWeight: 'bold',
+      display:'block'
     }
   })
 
@@ -76,6 +85,7 @@ export default function(props){
     ...leftRightMarginStyles,
     ...topMarginStyles,
     ...bottomMarginStyles,
-    ...lineHeightStyles
+    ...lineHeightStyles,
+    ...lheaderStyles
   }
 }

@@ -87,6 +87,9 @@ export default {
     'unordered-list-item',
     'ordered-list-item',
     'code-block'
+  ],
+  Lheader: [
+    'lheader'
   ]
 
 }

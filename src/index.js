@@ -39,7 +39,7 @@ import {
   topMarginModify,
   bottomMarginModify,
   removeTheLink,
-  lightTitle
+  lightTitle,
 } from '@utils/plugins';
 import { Mentions, getSelect, res } from '@utils/mention'
 import { Block } from '@renders/atomic'
@@ -303,8 +303,11 @@ export default class EigenEditor extends Component {
   }
 
   componentDidMount() {
-    const { content } = this.props;
+    const { content, autoFocus } = this.props;
     content && this.onChange(EditorState.createWithContent(convertFromRaw(content), decorator))
+    if (autoFocus) {
+      this.focus()
+    }
   }
 
   componentWillReceiveProps(nextprops) {
@@ -518,7 +521,6 @@ export default class EigenEditor extends Component {
 
   pasteText(text, html) {
     if (html) {
-
       let newstate = this.state.editorState
       const blocksFromHTML = convertFromHTML(html)
       const state = ContentState.createFromBlockArray(
@@ -586,9 +588,9 @@ export default class EigenEditor extends Component {
       {this.renderAutoComplete()}
       <div style={contentStyle} className={styles.editor} onClick={this.focus}>
         <Editor
-          customStyleMap={features['customStyleMap']}
+          customStyleMap={features['customSiteMap']()}
           editorState={this.state.editorState}
-          blockRendererFn={this.blockRenderer}
+          blockRendererFn={this.w}
           blockStyleFn={blockStyleFn}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
