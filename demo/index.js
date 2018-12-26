@@ -7,10 +7,19 @@ import EigenEditor from "../src";
 import Draft from './draft_func'
 //import EigenEditor from "../dist"
 
-function test(data){
-    let { editorState } = data
+function setText(editorState){
     let draft = new Draft(editorState)
-    let newEditorState = draft.insertText('haha')
+    let newEditorState = draft.insertText('hello world')
+    return newEditorState
+}
+
+function setImage(editorState) {
+    let draft = new Draft(editorState)
+    let newEditorState = draft.setMedia('image', {
+        src: 'http://autoimg.15feng.cn/spark-auto/c_fill/cpk/3998/24968/20170708082438670-4599-m8d3-k5ck-n190.jpg',
+        type: 'image'
+    })
+    console.log(newEditorState)
     return newEditorState
 }
 
@@ -23,42 +32,16 @@ class Demo extends React.Component {
             event: null
         }
         this.getSkuData = this.getSkuData.bind(this)
-        this.insert = this.insert.bind(this)
         this.focus = this.focus.bind(this)
     }
 
     handleChange(content, editorState) {
         console.log(content)
+        // 同步编辑器里新生成的editorState
         this.setState({
             content: content,
             editorState: editorState,
             event: null
-        })
-    }
-
-    insert() {
-        let { editorState } = this.state
-        // this.setState({
-        //     event: {
-        //         params: editorState,
-        //         func: test
-        //     }
-        // })
-    }
-
-    insertImage() {
-        let { editorState } = this.state
-
-        let draft = new Draft(editorState)
-        let newEditorState = draft.setMedia('image', { 
-            src: '//cdn.aidigger.com/images/cars/a55edcfc8458387ab555e566e1d5fb56.jpg',
-            text: 'hello'
-        })
-        this.setState({
-            event: {
-                params: newEditorState,
-                func: test
-            }
         })
     }
 
@@ -67,13 +50,13 @@ class Demo extends React.Component {
     }
 
     componentDidMount() {
-        // this.insertImage()
-        // this.insert()
-        // this.insert()
-        // setTimeout(() => {
-        //     this.insert()
-        // }, 3000)
-
+        let { editorState } = this.state
+        this.setState({
+            event: {
+                params: editorState,
+                func: setImage
+            }
+        })
     }
 
     insertImageChange(imageList, setLink){
@@ -145,13 +128,13 @@ class Demo extends React.Component {
         })
       }
     
-      fomate = (res) =>{
-        return res[0].prev.map((item,index)=>{
-            if(index < 5){
-                return item.text
-            }
-        })
-      }
+    fomate = (res) =>{
+    return res[0].prev.map((item,index)=>{
+        if(index < 5){
+            return item.text
+        }
+    })
+    }
 
     render() {
         const editorStyle = {
@@ -194,6 +177,9 @@ class Demo extends React.Component {
         online={true} 
         autoFocus={true}
         editorStyle={editorStyle}
+        // 通过传event，给编辑器插入数据
+        // event是一个对象，有params和func(返回一个新的editorState)这两个属性
+        // 编辑器通过执行event.func(params)来得到新的editorState
         event={this.state.event}
         focusKey={'1'}
         focus={this.focus}
@@ -202,7 +188,8 @@ class Demo extends React.Component {
         fomate={this.fomate}
         toolBarStyle={{margin: 4}}
         contentStyle={{ padding: 4, minHeight: 150 }}
-        // content={this.state.content} 
+        // 已废弃
+        // content={this.state.content}
         getSkuData={this.getSkuData}
         pictureRecommend={this.pictureRecommend}
         uploadUrl={'/proxy/api/v1/upload/images'}
