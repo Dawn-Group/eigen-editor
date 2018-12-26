@@ -134,6 +134,7 @@ export default class EigenEditor extends Component {
     this.getTheRes = this.getTheRes.bind(this)
     this.pasteText = this.pasteText.bind(this)
     this.keyBindingFn = this.keyBindingFn.bind(this)
+    this.blur = this.blur.bind(this)
   }
 
   renderAutoComplete() {
@@ -149,6 +150,12 @@ export default class EigenEditor extends Component {
         fomate={this.props.fomate}
       />
     }
+  }
+
+  blur() {
+    this.setState({
+      autocompleteState: null
+    })
   }
 
   getTheRes(res) {
@@ -597,6 +604,7 @@ export default class EigenEditor extends Component {
           ref={(element) => { this.editor = element }}
           readOnly={this.state.liveTeXEdits.count()}
           placeholder='从这里开始写正文'
+          onBlur={this.blur}
           onUpArrow={this.onUpArrow}
           handlePastedText={this.pasteText}
           onDownArrow={this.onDownArrow}
