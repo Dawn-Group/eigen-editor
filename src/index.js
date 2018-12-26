@@ -590,7 +590,7 @@ export default class EigenEditor extends Component {
         <Editor
           customStyleMap={features['customSiteMap']()}
           editorState={this.state.editorState}
-          blockRendererFn={this.w}
+          blockRendererFn={this.blockRenderer}
           blockStyleFn={blockStyleFn}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
