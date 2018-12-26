@@ -195,7 +195,7 @@ export default class EigenEditor extends Component {
     })
     // ..and before the typeahead token.
     let index = -1
-    if (text && [text.length - 1] && /\.|\。|\？|\?|\!|\！/g.test(text[text.length - 1])) {
+    if (text && [text.length - 1] && /\.|\。|\？|\?|\!|\！|\~|\～/g.test(text[text.length - 1])) {
       index = text.length - 1
     }
     if (index === -1) {
@@ -240,8 +240,10 @@ export default class EigenEditor extends Component {
     if (this.state.autocompleteState) {
       let typeaheadState = this.getTypeaheadState(false);
       e.preventDefault();
-
       typeaheadState.selectedIndex += -1;
+      if(typeaheadState.selectedIndex === -1){
+        typeaheadState.selectedIndex = 4
+      }
       this.typeaheadState = typeaheadState;
       this.setState({
         autocompleteState: this.typeaheadState,
@@ -252,8 +254,10 @@ export default class EigenEditor extends Component {
     if (this.state.autocompleteState) {
       let typeaheadState = this.getTypeaheadState(false);
       e.preventDefault();
-
       typeaheadState.selectedIndex += 1;
+      if(typeaheadState.selectedIndex === 5){
+        typeaheadState.selectedIndex = 0
+      }
       this.typeaheadState = typeaheadState;
       this.setState({
         autocompleteState: this.typeaheadState,
