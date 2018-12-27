@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { insertText } from './plugins'
+import { insertText, insertBlock } from './plugins'
 
+
+const image = ['https://new-rank-demo.oss-cn-hangzhou.aliyuncs.com/%E5%88%98%E8%AF%97%E8%AF%97/stickers/s1.gif']
 
 function normalizeSelectedIndex(selectedIndex, max) {
   let index = selectedIndex % max;
@@ -10,12 +12,21 @@ function normalizeSelectedIndex(selectedIndex, max) {
   return index;
 }
 
-function getSelect(editorState, text) {
-  if (text) {
+function getSelect(editorState, text, type) {
+  if (type == 'text' && text) {
     return insertText(editorState, text)
-  } else {
-    return editorState
   }
+  if (type == 'image' && text) {
+    let param = {
+      type: 'image',
+      obj: {
+        src: text,
+        type: 'image'
+      }
+    }
+    return insertBlock(editorState, param)
+  }
+  return editorState
 }
 
 
@@ -25,30 +36,41 @@ class Mentions extends Component {
     this.state = {
       people: []
     }
-    this.filterPeople = this.filterPeople.bind(this)
+    this.getData = this.getData.bind(this)
   }
 
+  getData(type, text) {
+    if (type == 'image') {
 
+    } else {
+
+    }
+  }
 
   componentDidMount() {
-    this.props.getTheText(this.props.textFor ? this.props.textFor.substr(this.props.textFor.length - 200) : '').then(res => {
-      if (this.props.fomate) {
-        res = this.props.fomate(res)
-      }
+    if (this.props.type == 'image' && this.props.getTheEmoji) {
+      this.props.getTheEmoji(this.props.emojikey).then(res => {
+        this.setState({
+          people: this.props.fomate(res)
+        }, () => {
+          this.props.getTheRes(this.state.people)
+        })
+      })
+    } else if (this.props.getTheText && this.props.type == 'text') {
+      this.props.getTheText(this.props.textFor ? this.props.textFor.substr(this.props.textFor.length - 200) : '').then(res => {
+        this.setState({
+          people: this.props.fomate(res)
+        }, () => {
+          this.props.getTheRes(this.state.people)
+        })
+      })
+    } else {
       this.setState({
-        people: res
+        people: []
       }, () => {
         this.props.getTheRes(this.state.people)
       })
-    })
-  }
-
-  filterPeople(query) {
-    return this.state.people.filter(person => {
-      if (query) {
-        return person
-      }
-    });
+    }
   }
 
   render() {
@@ -58,13 +80,16 @@ class Mentions extends Component {
       left,
       top
     })
-    const filteredPeople = this.filterPeople(text);
-    const normalizedIndex = normalizeSelectedIndex(selectedIndex, filteredPeople.length);
+    const normalizedIndex = normalizeSelectedIndex(selectedIndex, this.state.people.length);
     return <ul style={typeaheadStyle}>
-      {filteredPeople.map((item, index) => {
+      {this.state.people.map((item, index) => {
         return (
           <li key={index} style={index === normalizedIndex ? styles.selectedPerson : styles.person}>
-            {item}
+            {
+              this.props.type == 'text' ?
+                <span>{item}</span>
+                : <Emoji src={item} />
+            }
           </li>
         );
       })}
@@ -72,6 +97,10 @@ class Mentions extends Component {
   }
 }
 
+
+const Emoji = ({ src }) => {
+  return <img src={src} />
+}
 
 
 const styles = {

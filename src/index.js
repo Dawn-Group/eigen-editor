@@ -83,7 +83,9 @@ export default class EigenEditor extends Component {
       autocompleteState: null,
       textFor: '',
       onenter: null,
-      res: []
+      res: [],
+      type: '',
+      emojikey: ''
     }
     this.onChange = (editorState) => {
       this.setState({ editorState }, () => {
@@ -143,11 +145,14 @@ export default class EigenEditor extends Component {
     } else {
       return <Mentions
         {...this.state.autocompleteState}
+        type={this.state.type}
         textFor={this.state.textFor}
         onenter={this.state.onenter}
         getTheRes={this.getTheRes}
         getTheText={this.props.getTheText}
         fomate={this.props.fomate}
+        getTheEmoji={this.props.getTheEmoji}
+        emojikey={this.state.emojikey}
       />
     }
   }
@@ -203,6 +208,16 @@ export default class EigenEditor extends Component {
     // ..and before the typeahead token.
     let index = -1
     if (text && [text.length - 1] && /\.|\。|\？|\?|\!|\！|\~|\～/g.test(text[text.length - 1])) {
+      this.setState({
+        type: 'text'
+      })
+      index = text.length - 1
+    }
+    if (text && this.props.keywordslist && this.props.keywordslist.indexOf(text.substr(-2)) > -1) {
+      this.setState({
+        type: 'image',
+        emojikey: text.substr(-2)
+      })
       index = text.length - 1
     }
     if (index === -1) {
@@ -248,8 +263,8 @@ export default class EigenEditor extends Component {
       let typeaheadState = this.getTypeaheadState(false);
       e.preventDefault();
       typeaheadState.selectedIndex += -1;
-      if(typeaheadState.selectedIndex === -1){
-        typeaheadState.selectedIndex = 4
+      if (typeaheadState.selectedIndex === -1) {
+        typeaheadState.selectedIndex = this.state.res.length - 1
       }
       this.typeaheadState = typeaheadState;
       this.setState({
@@ -257,12 +272,13 @@ export default class EigenEditor extends Component {
       })
     }
   }
+
   onDownArrow = (e) => {
     if (this.state.autocompleteState) {
       let typeaheadState = this.getTypeaheadState(false);
       e.preventDefault();
       typeaheadState.selectedIndex += 1;
-      if(typeaheadState.selectedIndex === 5){
+      if (typeaheadState.selectedIndex === this.state.res.length) {
         typeaheadState.selectedIndex = 0
       }
       this.typeaheadState = typeaheadState;
@@ -275,7 +291,7 @@ export default class EigenEditor extends Component {
   handleReturn = () => {
     if (this.state.autocompleteState) {
       if (this.props.autocomplete) {
-        let newstate = getSelect(this.state.editorState, this.state.res[this.state.autocompleteState.selectedIndex])
+        let newstate = getSelect(this.state.editorState, this.state.res[this.state.autocompleteState.selectedIndex], this.state.type)
         this.onChange(newstate)
         this.setState({
           autocompleteState: null,
