@@ -32,6 +32,7 @@ class Demo extends React.Component {
         }
         this.getSkuData = this.getSkuData.bind(this)
         this.focus = this.focus.bind(this)
+        this.getTheEmoji = this.getTheEmoji.bind(this)
     }
 
     handleChange(content, editorState) {
@@ -42,6 +43,10 @@ class Demo extends React.Component {
             editorState: editorState,
             event: null
         })
+    }
+
+    getTheEmoji(){
+        console.log('hfdsaga')
     }
 
     focus(key) {
@@ -193,6 +198,7 @@ class Demo extends React.Component {
             // content={this.state.content}
             getSkuData={this.getSkuData}
             keywordslist={['诗诗','凉凉']}
+            getTheEmoji={this.getTheEmoji}
             pictureRecommend={this.pictureRecommend}
             uploadUrl={'/proxy/api/v1/upload/images'}
             cropImageUrl={'/proxy/api/v1/image/crop'}

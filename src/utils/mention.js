@@ -16,6 +16,9 @@ function getSelect(editorState, text, type) {
   if (type == 'text' && text) {
     return insertText(editorState, text)
   }
+  if (type == 'half' && text) {
+    return insertText(editorState, text)
+  }
   if (type == 'image' && text) {
     let param = {
       type: 'image',
@@ -64,6 +67,14 @@ class Mentions extends Component {
           this.props.getTheRes(this.state.people)
         })
       })
+    } else if (this.props.getHalf && this.props.type == 'half') {
+      this.props.getHalf(this.props.textFor ? this.props.substr(-200) : '').then(res => {
+        this.setState({
+          people: this.props.fomate(res)
+        }, () => {
+          this.props.getTheRes(this.state.people)
+        })
+      })
     } else {
       this.setState({
         people: []
@@ -80,8 +91,14 @@ class Mentions extends Component {
       left,
       top
     })
+    const halfstyle = Object.assign({}, hstyle, {
+      position: 'absolute',
+      left: (left + 10),
+      top: (top - 5),
+      fontSize: '14px',
+    })
     const normalizedIndex = normalizeSelectedIndex(selectedIndex, this.state.people.length);
-    return <ul style={typeaheadStyle}>
+    return this.props.type == 'half' ? <Halfsen style={halfstyle} text={this.state.people[0] ? this.state.people[0] : ''} /> : <ul style={typeaheadStyle}>
       {this.state.people.map((item, index) => {
         return (
           <li key={index} style={index === normalizedIndex ? styles.selectedPerson : styles.person}>
@@ -102,14 +119,24 @@ const Emoji = ({ src }) => {
   return <img src={src} />
 }
 
+const Halfsen = ({ style, text }) => {
+  return <span style={style} >{text}</span>
+}
+
+const hstyle = {
+  margin: '0px',
+  color: '#333333',
+  opacity: '0.3',
+  marginLeft: '12px'
+}
+
 
 const styles = {
   typeahead: {
     margin: 0,
     padding: 0,
-    border: '1px solid #ccc',
     background: 'white',
-    boxShadow: '0 0 0 1px rgba(0, 0, 0, .1), 0 1px 10px rgba(0, 0, 0, .35)',
+    boxShadow: '0px 0px 4px rgba(201, 201, 201, 0.298039215686275)',
     borderRadius: 3,
     listStyleType: 'none',
     maxHeight: '400px',
@@ -118,13 +145,14 @@ const styles = {
   },
   person: {
     margin: 0,
-    padding: '16px 24px',
+    padding: '8px 16px',
+    color: '#333333',
+    opacity: '0.5'
   },
   selectedPerson: {
     margin: 0,
-    padding: '16px 24px',
-    background: 'rgb(225, 78, 78)',
-    color: 'white',
+    padding: '8px 16px',
+    color: 'rgb(253,142,37)',
   },
   mention: {
     background: 'rgb(225, 78, 78)',

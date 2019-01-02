@@ -153,6 +153,7 @@ export default class EigenEditor extends Component {
         fomate={this.props.fomate}
         getTheEmoji={this.props.getTheEmoji}
         emojikey={this.state.emojikey}
+        getHalf={this.props.getHalf}
       />
     }
   }
@@ -189,6 +190,7 @@ export default class EigenEditor extends Component {
 
   getTypeaheadRange = () => {
     const selection = window.getSelection();
+
     if (selection.rangeCount === 0) {
       return null;
     }
@@ -199,11 +201,12 @@ export default class EigenEditor extends Component {
 
     const range = selection.getRangeAt(0);
     let text = range.startContainer.textContent;
+    let alltext = this.state.editorState.getCurrentContent().getPlainText()
 
     // Remove text that appears after the cursor..
     text = text.substring(0, range.startOffset);
     this.setState({
-      textFor: text
+      textFor: alltext
     })
     // ..and before the typeahead token.
     let index = -1
@@ -213,10 +216,17 @@ export default class EigenEditor extends Component {
       })
       index = text.length - 1
     }
-    if (text && this.props.keywordslist && this.props.keywordslist.indexOf(text.substr(-2)) > -1) {
+    if (text && this.props.keywordslist && this.props.keywordslist.indexOf(text.substr(-2)) > -1 || this.props.keywordslist.indexOf(text.substr(-3)) > -1) {
+      let emojikey = ''
+      if (this.props.keywordslist.indexOf(text.substr(-2)) > -1) {
+        emojikey = text.substr(-2)
+      }
+      if (this.props.keywordslist.indexOf(text.substr(-3)) > -1) {
+        emojikey = text.substr(-3)
+      }
       this.setState({
         type: 'image',
-        emojikey: text.substr(-2)
+        emojikey: emojikey
       })
       index = text.length - 1
     }
@@ -227,7 +237,39 @@ export default class EigenEditor extends Component {
     text = text.substring(index);
 
     return {
-      text,
+      text: text,
+      start: index,
+      end: range.startOffset
+    };
+  }
+
+  getHalf = () => {
+    const selection = window.getSelection()
+
+    if (selection.rangeCount === 0) {
+      return null
+    }
+
+    if (this.hasEntityAtSelection()) {
+      return null
+    }
+
+    const range = selection.getRangeAt(0);
+    let text = range.startContainer.textContent;
+    text = text.substring(0, range.startOffset);
+    let index = -1
+
+    this.setState({
+      type: 'half'
+    })
+
+    index = text.length - 1
+
+    if (index === -1) {
+      return null;
+    }
+    return {
+      text: text,
       start: index,
       end: range.startOffset
     };
@@ -239,6 +281,31 @@ export default class EigenEditor extends Component {
     }
 
     const typeaheadRange = this.getTypeaheadRange();
+    if (!typeaheadRange) {
+      this.typeaheadState = null;
+      return null;
+    }
+
+    const tempRange = window.getSelection().getRangeAt(0).cloneRange();
+    tempRange.setStart(tempRange.startContainer, typeaheadRange.start);
+    const rangeRect = tempRange.getBoundingClientRect();
+    let [left, top] = [rangeRect.left, rangeRect.bottom];
+
+    this.typeaheadState = {
+      left,
+      top,
+      text: typeaheadRange.text,
+      selectedIndex: 0
+    };
+    return this.typeaheadState;
+  }
+
+  getHalfState(invalidate = true){
+    if (!invalidate) {
+      return this.typeaheadState;
+    }
+
+    const typeaheadRange = this.getHalf();
     if (!typeaheadRange) {
       this.typeaheadState = null;
       return null;
@@ -288,6 +355,17 @@ export default class EigenEditor extends Component {
     }
   }
 
+  onRightArrow = (e) => {
+    if (this.state.autocompleteState) {
+      let newstate = getSelect(this.state.editorState, this.state.res[0], this.state.type)
+      this.onChange(newstate)
+      this.setState({
+        autocompleteState: null,
+        onenter: null
+      })
+    }
+  }
+
   handleReturn = () => {
     if (this.state.autocompleteState) {
       if (this.props.autocomplete) {
@@ -307,6 +385,9 @@ export default class EigenEditor extends Component {
     }
     if (e && e.keyCode && e.keyCode == '187' && this.state.autocompleteState) {
       return 'cancleComplete'
+    }
+    if (e && e.keyCode && e.keyCode == '17') {
+      return 'halfnext'
     }
     return getDefaultKeyBinding(e)
   }
@@ -431,6 +512,8 @@ export default class EigenEditor extends Component {
       this.setState({
         autocompleteState: null
       })
+    } else if (command == 'halfnext') {
+      this.onAutocompleteChange(this.getHalfState())
     } else {
       const { editorState } = this.state
       const newState = RichUtils.handleKeyCommand(editorState, command)
@@ -628,6 +711,7 @@ export default class EigenEditor extends Component {
           onUpArrow={this.onUpArrow}
           handlePastedText={this.pasteText}
           onDownArrow={this.onDownArrow}
+          onRightArrow={this.onRightArrow}
           keyBindingFn={this.keyBindingFn}
         />
       </div>
