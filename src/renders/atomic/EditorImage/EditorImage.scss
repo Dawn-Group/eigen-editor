@@ -9,6 +9,7 @@
     top: -15px;
     right: -10px;
     cursor: pointer;
+    visibility: hidden;
 }
 
 .imageTool{
@@ -54,6 +55,9 @@
 .editorImage:hover{
     .cropIcon{
         display: flex;
+    }
+    .closeImage{
+        visibility: visible;
     }
 }
 

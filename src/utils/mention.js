@@ -94,7 +94,7 @@ class Mentions extends Component {
     const halfstyle = Object.assign({}, hstyle, {
       position: 'absolute',
       left: (left + 10),
-      top: (top - 5),
+      top: (top),
       fontSize: '14px',
     })
     const normalizedIndex = normalizeSelectedIndex(selectedIndex, this.state.people.length);
