@@ -63,15 +63,15 @@ export default function (props) {
   props.BottomMargins.forEach((bottommargin) => {
     bottomMarginStyles['BOTTOMMARGIN-' + bottommargin.toUpperCase()] = {
       display: 'inline-block',
-      marginBottom: bottommargin 
+      marginBottom: bottommargin
     }
   })
 
   props.Lheader.forEach(() => {
     lheaderStyles['LHEADER'] = {
-      textAlign: 'center',
-      fontWeight: 'bold',
-      display:'block'
+      fontWeight: 'bolder',
+      display: 'block',
+      fontSize: '16px'
     }
   })
 

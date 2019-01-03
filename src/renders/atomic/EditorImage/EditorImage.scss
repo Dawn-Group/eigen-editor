@@ -1,7 +1,7 @@
 .editorImage{
     position: relative;
     // max-width: 414px;
-    width: 30%;
+    width: 60%;
     // margin: 0 auto;
 }
 .closeImage{
@@ -53,7 +53,7 @@
 
 .editorImage:hover{
     .cropIcon{
-    display: flex;
+        display: flex;
     }
 }
 
