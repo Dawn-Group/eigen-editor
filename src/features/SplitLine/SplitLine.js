@@ -13,7 +13,7 @@ class SplitLine extends Component {
     <div>
       {
         plateform.indexOf('SPLITLINE') != -1 ? <IconCustom
-          content='&#xe636;' style={{ marginRight: '16px', cursor: 'pointer' }}
+          content='&#xe88e;' style={{ marginRight: '16px', cursor: 'pointer' }}
           onClick={(e) => {
             features.splitLine(editorState)
           }}

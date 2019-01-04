@@ -12,7 +12,7 @@ class Undo extends Component {
     let { editorState, features, plateform } = this.props
     return <Tooltip placement={"top"} title={"重做"}><div>
       {
-        plateform.indexOf('UNDO') != -1 ? <IconCustom content='&#xe6a2;'
+        plateform.indexOf('UNDO') != -1 ? <IconCustom content='&#xe893;'
           style={
             getUndoStatus(editorState)
               ? { marginRight: '16px', cursor: 'pointer', color: 'black' }
