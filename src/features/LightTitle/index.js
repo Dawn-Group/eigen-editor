@@ -13,7 +13,7 @@ class LightTitle extends Component {
     return <Tooltip placement="top" title="标题">
       <div>
         {
-          plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe735;'
+          plateform.indexOf('LTITLE') != -1 ? <IconCustom content='&#xe60c;'
             style={inlineStyleCheck(editorState).has('LHEADER') ? { cursor: 'pointer', color: 'black' } : { cursor: 'pointer' }}
             onClick={(e) => {
               features.insertLightTitle(editorState)

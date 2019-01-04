@@ -14,7 +14,7 @@ class BlockQuote extends Component {
     <div>
       {
         plateform.indexOf('BLOCKQUOTE') != -1
-          ? <IconCustom content='&#xe9cc;' style={{ marginRight: '16px', cursor: 'pointer' }}
+          ? <IconCustom content='&#xe60e;' style={{ marginRight: '16px', cursor: 'pointer' }}
             onClick={(e) => {
               features.blockTypeFeatures(editorState, 'blockquote')
             }}

@@ -13,7 +13,7 @@ class Redo extends Component {
     return <Tooltip placement={"top"} title="恢复">
       <div>
       {
-        plateform.indexOf('REDO') != -1 ? <IconCustom content='&#xe6a3;'
+        plateform.indexOf('REDO') != -1 ? <IconCustom content='&#xe610;'
           style={
             getRedoStatus(editorState)
               ? { marginRight: '16px', cursor: 'pointer', color: 'black' }
