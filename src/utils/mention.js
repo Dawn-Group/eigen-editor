@@ -60,7 +60,7 @@ class Mentions extends Component {
         })
       })
     } else if (this.props.getTheText && this.props.type == 'text') {
-      this.props.getTheText(this.props.textFor ? this.props.textFor.substr(this.props.textFor.length - 200) : '').then(res => {
+      this.props.getTheText(this.props.textFor ? this.props.textFor : '').then(res => {
         this.setState({
           people: this.props.fomate(res)
         }, () => {
@@ -68,7 +68,7 @@ class Mentions extends Component {
         })
       })
     } else if (this.props.getHalf && this.props.type == 'half') {
-      this.props.getHalf(this.props.textFor ? this.props.textFor.substr(this.props.textFor.length-200) : '').then(res => {
+      this.props.getHalf(this.props.textFor ? this.props.textFor : '').then(res => {
         this.setState({
           people: this.props.fomate(res)
         }, () => {

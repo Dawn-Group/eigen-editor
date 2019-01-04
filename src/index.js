@@ -205,8 +205,15 @@ export default class EigenEditor extends Component {
 
     // Remove text that appears after the cursor..
     text = text.substring(0, range.startOffset);
+    let checktext = text.slice(-10)
+    let startp = 0
+    if (alltext.indexOf(checktext) + checktext.length - 200 < 0) {
+      startp = 0
+    } else {
+      startp = alltext.indexOf(checktext) + checktext.length - 200
+    }
     this.setState({
-      textFor: alltext
+      textFor: alltext.slice(startp, alltext.indexOf(checktext) + checktext.length)
     })
     // ..and before the typeahead token.
     let index = -1
@@ -300,7 +307,7 @@ export default class EigenEditor extends Component {
     return this.typeaheadState;
   }
 
-  getHalfState(invalidate = true){
+  getHalfState(invalidate = true) {
     if (!invalidate) {
       return this.typeaheadState;
     }
