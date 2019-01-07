@@ -117,7 +117,7 @@ class Mentions extends Component {
 
 
 const Emoji = ({ src }) => {
-  return <img src={src} />
+  return <img src={src} style={{ width: '120px' }} />
 }
 
 const Halfsen = ({ style, text }) => {
