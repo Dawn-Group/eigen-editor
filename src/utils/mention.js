@@ -85,16 +85,17 @@ class Mentions extends Component {
   }
 
   render() {
-    let { left, top, selectedIndex, text } = this.props
+    let { left, top, selectedIndex, text, setTop } = this.props
+    let stop = setTop ? setTop(top) : top
     const typeaheadStyle = Object.assign({}, styles.typeahead, {
       position: 'absolute',
       left,
-      top
+      top: stop
     })
     const halfstyle = Object.assign({}, hstyle, {
       position: 'absolute',
       left: (left + 10),
-      top: (top),
+      top: stop,
       fontSize: '14px',
     })
     const normalizedIndex = normalizeSelectedIndex(selectedIndex, this.state.people.length);

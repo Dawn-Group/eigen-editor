@@ -154,6 +154,7 @@ export default class EigenEditor extends Component {
         getTheEmoji={this.props.getTheEmoji}
         emojikey={this.state.emojikey}
         getHalf={this.props.getHalf}
+        setTop={this.props.setTop}
       />
     }
   }
@@ -200,6 +201,7 @@ export default class EigenEditor extends Component {
     }
 
     const range = selection.getRangeAt(0);
+    console.log(range)
     let text = range.startContainer.textContent;
     let alltext = this.state.editorState.getCurrentContent().getPlainText()
 
@@ -322,7 +324,6 @@ export default class EigenEditor extends Component {
     tempRange.setStart(tempRange.startContainer, typeaheadRange.start);
     const rangeRect = tempRange.getBoundingClientRect();
     let [left, top] = [rangeRect.left, rangeRect.bottom];
-
     this.typeaheadState = {
       left,
       top,
