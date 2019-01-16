@@ -713,7 +713,7 @@ export default class EigenEditor extends Component {
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
           ref={(element) => { this.editor = element }}
-          readOnly={this.state.liveTeXEdits.count()}
+          readOnly={this.props.readOnly ? this.props.readOnly : this.state.liveTeXEdits.count()}
           placeholder='从这里开始写正文'
           onBlur={this.blur}
           onUpArrow={this.onUpArrow}
