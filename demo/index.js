@@ -196,7 +196,7 @@ class Demo extends React.Component {
             contentStyle={{ padding: 4, minHeight: 150 }}
             // 已废弃
             // content={this.state.content}
-            readOnly={true}
+            readOnly={false}
             getSkuData={this.getSkuData}
             keywordslist={['诗诗','凉凉']}
             getTheEmoji={this.getTheEmoji}

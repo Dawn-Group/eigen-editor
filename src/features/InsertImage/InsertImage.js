@@ -246,7 +246,7 @@ class InsertImage extends Component {
 
       {
         plateform.indexOf('ADDIMG') != -1
-          ? <IconCustom content='&#xe60c;'
+          ? <IconCustom content='&#xe611;'
             style={{ marginRight: '16px', cursor: 'pointer' }}
             onClick={(e) => {
               this.setState({
